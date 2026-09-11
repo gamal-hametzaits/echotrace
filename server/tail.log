@@ -1,0 +1,2505 @@
+{
+  "wallTime": 339,
+  "cpuTime": 1,
+  "truncated": false,
+  "executionModel": "stateless",
+  "outcome": "ok",
+  "scriptVersion": {
+    "id": "d91c5b42-647c-47f5-935f-39b368a1a58a"
+  },
+  "scriptName": "echotrace-server",
+  "diagnosticsChannelEvents": [],
+  "exceptions": [],
+  "logs": [],
+  "eventTimestamp": 1789112231022,
+  "event": {
+    "request": {
+      "url": "https://echotrace-server.gamal-hametzaits.workers.dev/register",
+      "method": "POST",
+      "headers": {
+        "accept": "*/*",
+        "accept-encoding": "gzip, br",
+        "cf-connecting-ip": "136.67.162.86",
+        "cf-ipcountry": "US",
+        "cf-ray": "a3950173d96c79fd",
+        "cf-visitor": "{\"scheme\":\"https\"}",
+        "connection": "Keep-Alive",
+        "content-length": "21",
+        "content-type": "application/json",
+        "host": "echotrace-server.gamal-hametzaits.workers.dev",
+        "user-agent": "curl/7.81.0",
+        "x-forwarded-proto": "https",
+        "x-real-ip": "136.67.162.86"
+      },
+      "cf": {
+        "httpProtocol": "HTTP/2",
+        "requestPriority": "weight=16;exclusive=0;group=0;group-weight=0",
+        "edgeRequestKeepAliveStatus": 1,
+        "requestHeaderNames": {},
+        "clientTcpRtt": 6,
+        "clientQuicRtt": 0,
+        "colo": "SEA",
+        "asn": 396982,
+        "asOrganization": "Google LLC",
+        "country": "US",
+        "isEUCountry": false,
+        "city": "The Dalles",
+        "continent": "NA",
+        "region": "Oregon",
+        "regionCode": "OR",
+        "timezone": "America/Los_Angeles",
+        "longitude": "-121.17868",
+        "latitude": "45.59456",
+        "postalCode": "97058",
+        "metroCode": "820",
+        "tlsVersion": "TLSv1.3",
+        "tlsCipher": "AEAD-AES256-GCM-SHA384",
+        "tlsClientRandom": "0Q+lQS3odYNXG9+B3KlhveGk2NyPrjNrYz91L9YZnMw=",
+        "tlsClientCiphersSha1": "GXSPDLP4G3X+prK73a4wBuOaHRc=",
+        "tlsClientExtensionsSha1": "bJfDPn82Ud8taZ6+PSOSubkqDGs=",
+        "tlsClientExtensionsSha1Le": "7zIpdDU5pvFPPBI2/PCzqbaXnRA=",
+        "tlsExportedAuthenticator": {
+          "clientHandshake": "aafa6a0be0b9e23872bd2b565c111dcd0346a572939a942411f0521cc66173af9bfd0865394b378909d0a00b7cfc2df0",
+          "serverHandshake": "1116ffe807b039ed418edc2ab5e1fa7f7b3dd90f413555e31460fd73de071ac0c7d6366815f82898131230b7326a8785",
+          "clientFinished": "7f673b25ba4e99f05ff78dd6ab64d2a5ef39e4454c6d2e58f1c93e5bdf374b705261378aab2b3425d64b49acd4a68a73",
+          "serverFinished": "030dde0b36f5a9e3e972ea6dfb358d42a0743fceea26a95d63a67f8e64aa401ca54a309bbd2383a5033be122244defd9"
+        },
+        "tlsClientHelloLength": "508",
+        "tlsClientAuth": {
+          "certPresented": "0",
+          "certVerified": "NONE",
+          "certRevoked": "0",
+          "certIssuerDN": "",
+          "certSubjectDN": "",
+          "certIssuerDNRFC2253": "",
+          "certSubjectDNRFC2253": "",
+          "certIssuerDNLegacy": "",
+          "certSubjectDNLegacy": "",
+          "certSerial": "",
+          "certIssuerSerial": "",
+          "certSKI": "",
+          "certIssuerSKI": "",
+          "certFingerprintSHA1": "",
+          "certFingerprintSHA256": "",
+          "certNotBefore": "",
+          "certNotAfter": "",
+          "certRFC9440": "",
+          "certRFC9440TooLarge": false,
+          "certChainRFC9440": "",
+          "certChainRFC9440TooLarge": false
+        },
+        "verifiedBotCategory": "",
+        "edgeL4": {
+          "deliveryRate": 702828
+        }
+      }
+    },
+    "response": {
+      "status": 200
+    }
+  }
+}
+{
+  "wallTime": 335,
+  "cpuTime": 1,
+  "truncated": false,
+  "executionModel": "stateless",
+  "outcome": "ok",
+  "scriptVersion": {
+    "id": "d91c5b42-647c-47f5-935f-39b368a1a58a"
+  },
+  "scriptName": "echotrace-server",
+  "diagnosticsChannelEvents": [],
+  "exceptions": [],
+  "logs": [],
+  "eventTimestamp": 1789112231485,
+  "event": {
+    "request": {
+      "url": "https://echotrace-server.gamal-hametzaits.workers.dev/poll/DDDDDD",
+      "method": "GET",
+      "headers": {
+        "accept": "*/*",
+        "accept-encoding": "gzip, br",
+        "cf-connecting-ip": "136.67.162.86",
+        "cf-ipcountry": "US",
+        "cf-ray": "a3950176a9faa3a7",
+        "cf-visitor": "{\"scheme\":\"https\"}",
+        "connection": "Keep-Alive",
+        "host": "echotrace-server.gamal-hametzaits.workers.dev",
+        "user-agent": "curl/7.81.0",
+        "x-forwarded-proto": "https",
+        "x-real-ip": "136.67.162.86"
+      },
+      "cf": {
+        "httpProtocol": "HTTP/2",
+        "requestPriority": "weight=16;exclusive=0;group=0;group-weight=0",
+        "edgeRequestKeepAliveStatus": 1,
+        "requestHeaderNames": {},
+        "clientTcpRtt": 6,
+        "clientQuicRtt": 0,
+        "colo": "SEA",
+        "asn": 396982,
+        "asOrganization": "Google LLC",
+        "country": "US",
+        "isEUCountry": false,
+        "city": "The Dalles",
+        "continent": "NA",
+        "region": "Oregon",
+        "regionCode": "OR",
+        "timezone": "America/Los_Angeles",
+        "longitude": "-121.17868",
+        "latitude": "45.59456",
+        "postalCode": "97058",
+        "metroCode": "820",
+        "tlsVersion": "TLSv1.3",
+        "tlsCipher": "AEAD-AES256-GCM-SHA384",
+        "tlsClientRandom": "RsNpm2obR8towN8oSxAI1uD1q5PAfa+n59F4MAbhSj0=",
+        "tlsClientCiphersSha1": "GXSPDLP4G3X+prK73a4wBuOaHRc=",
+        "tlsClientExtensionsSha1": "bJfDPn82Ud8taZ6+PSOSubkqDGs=",
+        "tlsClientExtensionsSha1Le": "7zIpdDU5pvFPPBI2/PCzqbaXnRA=",
+        "tlsExportedAuthenticator": {
+          "clientHandshake": "5afc6acc5a9f7793f9e53b6241e40c6544392a42086b26a10e37aa9864fcac8e66bda73e9c46b68f1e9bf17b7ef41db8",
+          "serverHandshake": "8e744cbdb7e422a382d6a5371c5ee13389c290b021f4bca2aca93c48807f24391c48ea9d4a5b57aad406ca87a58b852a",
+          "clientFinished": "c785f6edd94275a57c06259d700c05530a6b082d90abc1fe0ca0396923c525840d49c808af3f8913acbde72a4a9ffa3f",
+          "serverFinished": "675eb948d7278ae8939fb9fd034c994baaab2030f9755ba442f54d97a3c1c3d78819728effa065b502513d12d59b2fde"
+        },
+        "tlsClientHelloLength": "508",
+        "tlsClientAuth": {
+          "certPresented": "0",
+          "certVerified": "NONE",
+          "certRevoked": "0",
+          "certIssuerDN": "",
+          "certSubjectDN": "",
+          "certIssuerDNRFC2253": "",
+          "certSubjectDNRFC2253": "",
+          "certIssuerDNLegacy": "",
+          "certSubjectDNLegacy": "",
+          "certSerial": "",
+          "certIssuerSerial": "",
+          "certSKI": "",
+          "certIssuerSKI": "",
+          "certFingerprintSHA1": "",
+          "certFingerprintSHA256": "",
+          "certNotBefore": "",
+          "certNotAfter": "",
+          "certRFC9440": "",
+          "certRFC9440TooLarge": false,
+          "certChainRFC9440": "",
+          "certChainRFC9440TooLarge": false
+        },
+        "verifiedBotCategory": "",
+        "edgeL4": {
+          "deliveryRate": 742746
+        }
+      }
+    },
+    "response": {
+      "status": 200
+    }
+  }
+}
+{
+  "wallTime": 302,
+  "cpuTime": 3,
+  "truncated": false,
+  "executionModel": "stateless",
+  "outcome": "ok",
+  "scriptVersion": {
+    "id": "d91c5b42-647c-47f5-935f-39b368a1a58a"
+  },
+  "scriptName": "echotrace-server",
+  "diagnosticsChannelEvents": [],
+  "exceptions": [],
+  "logs": [],
+  "eventTimestamp": 1789112231923,
+  "event": {
+    "request": {
+      "url": "https://echotrace-server.gamal-hametzaits.workers.dev/connect",
+      "method": "POST",
+      "headers": {
+        "accept": "*/*",
+        "accept-encoding": "gzip, br",
+        "cf-connecting-ip": "136.67.162.86",
+        "cf-ipcountry": "US",
+        "cf-ray": "a39501796e0d7634",
+        "cf-visitor": "{\"scheme\":\"https\"}",
+        "connection": "Keep-Alive",
+        "content-length": "60",
+        "content-type": "application/json",
+        "host": "echotrace-server.gamal-hametzaits.workers.dev",
+        "user-agent": "curl/7.81.0",
+        "x-forwarded-proto": "https",
+        "x-real-ip": "136.67.162.86"
+      },
+      "cf": {
+        "httpProtocol": "HTTP/2",
+        "requestPriority": "weight=16;exclusive=0;group=0;group-weight=0",
+        "edgeRequestKeepAliveStatus": 1,
+        "requestHeaderNames": {},
+        "clientTcpRtt": 7,
+        "clientQuicRtt": 0,
+        "colo": "SEA",
+        "asn": 396982,
+        "asOrganization": "Google LLC",
+        "country": "US",
+        "isEUCountry": false,
+        "city": "The Dalles",
+        "continent": "NA",
+        "region": "Oregon",
+        "regionCode": "OR",
+        "timezone": "America/Los_Angeles",
+        "longitude": "-121.17868",
+        "latitude": "45.59456",
+        "postalCode": "97058",
+        "metroCode": "820",
+        "tlsVersion": "TLSv1.3",
+        "tlsCipher": "AEAD-AES256-GCM-SHA384",
+        "tlsClientRandom": "DbXTyl1aWSwVtvJXMhLEE3MdxSDL19d7lNJXjpP9rmg=",
+        "tlsClientCiphersSha1": "GXSPDLP4G3X+prK73a4wBuOaHRc=",
+        "tlsClientExtensionsSha1": "bJfDPn82Ud8taZ6+PSOSubkqDGs=",
+        "tlsClientExtensionsSha1Le": "7zIpdDU5pvFPPBI2/PCzqbaXnRA=",
+        "tlsExportedAuthenticator": {
+          "clientHandshake": "6ac136032cb1bd41af74ab51bc164e9fe634ce62c7a9af93b05a8eb0f7e51060a049ca9f13f510e74deb80e1f7712217",
+          "serverHandshake": "336824525a8e33cb1d7ece63c114277f75fe1716171fd338ca82e764be9ddb2aa926f12a715b1b58e596838335b35624",
+          "clientFinished": "b80502cd17c67b889886924be6df068f3d933ef49baa824df95ca870ae5c5214957b364ae28b3b63a90329fea2feacc4",
+          "serverFinished": "4b623872f264a14de09775b80fd9c655cd440c4846f54ba0caf8d22205c82016b04cdea755d119180267257e8e37b2b3"
+        },
+        "tlsClientHelloLength": "508",
+        "tlsClientAuth": {
+          "certPresented": "0",
+          "certVerified": "NONE",
+          "certRevoked": "0",
+          "certIssuerDN": "",
+          "certSubjectDN": "",
+          "certIssuerDNRFC2253": "",
+          "certSubjectDNRFC2253": "",
+          "certIssuerDNLegacy": "",
+          "certSubjectDNLegacy": "",
+          "certSerial": "",
+          "certIssuerSerial": "",
+          "certSKI": "",
+          "certIssuerSKI": "",
+          "certFingerprintSHA1": "",
+          "certFingerprintSHA256": "",
+          "certNotBefore": "",
+          "certNotAfter": "",
+          "certRFC9440": "",
+          "certRFC9440TooLarge": false,
+          "certChainRFC9440": "",
+          "certChainRFC9440TooLarge": false
+        },
+        "verifiedBotCategory": "",
+        "edgeL4": {
+          "deliveryRate": 586015
+        }
+      }
+    },
+    "response": {
+      "status": 200
+    }
+  }
+}
+{
+  "wallTime": 368,
+  "cpuTime": 1,
+  "truncated": false,
+  "executionModel": "stateless",
+  "outcome": "ok",
+  "scriptVersion": {
+    "id": "d91c5b42-647c-47f5-935f-39b368a1a58a"
+  },
+  "scriptName": "echotrace-server",
+  "diagnosticsChannelEvents": [],
+  "exceptions": [],
+  "logs": [],
+  "eventTimestamp": 1789112232334,
+  "event": {
+    "request": {
+      "url": "https://echotrace-server.gamal-hametzaits.workers.dev/poll/DDDDDD",
+      "method": "GET",
+      "headers": {
+        "accept": "*/*",
+        "accept-encoding": "gzip, br",
+        "cf-connecting-ip": "136.67.162.86",
+        "cf-ipcountry": "US",
+        "cf-ray": "a395017c0b831e0b",
+        "cf-visitor": "{\"scheme\":\"https\"}",
+        "connection": "Keep-Alive",
+        "host": "echotrace-server.gamal-hametzaits.workers.dev",
+        "user-agent": "curl/7.81.0",
+        "x-forwarded-proto": "https",
+        "x-real-ip": "136.67.162.86"
+      },
+      "cf": {
+        "httpProtocol": "HTTP/2",
+        "requestPriority": "weight=16;exclusive=0;group=0;group-weight=0",
+        "edgeRequestKeepAliveStatus": 1,
+        "requestHeaderNames": {},
+        "clientTcpRtt": 5,
+        "clientQuicRtt": 0,
+        "colo": "SEA",
+        "asn": 396982,
+        "asOrganization": "Google LLC",
+        "country": "US",
+        "isEUCountry": false,
+        "city": "The Dalles",
+        "continent": "NA",
+        "region": "Oregon",
+        "regionCode": "OR",
+        "timezone": "America/Los_Angeles",
+        "longitude": "-121.17868",
+        "latitude": "45.59456",
+        "postalCode": "97058",
+        "metroCode": "820",
+        "tlsVersion": "TLSv1.3",
+        "tlsCipher": "AEAD-AES256-GCM-SHA384",
+        "tlsClientRandom": "UO/AYzeeAgCKVi3phd7NGylT3h8tE/APhNZDREZZ7kM=",
+        "tlsClientCiphersSha1": "GXSPDLP4G3X+prK73a4wBuOaHRc=",
+        "tlsClientExtensionsSha1": "bJfDPn82Ud8taZ6+PSOSubkqDGs=",
+        "tlsClientExtensionsSha1Le": "7zIpdDU5pvFPPBI2/PCzqbaXnRA=",
+        "tlsExportedAuthenticator": {
+          "clientHandshake": "815eb814e545ecd9ebcfe9fce9c192fbfd3e3b4a0909115fe6057e05d95840318beabb9a98c8b6c50cde608e593c12c0",
+          "serverHandshake": "de7987e9bfdc73325245ce60a7dae214dcfccfdda985e1b5382f159adf1b763a7f90c3a78f10fc15730794e9cbf840fa",
+          "clientFinished": "db7ac4a13027b2404ececd8d910e797f7fac50d1cb7ff839000c640aeaf726fa4d087bf62afcf4af14c071e3b3dcf750",
+          "serverFinished": "31a34911db55a562355be78702952949c1baed6068fe703110bbd797f3d28a663031d174535d68e2f989b1bcc0782405"
+        },
+        "tlsClientHelloLength": "508",
+        "tlsClientAuth": {
+          "certPresented": "0",
+          "certVerified": "NONE",
+          "certRevoked": "0",
+          "certIssuerDN": "",
+          "certSubjectDN": "",
+          "certIssuerDNRFC2253": "",
+          "certSubjectDNRFC2253": "",
+          "certIssuerDNLegacy": "",
+          "certSubjectDNLegacy": "",
+          "certSerial": "",
+          "certIssuerSerial": "",
+          "certSKI": "",
+          "certIssuerSKI": "",
+          "certFingerprintSHA1": "",
+          "certFingerprintSHA256": "",
+          "certNotBefore": "",
+          "certNotAfter": "",
+          "certRFC9440": "",
+          "certRFC9440TooLarge": false,
+          "certChainRFC9440": "",
+          "certChainRFC9440TooLarge": false
+        },
+        "verifiedBotCategory": "",
+        "edgeL4": {
+          "deliveryRate": 658456
+        }
+      }
+    },
+    "response": {
+      "status": 200
+    }
+  }
+}
+{
+  "wallTime": 343,
+  "cpuTime": 0,
+  "truncated": false,
+  "executionModel": "stateless",
+  "outcome": "ok",
+  "scriptVersion": {
+    "id": "d91c5b42-647c-47f5-935f-39b368a1a58a"
+  },
+  "scriptName": "echotrace-server",
+  "diagnosticsChannelEvents": [],
+  "exceptions": [],
+  "logs": [],
+  "eventTimestamp": 1789112244142,
+  "event": {
+    "request": {
+      "url": "https://echotrace-server.gamal-hametzaits.workers.dev/register",
+      "method": "POST",
+      "headers": {
+        "accept": "*/*",
+        "accept-encoding": "gzip, br",
+        "cf-connecting-ip": "136.67.162.86",
+        "cf-ipcountry": "US",
+        "cf-ray": "a39501c5d85b322f",
+        "cf-visitor": "{\"scheme\":\"https\"}",
+        "connection": "Keep-Alive",
+        "content-length": "21",
+        "content-type": "application/json",
+        "host": "echotrace-server.gamal-hametzaits.workers.dev",
+        "user-agent": "curl/7.81.0",
+        "x-forwarded-proto": "https",
+        "x-real-ip": "136.67.162.86"
+      },
+      "cf": {
+        "httpProtocol": "HTTP/2",
+        "requestPriority": "weight=16;exclusive=0;group=0;group-weight=0",
+        "edgeRequestKeepAliveStatus": 1,
+        "requestHeaderNames": {},
+        "clientTcpRtt": 5,
+        "clientQuicRtt": 0,
+        "colo": "SEA",
+        "asn": 396982,
+        "asOrganization": "Google LLC",
+        "country": "US",
+        "isEUCountry": false,
+        "city": "The Dalles",
+        "continent": "NA",
+        "region": "Oregon",
+        "regionCode": "OR",
+        "timezone": "America/Los_Angeles",
+        "longitude": "-121.17868",
+        "latitude": "45.59456",
+        "postalCode": "97058",
+        "metroCode": "820",
+        "tlsVersion": "TLSv1.3",
+        "tlsCipher": "AEAD-AES256-GCM-SHA384",
+        "tlsClientRandom": "5oJhz+JkCo+zZeR/25W9zMYXOny1p1DbX/zOMKzFqu8=",
+        "tlsClientCiphersSha1": "GXSPDLP4G3X+prK73a4wBuOaHRc=",
+        "tlsClientExtensionsSha1": "bJfDPn82Ud8taZ6+PSOSubkqDGs=",
+        "tlsClientExtensionsSha1Le": "7zIpdDU5pvFPPBI2/PCzqbaXnRA=",
+        "tlsExportedAuthenticator": {
+          "clientHandshake": "9d663b26268ae6b9403cd22633645e9c9e01e048065086a833c0d9e0a5c81b2a8ca1e5c0988693be50b22eb82725163b",
+          "serverHandshake": "7fe1cc9f4f656967d5f5be0dbedf8ccd0186ddf988d4de2c4bb5648f14f656d4a69e3a50d6b9474a8096ebe58781ccc8",
+          "clientFinished": "3f8b99d8dde8eab127267432b42c5648109a9c9d1e398c8915f4f9e795d5247f5fd7784feb10627e09e086bddaa702cd",
+          "serverFinished": "42b8a10f71ab41b56260143332acca62859bd032d3efef075dd2436e0d15b248b6b870bc8444600406f8e21fd2378723"
+        },
+        "tlsClientHelloLength": "508",
+        "tlsClientAuth": {
+          "certPresented": "0",
+          "certVerified": "NONE",
+          "certRevoked": "0",
+          "certIssuerDN": "",
+          "certSubjectDN": "",
+          "certIssuerDNRFC2253": "",
+          "certSubjectDNRFC2253": "",
+          "certIssuerDNLegacy": "",
+          "certSubjectDNLegacy": "",
+          "certSerial": "",
+          "certIssuerSerial": "",
+          "certSKI": "",
+          "certIssuerSKI": "",
+          "certFingerprintSHA1": "",
+          "certFingerprintSHA256": "",
+          "certNotBefore": "",
+          "certNotAfter": "",
+          "certRFC9440": "",
+          "certRFC9440TooLarge": false,
+          "certChainRFC9440": "",
+          "certChainRFC9440TooLarge": false
+        },
+        "verifiedBotCategory": "",
+        "edgeL4": {
+          "deliveryRate": 703062
+        }
+      }
+    },
+    "response": {
+      "status": 200
+    }
+  }
+}
+{
+  "wallTime": 234,
+  "cpuTime": 1,
+  "truncated": false,
+  "executionModel": "stateless",
+  "outcome": "ok",
+  "scriptVersion": {
+    "id": "d91c5b42-647c-47f5-935f-39b368a1a58a"
+  },
+  "scriptName": "echotrace-server",
+  "diagnosticsChannelEvents": [],
+  "exceptions": [],
+  "logs": [],
+  "eventTimestamp": 1789112244583,
+  "event": {
+    "request": {
+      "url": "https://echotrace-server.gamal-hametzaits.workers.dev/connect",
+      "method": "POST",
+      "headers": {
+        "accept": "*/*",
+        "accept-encoding": "gzip, br",
+        "cf-connecting-ip": "136.67.162.86",
+        "cf-ipcountry": "US",
+        "cf-ray": "a39501c89b8c30bc",
+        "cf-visitor": "{\"scheme\":\"https\"}",
+        "connection": "Keep-Alive",
+        "content-length": "62",
+        "content-type": "application/json",
+        "host": "echotrace-server.gamal-hametzaits.workers.dev",
+        "user-agent": "curl/7.81.0",
+        "x-forwarded-proto": "https",
+        "x-real-ip": "136.67.162.86"
+      },
+      "cf": {
+        "httpProtocol": "HTTP/2",
+        "requestPriority": "weight=16;exclusive=0;group=0;group-weight=0",
+        "edgeRequestKeepAliveStatus": 1,
+        "requestHeaderNames": {},
+        "clientTcpRtt": 8,
+        "clientQuicRtt": 0,
+        "colo": "SEA",
+        "asn": 396982,
+        "asOrganization": "Google LLC",
+        "country": "US",
+        "isEUCountry": false,
+        "city": "The Dalles",
+        "continent": "NA",
+        "region": "Oregon",
+        "regionCode": "OR",
+        "timezone": "America/Los_Angeles",
+        "longitude": "-121.17868",
+        "latitude": "45.59456",
+        "postalCode": "97058",
+        "metroCode": "820",
+        "tlsVersion": "TLSv1.3",
+        "tlsCipher": "AEAD-AES256-GCM-SHA384",
+        "tlsClientRandom": "cs9o/+J7PObwNb1HTaN/Mmr1rMNSN9duPJbFM6K7vTU=",
+        "tlsClientCiphersSha1": "GXSPDLP4G3X+prK73a4wBuOaHRc=",
+        "tlsClientExtensionsSha1": "bJfDPn82Ud8taZ6+PSOSubkqDGs=",
+        "tlsClientExtensionsSha1Le": "7zIpdDU5pvFPPBI2/PCzqbaXnRA=",
+        "tlsExportedAuthenticator": {
+          "clientHandshake": "64f96378a5833282d1d8701d6f2815ecec898336c88661ce9a699d4930968fddc1e24525c8e241edf6788bfd42ba2db4",
+          "serverHandshake": "d98c54efb90e6650473cfefe4b5f1a719e71e068020416f6a6a6722fa2799342bd17604d3623c535d85e2ff6d3847945",
+          "clientFinished": "b544f72ad4ad089d256ff9b31afed8d784b3167a62e41693a6d288a8e469267f45a23cff47d08ace5f04d692fe244ff1",
+          "serverFinished": "cd9fa241297359d12f15e871e7fcfefd3b1fa646f6a44ff41e3b86e96f815b6a16ca8a9be78f09bebc895d27049d6458"
+        },
+        "tlsClientHelloLength": "508",
+        "tlsClientAuth": {
+          "certPresented": "0",
+          "certVerified": "NONE",
+          "certRevoked": "0",
+          "certIssuerDN": "",
+          "certSubjectDN": "",
+          "certIssuerDNRFC2253": "",
+          "certSubjectDNRFC2253": "",
+          "certIssuerDNLegacy": "",
+          "certSubjectDNLegacy": "",
+          "certSerial": "",
+          "certIssuerSerial": "",
+          "certSKI": "",
+          "certIssuerSKI": "",
+          "certFingerprintSHA1": "",
+          "certFingerprintSHA256": "",
+          "certNotBefore": "",
+          "certNotAfter": "",
+          "certRFC9440": "",
+          "certRFC9440TooLarge": false,
+          "certChainRFC9440": "",
+          "certChainRFC9440TooLarge": false
+        },
+        "verifiedBotCategory": "",
+        "edgeL4": {
+          "deliveryRate": 511132
+        }
+      }
+    },
+    "response": {
+      "status": 200
+    }
+  }
+}
+{
+  "wallTime": 7,
+  "cpuTime": 0,
+  "truncated": false,
+  "executionModel": "stateless",
+  "outcome": "ok",
+  "scriptVersion": {
+    "id": "d91c5b42-647c-47f5-935f-39b368a1a58a"
+  },
+  "scriptName": "echotrace-server",
+  "diagnosticsChannelEvents": [],
+  "exceptions": [],
+  "logs": [],
+  "eventTimestamp": 1789112244925,
+  "event": {
+    "request": {
+      "url": "https://echotrace-server.gamal-hametzaits.workers.dev/upload",
+      "method": "POST",
+      "headers": {
+        "accept": "*/*",
+        "accept-encoding": "gzip, br",
+        "cf-connecting-ip": "136.67.162.86",
+        "cf-ipcountry": "US",
+        "cf-ray": "a39501caac06d5ec",
+        "cf-visitor": "{\"scheme\":\"https\"}",
+        "connection": "Keep-Alive",
+        "content-length": "16",
+        "content-type": "image/jpeg",
+        "host": "echotrace-server.gamal-hametzaits.workers.dev",
+        "user-agent": "curl/7.81.0",
+        "x-device-id": "EEEEEE",
+        "x-forwarded-proto": "https",
+        "x-real-ip": "136.67.162.86"
+      },
+      "cf": {
+        "httpProtocol": "HTTP/2",
+        "requestPriority": "weight=16;exclusive=0;group=0;group-weight=0",
+        "edgeRequestKeepAliveStatus": 1,
+        "requestHeaderNames": {},
+        "clientTcpRtt": 6,
+        "clientQuicRtt": 0,
+        "colo": "SEA",
+        "asn": 396982,
+        "asOrganization": "Google LLC",
+        "country": "US",
+        "isEUCountry": false,
+        "city": "The Dalles",
+        "continent": "NA",
+        "region": "Oregon",
+        "regionCode": "OR",
+        "timezone": "America/Los_Angeles",
+        "longitude": "-121.17868",
+        "latitude": "45.59456",
+        "postalCode": "97058",
+        "metroCode": "820",
+        "tlsVersion": "TLSv1.3",
+        "tlsCipher": "AEAD-AES256-GCM-SHA384",
+        "tlsClientRandom": "KfwcLoCtdgYEXJfeAruv78KgVMuTgXO2MEjAqxggBIc=",
+        "tlsClientCiphersSha1": "GXSPDLP4G3X+prK73a4wBuOaHRc=",
+        "tlsClientExtensionsSha1": "bJfDPn82Ud8taZ6+PSOSubkqDGs=",
+        "tlsClientExtensionsSha1Le": "7zIpdDU5pvFPPBI2/PCzqbaXnRA=",
+        "tlsExportedAuthenticator": {
+          "clientHandshake": "d38eb548282f079a421e8e740eb76fc2dc9aebc98842168f59b893825d346d268345764dda07a940477bac2ca96708e8",
+          "serverHandshake": "53a74121ede4d23d384e4349051c2c4b852a118bc4c4cc1ab7b4f0f51e6a0b329095b65a6b31ccedd9d437dcad038a49",
+          "clientFinished": "ebb3980548f4121349481e90b941dd3a6d93b3946bd8f12a140b29f28e2465887f0945e796508209bdf4c2115759ed75",
+          "serverFinished": "a18235faaf693ca5f367b0ae2a7dbcd3c03fd9054fcab868075c3179f19e22d7a2ed9ab23db19d9f118f469a965ebbb3"
+        },
+        "tlsClientHelloLength": "508",
+        "tlsClientAuth": {
+          "certPresented": "0",
+          "certVerified": "NONE",
+          "certRevoked": "0",
+          "certIssuerDN": "",
+          "certSubjectDN": "",
+          "certIssuerDNRFC2253": "",
+          "certSubjectDNRFC2253": "",
+          "certIssuerDNLegacy": "",
+          "certSubjectDNLegacy": "",
+          "certSerial": "",
+          "certIssuerSerial": "",
+          "certSKI": "",
+          "certIssuerSKI": "",
+          "certFingerprintSHA1": "",
+          "certFingerprintSHA256": "",
+          "certNotBefore": "",
+          "certNotAfter": "",
+          "certRFC9440": "",
+          "certRFC9440TooLarge": false,
+          "certChainRFC9440": "",
+          "certChainRFC9440TooLarge": false
+        },
+        "verifiedBotCategory": "",
+        "edgeL4": {
+          "deliveryRate": 658662
+        }
+      }
+    },
+    "response": {
+      "status": 403
+    }
+  }
+}
+{
+  "wallTime": 776,
+  "cpuTime": 2,
+  "truncated": false,
+  "executionModel": "stateless",
+  "outcome": "ok",
+  "scriptVersion": {
+    "id": "d91c5b42-647c-47f5-935f-39b368a1a58a"
+  },
+  "scriptName": "echotrace-server",
+  "diagnosticsChannelEvents": [],
+  "exceptions": [],
+  "logs": [],
+  "eventTimestamp": 1789112245024,
+  "event": {
+    "request": {
+      "url": "https://echotrace-server.gamal-hametzaits.workers.dev/upload",
+      "method": "POST",
+      "headers": {
+        "accept": "*/*",
+        "accept-encoding": "gzip, br",
+        "cf-connecting-ip": "136.67.162.86",
+        "cf-ipcountry": "US",
+        "cf-ray": "a39501cb5cafa34b",
+        "cf-visitor": "{\"scheme\":\"https\"}",
+        "connection": "Keep-Alive",
+        "content-length": "12",
+        "content-type": "image/jpeg",
+        "host": "echotrace-server.gamal-hametzaits.workers.dev",
+        "user-agent": "curl/7.81.0",
+        "x-caption": "%D7%A9%D7%9C%D7%95%D7%9D%20%D7%A2%D7%95%D7%96",
+        "x-device-id": "DDDDDD",
+        "x-forwarded-proto": "https",
+        "x-real-ip": "136.67.162.86"
+      },
+      "cf": {
+        "httpProtocol": "HTTP/2",
+        "requestPriority": "weight=16;exclusive=0;group=0;group-weight=0",
+        "edgeRequestKeepAliveStatus": 1,
+        "requestHeaderNames": {},
+        "clientTcpRtt": 6,
+        "clientQuicRtt": 0,
+        "colo": "SEA",
+        "asn": 396982,
+        "asOrganization": "Google LLC",
+        "country": "US",
+        "isEUCountry": false,
+        "city": "The Dalles",
+        "continent": "NA",
+        "region": "Oregon",
+        "regionCode": "OR",
+        "timezone": "America/Los_Angeles",
+        "longitude": "-121.17868",
+        "latitude": "45.59456",
+        "postalCode": "97058",
+        "metroCode": "820",
+        "tlsVersion": "TLSv1.3",
+        "tlsCipher": "AEAD-AES256-GCM-SHA384",
+        "tlsClientRandom": "kYrq8jS1+CQVtJn8ebDUSuzJNcwrsV3Dao6CueVg3iI=",
+        "tlsClientCiphersSha1": "GXSPDLP4G3X+prK73a4wBuOaHRc=",
+        "tlsClientExtensionsSha1": "bJfDPn82Ud8taZ6+PSOSubkqDGs=",
+        "tlsClientExtensionsSha1Le": "7zIpdDU5pvFPPBI2/PCzqbaXnRA=",
+        "tlsExportedAuthenticator": {
+          "clientHandshake": "ad963c2dd774d29e3f151b5fb69b1e472917b5a2a53ff122668ef24c6be3854bb8cd88097fe5e9d21e25e83ad0e3455a",
+          "serverHandshake": "b648d21ca77cb074c41bd3e551cdd6f41df5b3615ef5ceec18d1af9e879b70a3e6bab7a02b1cdba8e64c3d20c67b96c4",
+          "clientFinished": "bc6429deb2db436f2b3bba09136fe232c75cdc5f7f323fa2b6eb61af15b09bf13530ab8efff1c8c609e685b4500739f3",
+          "serverFinished": "4fae9a4cd08833c8dcd840d38473620c3dc12b8bb5e083c96e90147785f90da48625368469ba9c410fa1321ed02bc33f"
+        },
+        "tlsClientHelloLength": "508",
+        "tlsClientAuth": {
+          "certPresented": "0",
+          "certVerified": "NONE",
+          "certRevoked": "0",
+          "certIssuerDN": "",
+          "certSubjectDN": "",
+          "certIssuerDNRFC2253": "",
+          "certSubjectDNRFC2253": "",
+          "certIssuerDNLegacy": "",
+          "certSubjectDNLegacy": "",
+          "certSerial": "",
+          "certIssuerSerial": "",
+          "certSKI": "",
+          "certIssuerSKI": "",
+          "certFingerprintSHA1": "",
+          "certFingerprintSHA256": "",
+          "certNotBefore": "",
+          "certNotAfter": "",
+          "certRFC9440": "",
+          "certRFC9440TooLarge": false,
+          "certChainRFC9440": "",
+          "certChainRFC9440TooLarge": false
+        },
+        "verifiedBotCategory": "",
+        "edgeL4": {
+          "deliveryRate": 684159
+        }
+      }
+    },
+    "response": {
+      "status": 200
+    }
+  }
+}
+{
+  "wallTime": 474,
+  "cpuTime": 3,
+  "truncated": false,
+  "executionModel": "stateless",
+  "outcome": "ok",
+  "scriptVersion": {
+    "id": "d91c5b42-647c-47f5-935f-39b368a1a58a"
+  },
+  "scriptName": "echotrace-server",
+  "diagnosticsChannelEvents": [],
+  "exceptions": [],
+  "logs": [],
+  "eventTimestamp": 1789112245914,
+  "event": {
+    "request": {
+      "url": "https://echotrace-server.gamal-hametzaits.workers.dev/poll/EEEEEE",
+      "method": "GET",
+      "headers": {
+        "accept": "*/*",
+        "accept-encoding": "gzip, br",
+        "cf-connecting-ip": "136.67.162.86",
+        "cf-ipcountry": "US",
+        "cf-ray": "a39501d0cdc876b0",
+        "cf-visitor": "{\"scheme\":\"https\"}",
+        "connection": "Keep-Alive",
+        "host": "echotrace-server.gamal-hametzaits.workers.dev",
+        "user-agent": "curl/7.81.0",
+        "x-forwarded-proto": "https",
+        "x-real-ip": "136.67.162.86"
+      },
+      "cf": {
+        "httpProtocol": "HTTP/2",
+        "requestPriority": "weight=16;exclusive=0;group=0;group-weight=0",
+        "edgeRequestKeepAliveStatus": 1,
+        "requestHeaderNames": {},
+        "clientTcpRtt": 6,
+        "clientQuicRtt": 0,
+        "colo": "SEA",
+        "asn": 396982,
+        "asOrganization": "Google LLC",
+        "country": "US",
+        "isEUCountry": false,
+        "city": "The Dalles",
+        "continent": "NA",
+        "region": "Oregon",
+        "regionCode": "OR",
+        "timezone": "America/Los_Angeles",
+        "longitude": "-121.17868",
+        "latitude": "45.59456",
+        "postalCode": "97058",
+        "metroCode": "820",
+        "tlsVersion": "TLSv1.3",
+        "tlsCipher": "AEAD-AES256-GCM-SHA384",
+        "tlsClientRandom": "wRr7b9OwB0mlTWklfIRAOHj0uuRz+s4Iahh0YKMWzZQ=",
+        "tlsClientCiphersSha1": "GXSPDLP4G3X+prK73a4wBuOaHRc=",
+        "tlsClientExtensionsSha1": "bJfDPn82Ud8taZ6+PSOSubkqDGs=",
+        "tlsClientExtensionsSha1Le": "7zIpdDU5pvFPPBI2/PCzqbaXnRA=",
+        "tlsExportedAuthenticator": {
+          "clientHandshake": "90c2b731eb2c4655f30edbfa2a7a5d43c0948bd21e8e4ed0e6542dffc37221c1b049d97d62804eb7dbf716bb439483d1",
+          "serverHandshake": "9641fbaf5c05b22b6092e102484af8c9e799dbedaa942c2e1015040f78d711715b682942c2b362a597a59e0634dc2e5e",
+          "clientFinished": "87eb63f1585cb4d8f83fc4ba92569bd0e892f92011a6b8ea8d78ccfabbfefb73ec18b219db9693ec64108942075aa827",
+          "serverFinished": "b1c6620491637134e5b3c9694d42ed60a820dfd096f2e332f9bd871bce77d183f8c8ad6c035c63c5712253196f3b9bb7"
+        },
+        "tlsClientHelloLength": "508",
+        "tlsClientAuth": {
+          "certPresented": "0",
+          "certVerified": "NONE",
+          "certRevoked": "0",
+          "certIssuerDN": "",
+          "certSubjectDN": "",
+          "certIssuerDNRFC2253": "",
+          "certSubjectDNRFC2253": "",
+          "certIssuerDNLegacy": "",
+          "certSubjectDNLegacy": "",
+          "certSerial": "",
+          "certIssuerSerial": "",
+          "certSKI": "",
+          "certIssuerSKI": "",
+          "certFingerprintSHA1": "",
+          "certFingerprintSHA256": "",
+          "certNotBefore": "",
+          "certNotAfter": "",
+          "certRFC9440": "",
+          "certRFC9440TooLarge": false,
+          "certChainRFC9440": "",
+          "certChainRFC9440TooLarge": false
+        },
+        "verifiedBotCategory": "",
+        "edgeL4": {
+          "deliveryRate": 606722
+        }
+      }
+    },
+    "response": {
+      "status": 200
+    }
+  }
+}
+{
+  "wallTime": 248,
+  "cpuTime": 1,
+  "truncated": false,
+  "executionModel": "stateless",
+  "outcome": "ok",
+  "scriptVersion": {
+    "id": "d91c5b42-647c-47f5-935f-39b368a1a58a"
+  },
+  "scriptName": "echotrace-server",
+  "diagnosticsChannelEvents": [],
+  "exceptions": [],
+  "logs": [],
+  "eventTimestamp": 1789112246495,
+  "event": {
+    "request": {
+      "url": "https://echotrace-server.gamal-hametzaits.workers.dev/poll/EEEEEE",
+      "method": "GET",
+      "headers": {
+        "accept": "*/*",
+        "accept-encoding": "gzip, br",
+        "cf-connecting-ip": "136.67.162.86",
+        "cf-ipcountry": "US",
+        "cf-ray": "a39501d47c89f2f7",
+        "cf-visitor": "{\"scheme\":\"https\"}",
+        "connection": "Keep-Alive",
+        "host": "echotrace-server.gamal-hametzaits.workers.dev",
+        "user-agent": "curl/7.81.0",
+        "x-forwarded-proto": "https",
+        "x-real-ip": "136.67.162.86"
+      },
+      "cf": {
+        "httpProtocol": "HTTP/2",
+        "requestPriority": "weight=16;exclusive=0;group=0;group-weight=0",
+        "edgeRequestKeepAliveStatus": 1,
+        "requestHeaderNames": {},
+        "clientTcpRtt": 6,
+        "clientQuicRtt": 0,
+        "colo": "SEA",
+        "asn": 396982,
+        "asOrganization": "Google LLC",
+        "country": "US",
+        "isEUCountry": false,
+        "city": "The Dalles",
+        "continent": "NA",
+        "region": "Oregon",
+        "regionCode": "OR",
+        "timezone": "America/Los_Angeles",
+        "longitude": "-121.17868",
+        "latitude": "45.59456",
+        "postalCode": "97058",
+        "metroCode": "820",
+        "tlsVersion": "TLSv1.3",
+        "tlsCipher": "AEAD-AES256-GCM-SHA384",
+        "tlsClientRandom": "twHhBTbvWz4p3O9t+HsMxaD4TIsBoxtkyk7TW+WEbc8=",
+        "tlsClientCiphersSha1": "GXSPDLP4G3X+prK73a4wBuOaHRc=",
+        "tlsClientExtensionsSha1": "bJfDPn82Ud8taZ6+PSOSubkqDGs=",
+        "tlsClientExtensionsSha1Le": "7zIpdDU5pvFPPBI2/PCzqbaXnRA=",
+        "tlsExportedAuthenticator": {
+          "clientHandshake": "bde2bcf9e0d8bcc9ef1fdc277ada09be5a389b52e84bc309757953f870f8c50b3eaee1220d7c5832bdd3bd6551fffe51",
+          "serverHandshake": "3fcbfe7cd3eb44380e3b7b22482e0db4532bfc40899d8e33f8c22a50f26dcc9e4429a3b3377bf334919dc3c763950031",
+          "clientFinished": "4ebba0b4c520e4203f89844d3c89684d7d5082cd788ca40cd54e2617a58eafe703348b7463d6c1e6ee459283c4a91634",
+          "serverFinished": "ccf72372a410d3c6897e886e32f92ffe31860cf4191e3b1c4920cfef2b126e6b3e3d5f1a0c6b2a9fd4f0be161dd26f8b"
+        },
+        "tlsClientHelloLength": "508",
+        "tlsClientAuth": {
+          "certPresented": "0",
+          "certVerified": "NONE",
+          "certRevoked": "0",
+          "certIssuerDN": "",
+          "certSubjectDN": "",
+          "certIssuerDNRFC2253": "",
+          "certSubjectDNRFC2253": "",
+          "certIssuerDNLegacy": "",
+          "certSubjectDNLegacy": "",
+          "certSerial": "",
+          "certIssuerSerial": "",
+          "certSKI": "",
+          "certIssuerSKI": "",
+          "certFingerprintSHA1": "",
+          "certFingerprintSHA256": "",
+          "certNotBefore": "",
+          "certNotAfter": "",
+          "certRFC9440": "",
+          "certRFC9440TooLarge": false,
+          "certChainRFC9440": "",
+          "certChainRFC9440TooLarge": false
+        },
+        "verifiedBotCategory": "",
+        "edgeL4": {
+          "deliveryRate": 661861
+        }
+      }
+    },
+    "response": {
+      "status": 200
+    }
+  }
+}
+{
+  "wallTime": 7,
+  "cpuTime": 0,
+  "truncated": false,
+  "executionModel": "stateless",
+  "outcome": "ok",
+  "scriptVersion": {
+    "id": "d91c5b42-647c-47f5-935f-39b368a1a58a"
+  },
+  "scriptName": "echotrace-server",
+  "diagnosticsChannelEvents": [],
+  "exceptions": [],
+  "logs": [],
+  "eventTimestamp": 1789112246899,
+  "event": {
+    "request": {
+      "url": "https://echotrace-server.gamal-hametzaits.workers.dev/image/?deviceId=EEEEEE",
+      "method": "GET",
+      "headers": {
+        "accept": "*/*",
+        "accept-encoding": "gzip, br",
+        "cf-connecting-ip": "136.67.162.86",
+        "cf-ipcountry": "US",
+        "cf-ray": "a39501d709a05705",
+        "cf-visitor": "{\"scheme\":\"https\"}",
+        "connection": "Keep-Alive",
+        "host": "echotrace-server.gamal-hametzaits.workers.dev",
+        "user-agent": "curl/7.81.0",
+        "x-forwarded-proto": "https",
+        "x-real-ip": "136.67.162.86"
+      },
+      "cf": {
+        "httpProtocol": "HTTP/2",
+        "requestPriority": "weight=16;exclusive=0;group=0;group-weight=0",
+        "edgeRequestKeepAliveStatus": 1,
+        "requestHeaderNames": {},
+        "clientTcpRtt": 6,
+        "clientQuicRtt": 0,
+        "colo": "SEA",
+        "asn": 396982,
+        "asOrganization": "Google LLC",
+        "country": "US",
+        "isEUCountry": false,
+        "city": "The Dalles",
+        "continent": "NA",
+        "region": "Oregon",
+        "regionCode": "OR",
+        "timezone": "America/Los_Angeles",
+        "longitude": "-121.17868",
+        "latitude": "45.59456",
+        "postalCode": "97058",
+        "metroCode": "820",
+        "tlsVersion": "TLSv1.3",
+        "tlsCipher": "AEAD-AES256-GCM-SHA384",
+        "tlsClientRandom": "QOp9tQ1GpdF8O2v4ijyELd9qNVBO3Y80kdFR2auGAFI=",
+        "tlsClientCiphersSha1": "GXSPDLP4G3X+prK73a4wBuOaHRc=",
+        "tlsClientExtensionsSha1": "bJfDPn82Ud8taZ6+PSOSubkqDGs=",
+        "tlsClientExtensionsSha1Le": "7zIpdDU5pvFPPBI2/PCzqbaXnRA=",
+        "tlsExportedAuthenticator": {
+          "clientHandshake": "e4adfa6f1bfc21ae1f6b93656411dcebd3a0dccd2d903e2dbdd7fb34cb045c779bcaacee4fcb13e71780087ae2dfc915",
+          "serverHandshake": "e63b365de10ed123701c78597273fe0aad7afe30258d1edd1bb7f287909b0c511c54a33e994f3b75f12c31f5c93bcb75",
+          "clientFinished": "dcd03e93c9a68b499d9beab7ab56d4b8caa138c81d5f522941299554dd9e0fffaec9643932464569c97debe796b0706b",
+          "serverFinished": "26553644643d66bd2195ea4a77474e2ecd4fbe3afd32a54b2a1f9382f08a56f12c7b4a83b358305bf33b35cf6ce3d109"
+        },
+        "tlsClientHelloLength": "508",
+        "tlsClientAuth": {
+          "certPresented": "0",
+          "certVerified": "NONE",
+          "certRevoked": "0",
+          "certIssuerDN": "",
+          "certSubjectDN": "",
+          "certIssuerDNRFC2253": "",
+          "certSubjectDNRFC2253": "",
+          "certIssuerDNLegacy": "",
+          "certSubjectDNLegacy": "",
+          "certSerial": "",
+          "certIssuerSerial": "",
+          "certSKI": "",
+          "certIssuerSKI": "",
+          "certFingerprintSHA1": "",
+          "certFingerprintSHA256": "",
+          "certNotBefore": "",
+          "certNotAfter": "",
+          "certRFC9440": "",
+          "certRFC9440TooLarge": false,
+          "certChainRFC9440": "",
+          "certChainRFC9440TooLarge": false
+        },
+        "verifiedBotCategory": "",
+        "edgeL4": {
+          "deliveryRate": 624205
+        }
+      }
+    },
+    "response": {
+      "status": 404
+    }
+  }
+}
+{
+  "wallTime": 10,
+  "cpuTime": 1,
+  "truncated": false,
+  "executionModel": "stateless",
+  "outcome": "ok",
+  "scriptVersion": {
+    "id": "d91c5b42-647c-47f5-935f-39b368a1a58a"
+  },
+  "scriptName": "echotrace-server",
+  "diagnosticsChannelEvents": [],
+  "exceptions": [],
+  "logs": [],
+  "eventTimestamp": 1789112247000,
+  "event": {
+    "request": {
+      "url": "https://echotrace-server.gamal-hametzaits.workers.dev/confirm-download",
+      "method": "POST",
+      "headers": {
+        "accept": "*/*",
+        "accept-encoding": "gzip, br",
+        "cf-connecting-ip": "136.67.162.86",
+        "cf-ipcountry": "US",
+        "cf-ray": "a39501d7adcf4dd7",
+        "cf-visitor": "{\"scheme\":\"https\"}",
+        "connection": "Keep-Alive",
+        "content-length": "34",
+        "content-type": "application/json",
+        "host": "echotrace-server.gamal-hametzaits.workers.dev",
+        "user-agent": "curl/7.81.0",
+        "x-forwarded-proto": "https",
+        "x-real-ip": "136.67.162.86"
+      },
+      "cf": {
+        "httpProtocol": "HTTP/2",
+        "requestPriority": "weight=16;exclusive=0;group=0;group-weight=0",
+        "edgeRequestKeepAliveStatus": 1,
+        "requestHeaderNames": {},
+        "clientTcpRtt": 5,
+        "clientQuicRtt": 0,
+        "colo": "SEA",
+        "asn": 396982,
+        "asOrganization": "Google LLC",
+        "country": "US",
+        "isEUCountry": false,
+        "city": "The Dalles",
+        "continent": "NA",
+        "region": "Oregon",
+        "regionCode": "OR",
+        "timezone": "America/Los_Angeles",
+        "longitude": "-121.17868",
+        "latitude": "45.59456",
+        "postalCode": "97058",
+        "metroCode": "820",
+        "tlsVersion": "TLSv1.3",
+        "tlsCipher": "AEAD-AES256-GCM-SHA384",
+        "tlsClientRandom": "VSwZ/FkbG9O4mnKoFoVKVHSWlZjFzknY4YjMZtczxtQ=",
+        "tlsClientCiphersSha1": "GXSPDLP4G3X+prK73a4wBuOaHRc=",
+        "tlsClientExtensionsSha1": "bJfDPn82Ud8taZ6+PSOSubkqDGs=",
+        "tlsClientExtensionsSha1Le": "7zIpdDU5pvFPPBI2/PCzqbaXnRA=",
+        "tlsExportedAuthenticator": {
+          "clientHandshake": "a37d2bffc9b1d5433a5835eae284b9c3c2492f027fd9d3059c0a1ec6e0606861ab8884dcda4af71505958ba4cdb16627",
+          "serverHandshake": "982e4f589f75c882ed0e4006390d67f99086d2284667525667dcdd22d4122bbd75dffca49d347aa87b47710a8c722820",
+          "clientFinished": "5725e29840d4aebcde51222be218c65cc9ee06a84e65bb82d302852e6c54d71576210a837eeea7bd90c4c636f2371c7f",
+          "serverFinished": "fad4f512c275b116376aaf2cbbf4a6e237f515484376bf0b38f21fb9e8e0398aae95678856229f31bc45875de2f1977d"
+        },
+        "tlsClientHelloLength": "508",
+        "tlsClientAuth": {
+          "certPresented": "0",
+          "certVerified": "NONE",
+          "certRevoked": "0",
+          "certIssuerDN": "",
+          "certSubjectDN": "",
+          "certIssuerDNRFC2253": "",
+          "certSubjectDNRFC2253": "",
+          "certIssuerDNLegacy": "",
+          "certSubjectDNLegacy": "",
+          "certSerial": "",
+          "certIssuerSerial": "",
+          "certSKI": "",
+          "certIssuerSKI": "",
+          "certFingerprintSHA1": "",
+          "certFingerprintSHA256": "",
+          "certNotBefore": "",
+          "certNotAfter": "",
+          "certRFC9440": "",
+          "certRFC9440TooLarge": false,
+          "certChainRFC9440": "",
+          "certChainRFC9440TooLarge": false
+        },
+        "verifiedBotCategory": "",
+        "edgeL4": {
+          "deliveryRate": 700846
+        }
+      }
+    },
+    "response": {
+      "status": 200
+    }
+  }
+}
+{
+  "wallTime": 263,
+  "cpuTime": 1,
+  "truncated": false,
+  "executionModel": "stateless",
+  "outcome": "ok",
+  "scriptVersion": {
+    "id": "d91c5b42-647c-47f5-935f-39b368a1a58a"
+  },
+  "scriptName": "echotrace-server",
+  "diagnosticsChannelEvents": [],
+  "exceptions": [],
+  "logs": [],
+  "eventTimestamp": 1789112247103,
+  "event": {
+    "request": {
+      "url": "https://echotrace-server.gamal-hametzaits.workers.dev/poll/EEEEEE",
+      "method": "GET",
+      "headers": {
+        "accept": "*/*",
+        "accept-encoding": "gzip, br",
+        "cf-connecting-ip": "136.67.162.86",
+        "cf-ipcountry": "US",
+        "cf-ray": "a39501d85836c0a6",
+        "cf-visitor": "{\"scheme\":\"https\"}",
+        "connection": "Keep-Alive",
+        "host": "echotrace-server.gamal-hametzaits.workers.dev",
+        "user-agent": "curl/7.81.0",
+        "x-forwarded-proto": "https",
+        "x-real-ip": "136.67.162.86"
+      },
+      "cf": {
+        "httpProtocol": "HTTP/2",
+        "requestPriority": "weight=16;exclusive=0;group=0;group-weight=0",
+        "edgeRequestKeepAliveStatus": 1,
+        "requestHeaderNames": {},
+        "clientTcpRtt": 6,
+        "clientQuicRtt": 0,
+        "colo": "SEA",
+        "asn": 396982,
+        "asOrganization": "Google LLC",
+        "country": "US",
+        "isEUCountry": false,
+        "city": "The Dalles",
+        "continent": "NA",
+        "region": "Oregon",
+        "regionCode": "OR",
+        "timezone": "America/Los_Angeles",
+        "longitude": "-121.17868",
+        "latitude": "45.59456",
+        "postalCode": "97058",
+        "metroCode": "820",
+        "tlsVersion": "TLSv1.3",
+        "tlsCipher": "AEAD-AES256-GCM-SHA384",
+        "tlsClientRandom": "qCc6Sfpv1O0kKfxvJoXiB6gN0jJfQhH769xp3r+joAM=",
+        "tlsClientCiphersSha1": "GXSPDLP4G3X+prK73a4wBuOaHRc=",
+        "tlsClientExtensionsSha1": "bJfDPn82Ud8taZ6+PSOSubkqDGs=",
+        "tlsClientExtensionsSha1Le": "7zIpdDU5pvFPPBI2/PCzqbaXnRA=",
+        "tlsExportedAuthenticator": {
+          "clientHandshake": "834d97e34cbc341fed0e01916e8723f3a9f7348d16ce7667e68d63ee299dadf6cbacc687c394308d9868d6f98f43308b",
+          "serverHandshake": "871c38227e948172c412f4813d362872e56349d1312d8f94973b1707549c97e1078e6ef22d4e6cf3ef2f9e53c40cb15f",
+          "clientFinished": "cdbcad9e11781740e388da68796793427fa576cc2f9c2b7d5e3349550c0d9708fa4a1b01b48849de7010e91165eedf0f",
+          "serverFinished": "3c77faba81c36af2c6eeeacfeae6017885debbe849b689db3df3036ca841df692bb4bbbfd301d8a283bff48a53a252bd"
+        },
+        "tlsClientHelloLength": "508",
+        "tlsClientAuth": {
+          "certPresented": "0",
+          "certVerified": "NONE",
+          "certRevoked": "0",
+          "certIssuerDN": "",
+          "certSubjectDN": "",
+          "certIssuerDNRFC2253": "",
+          "certSubjectDNRFC2253": "",
+          "certIssuerDNLegacy": "",
+          "certSubjectDNLegacy": "",
+          "certSerial": "",
+          "certIssuerSerial": "",
+          "certSKI": "",
+          "certIssuerSKI": "",
+          "certFingerprintSHA1": "",
+          "certFingerprintSHA256": "",
+          "certNotBefore": "",
+          "certNotAfter": "",
+          "certRFC9440": "",
+          "certRFC9440TooLarge": false,
+          "certChainRFC9440": "",
+          "certChainRFC9440TooLarge": false
+        },
+        "verifiedBotCategory": "",
+        "edgeL4": {
+          "deliveryRate": 698412
+        }
+      }
+    },
+    "response": {
+      "status": 200
+    }
+  }
+}
+{
+  "wallTime": 6,
+  "cpuTime": 0,
+  "truncated": false,
+  "executionModel": "stateless",
+  "outcome": "ok",
+  "scriptVersion": {
+    "id": "d91c5b42-647c-47f5-935f-39b368a1a58a"
+  },
+  "scriptName": "echotrace-server",
+  "diagnosticsChannelEvents": [],
+  "exceptions": [],
+  "logs": [],
+  "eventTimestamp": 1789112247471,
+  "event": {
+    "request": {
+      "url": "https://echotrace-server.gamal-hametzaits.workers.dev/image/?deviceId=EEEEEE",
+      "method": "GET",
+      "headers": {
+        "accept": "*/*",
+        "accept-encoding": "gzip, br",
+        "cf-connecting-ip": "136.67.162.86",
+        "cf-ipcountry": "US",
+        "cf-ray": "a39501da9ecbd451",
+        "cf-visitor": "{\"scheme\":\"https\"}",
+        "connection": "Keep-Alive",
+        "host": "echotrace-server.gamal-hametzaits.workers.dev",
+        "user-agent": "curl/7.81.0",
+        "x-forwarded-proto": "https",
+        "x-real-ip": "136.67.162.86"
+      },
+      "cf": {
+        "httpProtocol": "HTTP/2",
+        "requestPriority": "weight=16;exclusive=0;group=0;group-weight=0",
+        "edgeRequestKeepAliveStatus": 1,
+        "requestHeaderNames": {},
+        "clientTcpRtt": 7,
+        "clientQuicRtt": 0,
+        "colo": "SEA",
+        "asn": 396982,
+        "asOrganization": "Google LLC",
+        "country": "US",
+        "isEUCountry": false,
+        "city": "The Dalles",
+        "continent": "NA",
+        "region": "Oregon",
+        "regionCode": "OR",
+        "timezone": "America/Los_Angeles",
+        "longitude": "-121.17868",
+        "latitude": "45.59456",
+        "postalCode": "97058",
+        "metroCode": "820",
+        "tlsVersion": "TLSv1.3",
+        "tlsCipher": "AEAD-AES256-GCM-SHA384",
+        "tlsClientRandom": "UrIBZbUMeoM7WyJhCoMVJ6vHlYn7IIBi9/+GEcaD7ck=",
+        "tlsClientCiphersSha1": "GXSPDLP4G3X+prK73a4wBuOaHRc=",
+        "tlsClientExtensionsSha1": "bJfDPn82Ud8taZ6+PSOSubkqDGs=",
+        "tlsClientExtensionsSha1Le": "7zIpdDU5pvFPPBI2/PCzqbaXnRA=",
+        "tlsExportedAuthenticator": {
+          "clientHandshake": "d0d6f3a8d5a65c17ced0fd1dc49f9405c758524118ea9f09094714cb427426a82b7b601ffc4560ca15cc4954cb7ae379",
+          "serverHandshake": "fb9856e638bca311231b90ed4d8a1bb9d3cc8a20e93d933f28dfeb6bceabddeeb9418ff0c15021115c7329d013554fee",
+          "clientFinished": "64d4a8046ace79fe2b37064a0ddaef665b8f95455d9edd734ee6c070eb790f6da96f33ffd6c39104eb77fd784a2414b6",
+          "serverFinished": "c209d52f559c81d8a49aa07af65a2ab19a6a6d160ccb4d09b411d2c3c7eed9e0e2712a45d1d710551c18ce543897e240"
+        },
+        "tlsClientHelloLength": "508",
+        "tlsClientAuth": {
+          "certPresented": "0",
+          "certVerified": "NONE",
+          "certRevoked": "0",
+          "certIssuerDN": "",
+          "certSubjectDN": "",
+          "certIssuerDNRFC2253": "",
+          "certSubjectDNRFC2253": "",
+          "certIssuerDNLegacy": "",
+          "certSubjectDNLegacy": "",
+          "certSerial": "",
+          "certIssuerSerial": "",
+          "certSKI": "",
+          "certIssuerSKI": "",
+          "certFingerprintSHA1": "",
+          "certFingerprintSHA256": "",
+          "certNotBefore": "",
+          "certNotAfter": "",
+          "certRFC9440": "",
+          "certRFC9440TooLarge": false,
+          "certChainRFC9440": "",
+          "certChainRFC9440TooLarge": false
+        },
+        "verifiedBotCategory": "",
+        "edgeL4": {
+          "deliveryRate": 593258
+        }
+      }
+    },
+    "response": {
+      "status": 404
+    }
+  }
+}
+{
+  "wallTime": 12,
+  "cpuTime": 0,
+  "truncated": false,
+  "executionModel": "stateless",
+  "outcome": "ok",
+  "scriptVersion": {
+    "id": "d91c5b42-647c-47f5-935f-39b368a1a58a"
+  },
+  "scriptName": "echotrace-server",
+  "diagnosticsChannelEvents": [],
+  "exceptions": [],
+  "logs": [],
+  "eventTimestamp": 1789112247570,
+  "event": {
+    "request": {
+      "url": "https://echotrace-server.gamal-hametzaits.workers.dev/partner-status/DDDDDD",
+      "method": "GET",
+      "headers": {
+        "accept": "*/*",
+        "accept-encoding": "gzip, br",
+        "cf-connecting-ip": "136.67.162.86",
+        "cf-ipcountry": "US",
+        "cf-ray": "a39501db4e220239",
+        "cf-visitor": "{\"scheme\":\"https\"}",
+        "connection": "Keep-Alive",
+        "host": "echotrace-server.gamal-hametzaits.workers.dev",
+        "user-agent": "curl/7.81.0",
+        "x-forwarded-proto": "https",
+        "x-real-ip": "136.67.162.86"
+      },
+      "cf": {
+        "httpProtocol": "HTTP/2",
+        "requestPriority": "weight=16;exclusive=0;group=0;group-weight=0",
+        "edgeRequestKeepAliveStatus": 1,
+        "requestHeaderNames": {},
+        "clientTcpRtt": 7,
+        "clientQuicRtt": 0,
+        "colo": "SEA",
+        "asn": 396982,
+        "asOrganization": "Google LLC",
+        "country": "US",
+        "isEUCountry": false,
+        "city": "The Dalles",
+        "continent": "NA",
+        "region": "Oregon",
+        "regionCode": "OR",
+        "timezone": "America/Los_Angeles",
+        "longitude": "-121.17868",
+        "latitude": "45.59456",
+        "postalCode": "97058",
+        "metroCode": "820",
+        "tlsVersion": "TLSv1.3",
+        "tlsCipher": "AEAD-AES256-GCM-SHA384",
+        "tlsClientRandom": "uoJ/zn1vyanaxhWgSnNYAUsS1n1VkVf+dDs6bXhIHug=",
+        "tlsClientCiphersSha1": "GXSPDLP4G3X+prK73a4wBuOaHRc=",
+        "tlsClientExtensionsSha1": "bJfDPn82Ud8taZ6+PSOSubkqDGs=",
+        "tlsClientExtensionsSha1Le": "7zIpdDU5pvFPPBI2/PCzqbaXnRA=",
+        "tlsExportedAuthenticator": {
+          "clientHandshake": "9f43590dc17d983b99fb18448cec5994c789d20a50ee3cd29cb761a8630a91435ef1c4e721da4e1eaadcc24795f3b0cd",
+          "serverHandshake": "c256c5689edc0831b55b1900116013d1c17e8b98f227990bf466c3d795206598ffca4aff50279020f28b282633f7cc1a",
+          "clientFinished": "040a04aa6b8eca72528c46e48a9bba8ec260ca2216909a5e4e53899a7869960ab6ddb35ad28c9fd4dc54d0b10d8442bd",
+          "serverFinished": "1cfb550b4586298ed233ad1e403ccfb75ada3cfc4dd2d4756924117af4a2af8ddf4880be0bb2f6820f0e4a4af22676e0"
+        },
+        "tlsClientHelloLength": "508",
+        "tlsClientAuth": {
+          "certPresented": "0",
+          "certVerified": "NONE",
+          "certRevoked": "0",
+          "certIssuerDN": "",
+          "certSubjectDN": "",
+          "certIssuerDNRFC2253": "",
+          "certSubjectDNRFC2253": "",
+          "certIssuerDNLegacy": "",
+          "certSubjectDNLegacy": "",
+          "certSerial": "",
+          "certIssuerSerial": "",
+          "certSKI": "",
+          "certIssuerSKI": "",
+          "certFingerprintSHA1": "",
+          "certFingerprintSHA256": "",
+          "certNotBefore": "",
+          "certNotAfter": "",
+          "certRFC9440": "",
+          "certRFC9440TooLarge": false,
+          "certChainRFC9440": "",
+          "certChainRFC9440TooLarge": false
+        },
+        "verifiedBotCategory": "",
+        "edgeL4": {
+          "deliveryRate": 574303
+        }
+      }
+    },
+    "response": {
+      "status": 200
+    }
+  }
+}
+{
+  "wallTime": 1,
+  "cpuTime": 1,
+  "truncated": false,
+  "executionModel": "stateless",
+  "outcome": "ok",
+  "scriptVersion": {
+    "id": "dab423ca-d91d-4e84-ab76-1392c5883517"
+  },
+  "scriptName": "echotrace-server",
+  "diagnosticsChannelEvents": [],
+  "exceptions": [],
+  "logs": [],
+  "eventTimestamp": 1789112263227,
+  "event": {
+    "request": {
+      "url": "https://echotrace-server.gamal-hametzaits.workers.dev/register",
+      "method": "POST",
+      "headers": {
+        "accept": "*/*",
+        "accept-encoding": "gzip, br",
+        "cf-connecting-ip": "136.67.162.86",
+        "cf-ipcountry": "US",
+        "cf-ray": "a395023cfaa5a333",
+        "cf-visitor": "{\"scheme\":\"https\"}",
+        "connection": "Keep-Alive",
+        "content-length": "21",
+        "content-type": "application/json",
+        "host": "echotrace-server.gamal-hametzaits.workers.dev",
+        "user-agent": "curl/7.81.0",
+        "x-forwarded-proto": "https",
+        "x-real-ip": "136.67.162.86"
+      },
+      "cf": {
+        "httpProtocol": "HTTP/2",
+        "requestPriority": "weight=16;exclusive=0;group=0;group-weight=0",
+        "edgeRequestKeepAliveStatus": 1,
+        "requestHeaderNames": {},
+        "clientTcpRtt": 6,
+        "clientQuicRtt": 0,
+        "colo": "SEA",
+        "asn": 396982,
+        "asOrganization": "Google LLC",
+        "country": "US",
+        "isEUCountry": false,
+        "city": "The Dalles",
+        "continent": "NA",
+        "region": "Oregon",
+        "regionCode": "OR",
+        "timezone": "America/Los_Angeles",
+        "longitude": "-121.17868",
+        "latitude": "45.59456",
+        "postalCode": "97058",
+        "metroCode": "820",
+        "tlsVersion": "TLSv1.3",
+        "tlsCipher": "AEAD-AES256-GCM-SHA384",
+        "tlsClientRandom": "EhGJrlD313if6e7i4plpQpEiHXxvUZPSO++droyRkGM=",
+        "tlsClientCiphersSha1": "GXSPDLP4G3X+prK73a4wBuOaHRc=",
+        "tlsClientExtensionsSha1": "bJfDPn82Ud8taZ6+PSOSubkqDGs=",
+        "tlsClientExtensionsSha1Le": "7zIpdDU5pvFPPBI2/PCzqbaXnRA=",
+        "tlsExportedAuthenticator": {
+          "clientHandshake": "9f3834f0821bd48ef43048b48d9c706c6c38d4fa85643ca95bc3a94cc760b89f90900d3f9d30814a617388bdd562159f",
+          "serverHandshake": "d9a7eaffec5202f2a35f7e2a4f6e891002a5c96d7ca6faf240ff8c49accfe77aaebc5c8ff6179aa9fea3680df982fc8b",
+          "clientFinished": "816f233c6936f31b3c758212fd1cc784a3285c6f3c55a4337a04cf88374877befd881e7cb1cee1e248a5b6a74ac7d2ab",
+          "serverFinished": "288931c24685e03c0d2f7aee7b3043c1f69250784da11ccd5be0aea9b6f3eb5edd2cd206c91ae686e136c4b4cdadcfcc"
+        },
+        "tlsClientHelloLength": "508",
+        "tlsClientAuth": {
+          "certPresented": "0",
+          "certVerified": "NONE",
+          "certRevoked": "0",
+          "certIssuerDN": "",
+          "certSubjectDN": "",
+          "certIssuerDNRFC2253": "",
+          "certSubjectDNRFC2253": "",
+          "certIssuerDNLegacy": "",
+          "certSubjectDNLegacy": "",
+          "certSerial": "",
+          "certIssuerSerial": "",
+          "certSKI": "",
+          "certIssuerSKI": "",
+          "certFingerprintSHA1": "",
+          "certFingerprintSHA256": "",
+          "certNotBefore": "",
+          "certNotAfter": "",
+          "certRFC9440": "",
+          "certRFC9440TooLarge": false,
+          "certChainRFC9440": "",
+          "certChainRFC9440TooLarge": false
+        },
+        "verifiedBotCategory": "",
+        "edgeL4": {
+          "deliveryRate": 671862
+        }
+      }
+    },
+    "response": {
+      "status": 400
+    }
+  }
+}
+{
+  "wallTime": 365,
+  "cpuTime": 1,
+  "truncated": false,
+  "executionModel": "stateless",
+  "outcome": "ok",
+  "scriptVersion": {
+    "id": "dab423ca-d91d-4e84-ab76-1392c5883517"
+  },
+  "scriptName": "echotrace-server",
+  "diagnosticsChannelEvents": [],
+  "exceptions": [],
+  "logs": [],
+  "eventTimestamp": 1789112263330,
+  "event": {
+    "request": {
+      "url": "https://echotrace-server.gamal-hametzaits.workers.dev/register",
+      "method": "POST",
+      "headers": {
+        "accept": "*/*",
+        "accept-encoding": "gzip, br",
+        "cf-connecting-ip": "136.67.162.86",
+        "cf-ipcountry": "US",
+        "cf-ray": "a395023dcda93208",
+        "cf-visitor": "{\"scheme\":\"https\"}",
+        "connection": "Keep-Alive",
+        "content-length": "21",
+        "content-type": "application/json",
+        "host": "echotrace-server.gamal-hametzaits.workers.dev",
+        "user-agent": "curl/7.81.0",
+        "x-forwarded-proto": "https",
+        "x-real-ip": "136.67.162.86"
+      },
+      "cf": {
+        "httpProtocol": "HTTP/2",
+        "requestPriority": "weight=16;exclusive=0;group=0;group-weight=0",
+        "edgeRequestKeepAliveStatus": 1,
+        "requestHeaderNames": {},
+        "clientTcpRtt": 6,
+        "clientQuicRtt": 0,
+        "colo": "SEA",
+        "asn": 396982,
+        "asOrganization": "Google LLC",
+        "country": "US",
+        "isEUCountry": false,
+        "city": "The Dalles",
+        "continent": "NA",
+        "region": "Oregon",
+        "regionCode": "OR",
+        "timezone": "America/Los_Angeles",
+        "longitude": "-121.17868",
+        "latitude": "45.59456",
+        "postalCode": "97058",
+        "metroCode": "820",
+        "tlsVersion": "TLSv1.3",
+        "tlsCipher": "AEAD-AES256-GCM-SHA384",
+        "tlsClientRandom": "GWTd1IESJ0vsB7yXzN2iKqHNCsbBjxJI2Vuujivr0sc=",
+        "tlsClientCiphersSha1": "GXSPDLP4G3X+prK73a4wBuOaHRc=",
+        "tlsClientExtensionsSha1": "bJfDPn82Ud8taZ6+PSOSubkqDGs=",
+        "tlsClientExtensionsSha1Le": "7zIpdDU5pvFPPBI2/PCzqbaXnRA=",
+        "tlsExportedAuthenticator": {
+          "clientHandshake": "20b6ffe46909f0699d2b3c78c38fbd54885b784d3fe78e084bfcc77e716aac3c9d771a3865804ff2a66243d64c42b462",
+          "serverHandshake": "45d5874762e41020bf452bbef2e7ed204e0f25147b3f9eb1c9ddef46c76826fe246893273df8a90a39ed4e13ed4606b3",
+          "clientFinished": "ca260dc94c208292c0ca08c741fc7674141422fd01e38dcfbe6e4a955914edd4de41d3b3ef7eac0e266d545f3855538d",
+          "serverFinished": "23f8ea0bdaa42bad90134df34320c93bd800e520b5a7567e45921a8bccdc370a9e25cf17e1b0d0af1527ed755c1134db"
+        },
+        "tlsClientHelloLength": "508",
+        "tlsClientAuth": {
+          "certPresented": "0",
+          "certVerified": "NONE",
+          "certRevoked": "0",
+          "certIssuerDN": "",
+          "certSubjectDN": "",
+          "certIssuerDNRFC2253": "",
+          "certSubjectDNRFC2253": "",
+          "certIssuerDNLegacy": "",
+          "certSubjectDNLegacy": "",
+          "certSerial": "",
+          "certIssuerSerial": "",
+          "certSKI": "",
+          "certIssuerSKI": "",
+          "certFingerprintSHA1": "",
+          "certFingerprintSHA256": "",
+          "certNotBefore": "",
+          "certNotAfter": "",
+          "certRFC9440": "",
+          "certRFC9440TooLarge": false,
+          "certChainRFC9440": "",
+          "certChainRFC9440TooLarge": false
+        },
+        "verifiedBotCategory": "",
+        "edgeL4": {
+          "deliveryRate": 620082
+        }
+      }
+    },
+    "response": {
+      "status": 200
+    }
+  }
+}
+{
+  "wallTime": 2,
+  "cpuTime": 1,
+  "truncated": false,
+  "executionModel": "stateless",
+  "outcome": "ok",
+  "scriptVersion": {
+    "id": "dab423ca-d91d-4e84-ab76-1392c5883517"
+  },
+  "scriptName": "echotrace-server",
+  "diagnosticsChannelEvents": [],
+  "exceptions": [],
+  "logs": [],
+  "eventTimestamp": 1789112263897,
+  "event": {
+    "request": {
+      "url": "https://echotrace-server.gamal-hametzaits.workers.dev/connect",
+      "method": "POST",
+      "headers": {
+        "accept": "*/*",
+        "accept-encoding": "gzip, br",
+        "cf-connecting-ip": "136.67.162.86",
+        "cf-ipcountry": "US",
+        "cf-ray": "a39502415a842672",
+        "cf-visitor": "{\"scheme\":\"https\"}",
+        "connection": "Keep-Alive",
+        "content-length": "60",
+        "content-type": "application/json",
+        "host": "echotrace-server.gamal-hametzaits.workers.dev",
+        "user-agent": "curl/7.81.0",
+        "x-forwarded-proto": "https",
+        "x-real-ip": "136.67.162.86"
+      },
+      "cf": {
+        "httpProtocol": "HTTP/2",
+        "requestPriority": "weight=16;exclusive=0;group=0;group-weight=0",
+        "edgeRequestKeepAliveStatus": 1,
+        "requestHeaderNames": {},
+        "clientTcpRtt": 6,
+        "clientQuicRtt": 0,
+        "colo": "SEA",
+        "asn": 396982,
+        "asOrganization": "Google LLC",
+        "country": "US",
+        "isEUCountry": false,
+        "city": "The Dalles",
+        "continent": "NA",
+        "region": "Oregon",
+        "regionCode": "OR",
+        "timezone": "America/Los_Angeles",
+        "longitude": "-121.17868",
+        "latitude": "45.59456",
+        "postalCode": "97058",
+        "metroCode": "820",
+        "tlsVersion": "TLSv1.3",
+        "tlsCipher": "AEAD-AES256-GCM-SHA384",
+        "tlsClientRandom": "9p7Exl2I47J6xH/JNfe7SO+Y5/+y5ouAweO5/AcazZY=",
+        "tlsClientCiphersSha1": "GXSPDLP4G3X+prK73a4wBuOaHRc=",
+        "tlsClientExtensionsSha1": "bJfDPn82Ud8taZ6+PSOSubkqDGs=",
+        "tlsClientExtensionsSha1Le": "7zIpdDU5pvFPPBI2/PCzqbaXnRA=",
+        "tlsExportedAuthenticator": {
+          "clientHandshake": "0bb132e44a7a7d78c93297de7c3369909c07349a0aa3746cbf21c360a9d372e28195bc7f91eb77afd10bc765947085ac",
+          "serverHandshake": "2713f80c9e82da55f8750d3f832f32555ea3fce0d09c536648867d35d89e3333f5b4f5d404e3f46483b7c0b5a93e7f81",
+          "clientFinished": "6d7b238650c76bc7bdbc833da82e58a4997279851e406ab1a5cf2b656eea4cc13f8270b2c49a83bc8637b3f7e3e1e47a",
+          "serverFinished": "58d8783b6d8da848216753b56321818327b0718bede5d6e386fccd71dbb3d7a7106c3c5d76bcf2677e7ef2096bfd5482"
+        },
+        "tlsClientHelloLength": "508",
+        "tlsClientAuth": {
+          "certPresented": "0",
+          "certVerified": "NONE",
+          "certRevoked": "0",
+          "certIssuerDN": "",
+          "certSubjectDN": "",
+          "certIssuerDNRFC2253": "",
+          "certSubjectDNRFC2253": "",
+          "certIssuerDNLegacy": "",
+          "certSubjectDNLegacy": "",
+          "certSerial": "",
+          "certIssuerSerial": "",
+          "certSKI": "",
+          "certIssuerSKI": "",
+          "certFingerprintSHA1": "",
+          "certFingerprintSHA256": "",
+          "certNotBefore": "",
+          "certNotAfter": "",
+          "certRFC9440": "",
+          "certRFC9440TooLarge": false,
+          "certChainRFC9440": "",
+          "certChainRFC9440TooLarge": false
+        },
+        "verifiedBotCategory": "",
+        "edgeL4": {
+          "deliveryRate": 664046
+        }
+      }
+    },
+    "response": {
+      "status": 400
+    }
+  }
+}
+{
+  "wallTime": 0,
+  "cpuTime": 0,
+  "truncated": false,
+  "executionModel": "stateless",
+  "outcome": "ok",
+  "scriptVersion": {
+    "id": "dab423ca-d91d-4e84-ab76-1392c5883517"
+  },
+  "scriptName": "echotrace-server",
+  "diagnosticsChannelEvents": [],
+  "exceptions": [],
+  "logs": [],
+  "eventTimestamp": 1789112264006,
+  "event": {
+    "request": {
+      "url": "https://echotrace-server.gamal-hametzaits.workers.dev/connect",
+      "method": "POST",
+      "headers": {
+        "accept": "*/*",
+        "accept-encoding": "gzip, br",
+        "cf-connecting-ip": "136.67.162.86",
+        "cf-ipcountry": "US",
+        "cf-ray": "a3950241f987d462",
+        "cf-visitor": "{\"scheme\":\"https\"}",
+        "connection": "Keep-Alive",
+        "content-length": "60",
+        "content-type": "application/json",
+        "host": "echotrace-server.gamal-hametzaits.workers.dev",
+        "user-agent": "curl/7.81.0",
+        "x-forwarded-proto": "https",
+        "x-real-ip": "136.67.162.86"
+      },
+      "cf": {
+        "httpProtocol": "HTTP/2",
+        "requestPriority": "weight=16;exclusive=0;group=0;group-weight=0",
+        "edgeRequestKeepAliveStatus": 1,
+        "requestHeaderNames": {},
+        "clientTcpRtt": 7,
+        "clientQuicRtt": 0,
+        "colo": "SEA",
+        "asn": 396982,
+        "asOrganization": "Google LLC",
+        "country": "US",
+        "isEUCountry": false,
+        "city": "The Dalles",
+        "continent": "NA",
+        "region": "Oregon",
+        "regionCode": "OR",
+        "timezone": "America/Los_Angeles",
+        "longitude": "-121.17868",
+        "latitude": "45.59456",
+        "postalCode": "97058",
+        "metroCode": "820",
+        "tlsVersion": "TLSv1.3",
+        "tlsCipher": "AEAD-AES256-GCM-SHA384",
+        "tlsClientRandom": "H15xTzaKgTexaGnBiVyNPZ8f9LHYtntgCspEAHiEBts=",
+        "tlsClientCiphersSha1": "GXSPDLP4G3X+prK73a4wBuOaHRc=",
+        "tlsClientExtensionsSha1": "bJfDPn82Ud8taZ6+PSOSubkqDGs=",
+        "tlsClientExtensionsSha1Le": "7zIpdDU5pvFPPBI2/PCzqbaXnRA=",
+        "tlsExportedAuthenticator": {
+          "clientHandshake": "6339c60fc77b4c2177f2913cce742c3ccac63c7f5840b0cbc509a10fa8a7549b29f5bc9cd94fb4565f5888a49165a142",
+          "serverHandshake": "576076fc504819acaa1f94b3a316ebf9699f3786d6d0b04da61fe56aef66f857063c3eb46e7f5bb42deea48c7c81583a",
+          "clientFinished": "7b7b896a6eb917a590253910163ecc728077155da196521774d909d38e57d5f95b969defd0c224c8de67bbd7ee222c50",
+          "serverFinished": "9aa5186fd22776318b1d0266cdfa6c41045b0994647b54c31c9c29e61e7126452029e1371edd567283d1a0aa61b10f71"
+        },
+        "tlsClientHelloLength": "508",
+        "tlsClientAuth": {
+          "certPresented": "0",
+          "certVerified": "NONE",
+          "certRevoked": "0",
+          "certIssuerDN": "",
+          "certSubjectDN": "",
+          "certIssuerDNRFC2253": "",
+          "certSubjectDNRFC2253": "",
+          "certIssuerDNLegacy": "",
+          "certSubjectDNLegacy": "",
+          "certSerial": "",
+          "certIssuerSerial": "",
+          "certSKI": "",
+          "certIssuerSKI": "",
+          "certFingerprintSHA1": "",
+          "certFingerprintSHA256": "",
+          "certNotBefore": "",
+          "certNotAfter": "",
+          "certRFC9440": "",
+          "certRFC9440TooLarge": false,
+          "certChainRFC9440": "",
+          "certChainRFC9440TooLarge": false
+        },
+        "verifiedBotCategory": "",
+        "edgeL4": {
+          "deliveryRate": 585771
+        }
+      }
+    },
+    "response": {
+      "status": 400
+    }
+  }
+}
+{
+  "wallTime": 0,
+  "cpuTime": 0,
+  "truncated": false,
+  "executionModel": "stateless",
+  "outcome": "ok",
+  "scriptVersion": {
+    "id": "dab423ca-d91d-4e84-ab76-1392c5883517"
+  },
+  "scriptName": "echotrace-server",
+  "diagnosticsChannelEvents": [],
+  "exceptions": [],
+  "logs": [],
+  "eventTimestamp": 1789112264111,
+  "event": {
+    "request": {
+      "url": "https://echotrace-server.gamal-hametzaits.workers.dev/upload",
+      "method": "POST",
+      "headers": {
+        "accept": "*/*",
+        "accept-encoding": "gzip, br",
+        "cf-connecting-ip": "136.67.162.86",
+        "cf-ipcountry": "US",
+        "cf-ray": "a39502428efedece",
+        "cf-visitor": "{\"scheme\":\"https\"}",
+        "connection": "Keep-Alive",
+        "content-length": "12",
+        "content-type": "image/jpeg",
+        "host": "echotrace-server.gamal-hametzaits.workers.dev",
+        "user-agent": "curl/7.81.0",
+        "x-device-id": "X11111",
+        "x-forwarded-proto": "https",
+        "x-real-ip": "136.67.162.86"
+      },
+      "cf": {
+        "httpProtocol": "HTTP/2",
+        "requestPriority": "weight=16;exclusive=0;group=0;group-weight=0",
+        "edgeRequestKeepAliveStatus": 1,
+        "requestHeaderNames": {},
+        "clientTcpRtt": 5,
+        "clientQuicRtt": 0,
+        "colo": "SEA",
+        "asn": 396982,
+        "asOrganization": "Google LLC",
+        "country": "US",
+        "isEUCountry": false,
+        "city": "The Dalles",
+        "continent": "NA",
+        "region": "Oregon",
+        "regionCode": "OR",
+        "timezone": "America/Los_Angeles",
+        "longitude": "-121.17868",
+        "latitude": "45.59456",
+        "postalCode": "97058",
+        "metroCode": "820",
+        "tlsVersion": "TLSv1.3",
+        "tlsCipher": "AEAD-AES256-GCM-SHA384",
+        "tlsClientRandom": "sJ5eNTVIKnMJcznbX9xlfxKl/RJrEbHQnlgqqXbSH3M=",
+        "tlsClientCiphersSha1": "GXSPDLP4G3X+prK73a4wBuOaHRc=",
+        "tlsClientExtensionsSha1": "bJfDPn82Ud8taZ6+PSOSubkqDGs=",
+        "tlsClientExtensionsSha1Le": "7zIpdDU5pvFPPBI2/PCzqbaXnRA=",
+        "tlsExportedAuthenticator": {
+          "clientHandshake": "01a6cde3ff942cbe3667279d499131aa026d0e7df4c2320df9869fe454dc08a9e9b8d8d1327d198c3a736cabbdc2a1be",
+          "serverHandshake": "8acf21da4092e816f64a8d759336ffaa6229b06100a640a1188ee8ee928c42af5c137eaa1f18382dd566067d99a4326c",
+          "clientFinished": "cf8eb57c5d4e3c03355490091f79b7d272379535ac8a1611faf315ad66923044fad009231eb4f98072194f79dd1e6b2e",
+          "serverFinished": "9ee6607ad5665526e60a153b18abac791ea65dee1a35250beda08b3603811c86b9df451bf5f632992cf57cbc59fda4cc"
+        },
+        "tlsClientHelloLength": "508",
+        "tlsClientAuth": {
+          "certPresented": "0",
+          "certVerified": "NONE",
+          "certRevoked": "0",
+          "certIssuerDN": "",
+          "certSubjectDN": "",
+          "certIssuerDNRFC2253": "",
+          "certSubjectDNRFC2253": "",
+          "certIssuerDNLegacy": "",
+          "certSubjectDNLegacy": "",
+          "certSerial": "",
+          "certIssuerSerial": "",
+          "certSKI": "",
+          "certIssuerSKI": "",
+          "certFingerprintSHA1": "",
+          "certFingerprintSHA256": "",
+          "certNotBefore": "",
+          "certNotAfter": "",
+          "certRFC9440": "",
+          "certRFC9440TooLarge": false,
+          "certChainRFC9440": "",
+          "certChainRFC9440TooLarge": false
+        },
+        "verifiedBotCategory": "",
+        "edgeL4": {
+          "deliveryRate": 701894
+        }
+      }
+    },
+    "response": {
+      "status": 400
+    }
+  }
+}
+{
+  "wallTime": 360,
+  "cpuTime": 1,
+  "truncated": false,
+  "executionModel": "stateless",
+  "outcome": "ok",
+  "scriptVersion": {
+    "id": "dab423ca-d91d-4e84-ab76-1392c5883517"
+  },
+  "scriptName": "echotrace-server",
+  "diagnosticsChannelEvents": [],
+  "exceptions": [],
+  "logs": [],
+  "eventTimestamp": 1789112264205,
+  "event": {
+    "request": {
+      "url": "https://echotrace-server.gamal-hametzaits.workers.dev/poll/X22222",
+      "method": "GET",
+      "headers": {
+        "accept": "*/*",
+        "accept-encoding": "gzip, br",
+        "cf-connecting-ip": "136.67.162.86",
+        "cf-ipcountry": "US",
+        "cf-ray": "a3950243385852ab",
+        "cf-visitor": "{\"scheme\":\"https\"}",
+        "connection": "Keep-Alive",
+        "host": "echotrace-server.gamal-hametzaits.workers.dev",
+        "user-agent": "curl/7.81.0",
+        "x-forwarded-proto": "https",
+        "x-real-ip": "136.67.162.86"
+      },
+      "cf": {
+        "httpProtocol": "HTTP/2",
+        "requestPriority": "weight=16;exclusive=0;group=0;group-weight=0",
+        "edgeRequestKeepAliveStatus": 1,
+        "requestHeaderNames": {},
+        "clientTcpRtt": 7,
+        "clientQuicRtt": 0,
+        "colo": "SEA",
+        "asn": 396982,
+        "asOrganization": "Google LLC",
+        "country": "US",
+        "isEUCountry": false,
+        "city": "The Dalles",
+        "continent": "NA",
+        "region": "Oregon",
+        "regionCode": "OR",
+        "timezone": "America/Los_Angeles",
+        "longitude": "-121.17868",
+        "latitude": "45.59456",
+        "postalCode": "97058",
+        "metroCode": "820",
+        "tlsVersion": "TLSv1.3",
+        "tlsCipher": "AEAD-AES256-GCM-SHA384",
+        "tlsClientRandom": "oRwtcjkV8gfMY+YgFERzPqd4M9R6dDUIj+dF/bUzmPs=",
+        "tlsClientCiphersSha1": "GXSPDLP4G3X+prK73a4wBuOaHRc=",
+        "tlsClientExtensionsSha1": "bJfDPn82Ud8taZ6+PSOSubkqDGs=",
+        "tlsClientExtensionsSha1Le": "7zIpdDU5pvFPPBI2/PCzqbaXnRA=",
+        "tlsExportedAuthenticator": {
+          "clientHandshake": "0ac2ca04a0354a42bab043cea7437807fabb1f7815e46787a00494ad4320fede0306daae2d9a73a16bed4c1eae73ccc1",
+          "serverHandshake": "f3ee1720201470e04f31621abed0439efed852a4a69ee0349f03aac638295b67cf538743a77fcda2d6479d9e767a8066",
+          "clientFinished": "d4c1f893320f5339dd542ae63cbc42c154f044c2e33ccb4d863a3774995af5086b295e45979413c15e526fbfea37cc5e",
+          "serverFinished": "c08cc63c64e0367f84a6146211ee9b7bf540078f990a6370125e4aade739fdcbc8fd4a08dc84da56c80a340da7bb5615"
+        },
+        "tlsClientHelloLength": "508",
+        "tlsClientAuth": {
+          "certPresented": "0",
+          "certVerified": "NONE",
+          "certRevoked": "0",
+          "certIssuerDN": "",
+          "certSubjectDN": "",
+          "certIssuerDNRFC2253": "",
+          "certSubjectDNRFC2253": "",
+          "certIssuerDNLegacy": "",
+          "certSubjectDNLegacy": "",
+          "certSerial": "",
+          "certIssuerSerial": "",
+          "certSKI": "",
+          "certIssuerSKI": "",
+          "certFingerprintSHA1": "",
+          "certFingerprintSHA256": "",
+          "certNotBefore": "",
+          "certNotAfter": "",
+          "certRFC9440": "",
+          "certRFC9440TooLarge": false,
+          "certChainRFC9440": "",
+          "certChainRFC9440TooLarge": false
+        },
+        "verifiedBotCategory": "",
+        "edgeL4": {
+          "deliveryRate": 354719
+        }
+      }
+    },
+    "response": {
+      "status": 200
+    }
+  }
+}
+{
+  "wallTime": 252,
+  "cpuTime": 1,
+  "truncated": false,
+  "executionModel": "stateless",
+  "outcome": "ok",
+  "scriptVersion": {
+    "id": "dab423ca-d91d-4e84-ab76-1392c5883517"
+  },
+  "scriptName": "echotrace-server",
+  "diagnosticsChannelEvents": [],
+  "exceptions": [],
+  "logs": [],
+  "eventTimestamp": 1789112264688,
+  "event": {
+    "request": {
+      "url": "https://echotrace-server.gamal-hametzaits.workers.dev/poll/X22222",
+      "method": "GET",
+      "headers": {
+        "accept": "*/*",
+        "accept-encoding": "gzip, br",
+        "cf-connecting-ip": "136.67.162.86",
+        "cf-ipcountry": "US",
+        "cf-ray": "a39502464b7a4715",
+        "cf-visitor": "{\"scheme\":\"https\"}",
+        "connection": "Keep-Alive",
+        "host": "echotrace-server.gamal-hametzaits.workers.dev",
+        "user-agent": "curl/7.81.0",
+        "x-forwarded-proto": "https",
+        "x-real-ip": "136.67.162.86"
+      },
+      "cf": {
+        "httpProtocol": "HTTP/2",
+        "requestPriority": "weight=16;exclusive=0;group=0;group-weight=0",
+        "edgeRequestKeepAliveStatus": 1,
+        "requestHeaderNames": {},
+        "clientTcpRtt": 7,
+        "clientQuicRtt": 0,
+        "colo": "SEA",
+        "asn": 396982,
+        "asOrganization": "Google LLC",
+        "country": "US",
+        "isEUCountry": false,
+        "city": "The Dalles",
+        "continent": "NA",
+        "region": "Oregon",
+        "regionCode": "OR",
+        "timezone": "America/Los_Angeles",
+        "longitude": "-121.17868",
+        "latitude": "45.59456",
+        "postalCode": "97058",
+        "metroCode": "820",
+        "tlsVersion": "TLSv1.3",
+        "tlsCipher": "AEAD-AES256-GCM-SHA384",
+        "tlsClientRandom": "70CD2eO3kE4hEDx0Jf3/UJSxJ2CswXKlNvUvjO2TPOU=",
+        "tlsClientCiphersSha1": "GXSPDLP4G3X+prK73a4wBuOaHRc=",
+        "tlsClientExtensionsSha1": "bJfDPn82Ud8taZ6+PSOSubkqDGs=",
+        "tlsClientExtensionsSha1Le": "7zIpdDU5pvFPPBI2/PCzqbaXnRA=",
+        "tlsExportedAuthenticator": {
+          "clientHandshake": "360a5ba63bf4627a59ac09aac09c4fb6570c3f0ded34f22fc685eb1757f40fdbb13e5946ed92087488109fb421dbd7dc",
+          "serverHandshake": "211acef617c7f9b98808d92fbdf69e776f743959ea2666428cc5050703dcb530db0475a7b06504a8aba5c2ce07a36ec3",
+          "clientFinished": "a5b5c5f9d9ca12a71c40557d888a65106dc43ec7f67537e033c3846d15662fba39775e0789a6faa80805fa1307dca38b",
+          "serverFinished": "bab3c29ca50af98aab89883374ab6baf63393e7866d369d14ccbf48b085da151f839442865be319903a10bb3cba45518"
+        },
+        "tlsClientHelloLength": "508",
+        "tlsClientAuth": {
+          "certPresented": "0",
+          "certVerified": "NONE",
+          "certRevoked": "0",
+          "certIssuerDN": "",
+          "certSubjectDN": "",
+          "certIssuerDNRFC2253": "",
+          "certSubjectDNRFC2253": "",
+          "certIssuerDNLegacy": "",
+          "certSubjectDNLegacy": "",
+          "certSerial": "",
+          "certIssuerSerial": "",
+          "certSKI": "",
+          "certIssuerSKI": "",
+          "certFingerprintSHA1": "",
+          "certFingerprintSHA256": "",
+          "certNotBefore": "",
+          "certNotAfter": "",
+          "certRFC9440": "",
+          "certRFC9440TooLarge": false,
+          "certChainRFC9440": "",
+          "certChainRFC9440TooLarge": false
+        },
+        "verifiedBotCategory": "",
+        "edgeL4": {
+          "deliveryRate": 557476
+        }
+      }
+    },
+    "response": {
+      "status": 200
+    }
+  }
+}
+{
+  "wallTime": 113,
+  "cpuTime": 0,
+  "truncated": false,
+  "executionModel": "stateless",
+  "outcome": "ok",
+  "scriptVersion": {
+    "id": "dab423ca-d91d-4e84-ab76-1392c5883517"
+  },
+  "scriptName": "echotrace-server",
+  "diagnosticsChannelEvents": [],
+  "exceptions": [],
+  "logs": [],
+  "eventTimestamp": 1789112265108,
+  "event": {
+    "request": {
+      "url": "https://echotrace-server.gamal-hametzaits.workers.dev/image/?deviceId=X22222",
+      "method": "GET",
+      "headers": {
+        "accept": "*/*",
+        "accept-encoding": "gzip, br",
+        "cf-connecting-ip": "136.67.162.86",
+        "cf-ipcountry": "US",
+        "cf-ray": "a3950248d927dfe0",
+        "cf-visitor": "{\"scheme\":\"https\"}",
+        "connection": "Keep-Alive",
+        "host": "echotrace-server.gamal-hametzaits.workers.dev",
+        "user-agent": "curl/7.81.0",
+        "x-forwarded-proto": "https",
+        "x-real-ip": "136.67.162.86"
+      },
+      "cf": {
+        "httpProtocol": "HTTP/2",
+        "requestPriority": "weight=16;exclusive=0;group=0;group-weight=0",
+        "edgeRequestKeepAliveStatus": 1,
+        "requestHeaderNames": {},
+        "clientTcpRtt": 6,
+        "clientQuicRtt": 0,
+        "colo": "SEA",
+        "asn": 396982,
+        "asOrganization": "Google LLC",
+        "country": "US",
+        "isEUCountry": false,
+        "city": "The Dalles",
+        "continent": "NA",
+        "region": "Oregon",
+        "regionCode": "OR",
+        "timezone": "America/Los_Angeles",
+        "longitude": "-121.17868",
+        "latitude": "45.59456",
+        "postalCode": "97058",
+        "metroCode": "820",
+        "tlsVersion": "TLSv1.3",
+        "tlsCipher": "AEAD-AES256-GCM-SHA384",
+        "tlsClientRandom": "UmryWl/8wWX0i+6QpCfWWTGzUKynTOmlPoaaRYDXXj0=",
+        "tlsClientCiphersSha1": "GXSPDLP4G3X+prK73a4wBuOaHRc=",
+        "tlsClientExtensionsSha1": "bJfDPn82Ud8taZ6+PSOSubkqDGs=",
+        "tlsClientExtensionsSha1Le": "7zIpdDU5pvFPPBI2/PCzqbaXnRA=",
+        "tlsExportedAuthenticator": {
+          "clientHandshake": "1d8de067bac3995c9b3d37494abf6c85f3860a50b3d4badafea86d6e17f5f0a40aea011703b1284fa3cefaf3003e1662",
+          "serverHandshake": "cc05b872c0625432f5dc9878bd77cdbb37a340fbaf6e285ba2d68a37802050e4ce5b40f19def3e1be418f9d3ca4b170d",
+          "clientFinished": "efdd213fcf06fe0bcd4072fe056d38baf9d3b3b7cae89984fe432e5171f4d4170b5cf6264257ddba667831631d0817ca",
+          "serverFinished": "63af0d31a0103c877ce8d7a69b7e507c2ae7524aef4151e047b252aee2e95a1b75abbcb6e3be5f89029d69ff59aa7c19"
+        },
+        "tlsClientHelloLength": "508",
+        "tlsClientAuth": {
+          "certPresented": "0",
+          "certVerified": "NONE",
+          "certRevoked": "0",
+          "certIssuerDN": "",
+          "certSubjectDN": "",
+          "certIssuerDNRFC2253": "",
+          "certSubjectDNRFC2253": "",
+          "certIssuerDNLegacy": "",
+          "certSubjectDNLegacy": "",
+          "certSerial": "",
+          "certIssuerSerial": "",
+          "certSKI": "",
+          "certIssuerSKI": "",
+          "certFingerprintSHA1": "",
+          "certFingerprintSHA256": "",
+          "certNotBefore": "",
+          "certNotAfter": "",
+          "certRFC9440": "",
+          "certRFC9440TooLarge": false,
+          "certChainRFC9440": "",
+          "certChainRFC9440TooLarge": false
+        },
+        "verifiedBotCategory": "",
+        "edgeL4": {
+          "deliveryRate": 620355
+        }
+      }
+    },
+    "response": {
+      "status": 404
+    }
+  }
+}
+{
+  "wallTime": 15,
+  "cpuTime": 0,
+  "truncated": false,
+  "executionModel": "stateless",
+  "outcome": "ok",
+  "scriptVersion": {
+    "id": "dab423ca-d91d-4e84-ab76-1392c5883517"
+  },
+  "scriptName": "echotrace-server",
+  "diagnosticsChannelEvents": [],
+  "exceptions": [],
+  "logs": [],
+  "eventTimestamp": 1789112265342,
+  "event": {
+    "request": {
+      "url": "https://echotrace-server.gamal-hametzaits.workers.dev/confirm-download",
+      "method": "POST",
+      "headers": {
+        "accept": "*/*",
+        "accept-encoding": "gzip, br",
+        "cf-connecting-ip": "136.67.162.86",
+        "cf-ipcountry": "US",
+        "cf-ray": "a395024a5b89c74a",
+        "cf-visitor": "{\"scheme\":\"https\"}",
+        "connection": "Keep-Alive",
+        "content-length": "34",
+        "content-type": "application/json",
+        "host": "echotrace-server.gamal-hametzaits.workers.dev",
+        "user-agent": "curl/7.81.0",
+        "x-forwarded-proto": "https",
+        "x-real-ip": "136.67.162.86"
+      },
+      "cf": {
+        "httpProtocol": "HTTP/2",
+        "requestPriority": "weight=16;exclusive=0;group=0;group-weight=0",
+        "edgeRequestKeepAliveStatus": 1,
+        "requestHeaderNames": {},
+        "clientTcpRtt": 7,
+        "clientQuicRtt": 0,
+        "colo": "SEA",
+        "asn": 396982,
+        "asOrganization": "Google LLC",
+        "country": "US",
+        "isEUCountry": false,
+        "city": "The Dalles",
+        "continent": "NA",
+        "region": "Oregon",
+        "regionCode": "OR",
+        "timezone": "America/Los_Angeles",
+        "longitude": "-121.17868",
+        "latitude": "45.59456",
+        "postalCode": "97058",
+        "metroCode": "820",
+        "tlsVersion": "TLSv1.3",
+        "tlsCipher": "AEAD-AES256-GCM-SHA384",
+        "tlsClientRandom": "KxnSHvQnQ5zMn4OOfVsnw88UB5tdAztJTv+9iGUVWaE=",
+        "tlsClientCiphersSha1": "GXSPDLP4G3X+prK73a4wBuOaHRc=",
+        "tlsClientExtensionsSha1": "bJfDPn82Ud8taZ6+PSOSubkqDGs=",
+        "tlsClientExtensionsSha1Le": "7zIpdDU5pvFPPBI2/PCzqbaXnRA=",
+        "tlsExportedAuthenticator": {
+          "clientHandshake": "03d79200bb4c190995a4259fe8d0ea83c3af06b4cace0aa47373f07143bc411a4a130589168a0d260db1ba5a8f3fe32b",
+          "serverHandshake": "0c7c737204b848cfc32b7f096cadbf4a88647442b7b84bf0b0a5b0d221cd171bc735ca88f08ce40ec627fb77e3e321a1",
+          "clientFinished": "caa8a51f44f503908b495fae1e0f2219d2977963880bab994db70cc0620d94c428dd169ca0a328e40f035695797f3291",
+          "serverFinished": "c38751624c0f91dc7a3b6dec4f4be2d0445a838453a2f652906ebef410ddd636ec5abd92692200eb3ea9a3f3c39db6c1"
+        },
+        "tlsClientHelloLength": "508",
+        "tlsClientAuth": {
+          "certPresented": "0",
+          "certVerified": "NONE",
+          "certRevoked": "0",
+          "certIssuerDN": "",
+          "certSubjectDN": "",
+          "certIssuerDNRFC2253": "",
+          "certSubjectDNRFC2253": "",
+          "certIssuerDNLegacy": "",
+          "certSubjectDNLegacy": "",
+          "certSerial": "",
+          "certIssuerSerial": "",
+          "certSKI": "",
+          "certIssuerSKI": "",
+          "certFingerprintSHA1": "",
+          "certFingerprintSHA256": "",
+          "certNotBefore": "",
+          "certNotAfter": "",
+          "certRFC9440": "",
+          "certRFC9440TooLarge": false,
+          "certChainRFC9440": "",
+          "certChainRFC9440TooLarge": false
+        },
+        "verifiedBotCategory": "",
+        "edgeL4": {
+          "deliveryRate": 590934
+        }
+      }
+    },
+    "response": {
+      "status": 200
+    }
+  }
+}
+{
+  "wallTime": 279,
+  "cpuTime": 1,
+  "truncated": false,
+  "executionModel": "stateless",
+  "outcome": "ok",
+  "scriptVersion": {
+    "id": "dab423ca-d91d-4e84-ab76-1392c5883517"
+  },
+  "scriptName": "echotrace-server",
+  "diagnosticsChannelEvents": [],
+  "exceptions": [],
+  "logs": [],
+  "eventTimestamp": 1789112265457,
+  "event": {
+    "request": {
+      "url": "https://echotrace-server.gamal-hametzaits.workers.dev/poll/X22222",
+      "method": "GET",
+      "headers": {
+        "accept": "*/*",
+        "accept-encoding": "gzip, br",
+        "cf-connecting-ip": "136.67.162.86",
+        "cf-ipcountry": "US",
+        "cf-ray": "a395024b0e0fec98",
+        "cf-visitor": "{\"scheme\":\"https\"}",
+        "connection": "Keep-Alive",
+        "host": "echotrace-server.gamal-hametzaits.workers.dev",
+        "user-agent": "curl/7.81.0",
+        "x-forwarded-proto": "https",
+        "x-real-ip": "136.67.162.86"
+      },
+      "cf": {
+        "httpProtocol": "HTTP/2",
+        "requestPriority": "weight=16;exclusive=0;group=0;group-weight=0",
+        "edgeRequestKeepAliveStatus": 1,
+        "requestHeaderNames": {},
+        "clientTcpRtt": 6,
+        "clientQuicRtt": 0,
+        "colo": "SEA",
+        "asn": 396982,
+        "asOrganization": "Google LLC",
+        "country": "US",
+        "isEUCountry": false,
+        "city": "The Dalles",
+        "continent": "NA",
+        "region": "Oregon",
+        "regionCode": "OR",
+        "timezone": "America/Los_Angeles",
+        "longitude": "-121.17868",
+        "latitude": "45.59456",
+        "postalCode": "97058",
+        "metroCode": "820",
+        "tlsVersion": "TLSv1.3",
+        "tlsCipher": "AEAD-AES256-GCM-SHA384",
+        "tlsClientRandom": "wldVsCgShV20fX+3OY0PCr6aYY8EMJfSeIWtzVZoUk0=",
+        "tlsClientCiphersSha1": "GXSPDLP4G3X+prK73a4wBuOaHRc=",
+        "tlsClientExtensionsSha1": "bJfDPn82Ud8taZ6+PSOSubkqDGs=",
+        "tlsClientExtensionsSha1Le": "7zIpdDU5pvFPPBI2/PCzqbaXnRA=",
+        "tlsExportedAuthenticator": {
+          "clientHandshake": "7f9822902945616805e8ec155de30343cb2dd716374705018e43c8595c3717c7b8bbc7290f29b510c8941e5a11500dca",
+          "serverHandshake": "b45fb619caac85759093c41c1adea6b12a3193a287e5623ac29105e823ea0d372a810b2b8356025f3c408f0a616ed11a",
+          "clientFinished": "fd8a52b799469eb22021d68ba74b07f479afa0d0fd47e4952fa387ccac34a1c1f697513e3ccdb24668fdc1dd5ed30e75",
+          "serverFinished": "890105aa13d199b96a278e947546d8bd907cf8332957727513907366bc86c24402002ceb9d20e11de4bb499ebee1616d"
+        },
+        "tlsClientHelloLength": "508",
+        "tlsClientAuth": {
+          "certPresented": "0",
+          "certVerified": "NONE",
+          "certRevoked": "0",
+          "certIssuerDN": "",
+          "certSubjectDN": "",
+          "certIssuerDNRFC2253": "",
+          "certSubjectDNRFC2253": "",
+          "certIssuerDNLegacy": "",
+          "certSubjectDNLegacy": "",
+          "certSerial": "",
+          "certIssuerSerial": "",
+          "certSKI": "",
+          "certIssuerSKI": "",
+          "certFingerprintSHA1": "",
+          "certFingerprintSHA256": "",
+          "certNotBefore": "",
+          "certNotAfter": "",
+          "certRFC9440": "",
+          "certRFC9440TooLarge": false,
+          "certChainRFC9440": "",
+          "certChainRFC9440TooLarge": false
+        },
+        "verifiedBotCategory": "",
+        "edgeL4": {
+          "deliveryRate": 276584
+        }
+      }
+    },
+    "response": {
+      "status": 200
+    }
+  }
+}

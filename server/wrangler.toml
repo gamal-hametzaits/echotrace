@@ -1,0 +1,8 @@
+name = "echotrace-server"
+compatibility_date = "2025-06-01"
+account_id = "ab9b55e00637deafc81be8a2e155b1c7"
+main = "worker.js"
+
+[[kv_namespaces]]
+binding = "ECHOTRACE"
+id = "ceb17313d838444598ef611057040e0b"

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:gravity="center_horizontal"
+    android:padding="28dp"
+    android:layoutDirection="rtl">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/your_code"
+        android:textSize="13sp"
+        android:textColor="#8C8377" />
+
+    <TextView
+        android:id="@+id/myCode"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="34sp"
+        android:letterSpacing="0.25"
+        android:textColor="#3B352E"
+        android:layout_marginBottom="22dp" />
+
+    <EditText
+        android:id="@+id/partnerCode"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/partner_code_hint"
+        android:maxLength="6"
+        android:inputType="textCapCharacters|textNoSuggestions"
+        android:gravity="center"
+        android:textSize="22sp"
+        android:letterSpacing="0.2" />
+
+    <RadioGroup
+        android:id="@+id/roleGroup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_marginTop="14dp">
+        <RadioButton android:id="@+id/roleBoth" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/role_both" android:checked="true" />
+        <RadioButton android:id="@+id/roleSender" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/role_sender" />
+        <RadioButton android:id="@+id/roleViewer" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/role_viewer" />
+    </RadioGroup>
+
+    <TextView
+        android:id="@+id/error"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/bad_code"
+        android:textColor="#A0522D"
+        android:textSize="13sp"
+        android:layout_marginTop="8dp"
+        android:visibility="gone" />
+
+    <Button
+        android:id="@+id/connectBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="18dp"
+        android:text="@string/connect" />
+</LinearLayout>

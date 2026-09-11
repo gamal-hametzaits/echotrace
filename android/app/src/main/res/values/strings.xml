@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">EchoTrace</string>
+    <string name="intro_text">EchoTrace אינה אפליקציה רגילה. היא חיה על מסך הבית, כווידג׳ט אחד שמחבר אותך לאדם אחד. כדי להתחיל, הוסיפו את הווידג׳ט למסך הבית.</string>
+    <string name="add_widget">הוספת וידג׳ט למסך הבית</string>
+    <string name="your_code">הקוד האישי שלך</string>
+    <string name="partner_code_hint">קוד השותף (6 תווים)</string>
+    <string name="connect">התחבר</string>
+    <string name="role_both">שולח ומקבל</string>
+    <string name="role_sender">שולח בלבד</string>
+    <string name="role_viewer">צופה בלבד</string>
+    <string name="waiting_first">מחכה ל־Trace ראשון</string>
+    <string name="disconnected">הקשר נותק</string>
+    <string name="start_over">התחלה מחדש</string>
+    <string name="pair_now">לחצו לזיווג</string>
+    <string name="connecting">מתחבר…</string>
+    <string name="bad_code">הקוד לא נמצא. בדקו ונסו שוב.</string>
+</resources>

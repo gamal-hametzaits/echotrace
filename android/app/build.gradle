@@ -1,0 +1,37 @@
+plugins { id 'com.android.application'; id 'org.jetbrains.kotlin.android' }
+
+def serverUrl = System.getenv('ECHOTRACE_SERVER_URL') ?: 'https://echotrace-server.gamal-hametzaits.workers.dev'
+
+android {
+    namespace 'com.echotrace.app'
+    compileSdk 33
+    defaultConfig {
+        applicationId 'com.echotrace.app'
+        minSdk 26
+        targetSdk 33
+        versionCode 1
+        versionName '1.0'
+        buildConfigField 'String', 'SERVER_URL', "\"${serverUrl}\""
+    }
+    signingConfigs {
+        release {
+            storeFile file(System.getenv('ECHOTRACE_KEYSTORE') ?: 'echotrace.keystore')
+            storePassword System.getenv('ECHOTRACE_STORE_PASSWORD') ?: ''
+            keyAlias 'echotrace'
+            keyPassword System.getenv('ECHOTRACE_KEY_PASSWORD') ?: ''
+        }
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            signingConfig signingConfigs.release
+        }
+    }
+    compileOptions { sourceCompatibility JavaVersion.VERSION_11; targetCompatibility JavaVersion.VERSION_11 }
+    kotlinOptions { jvmTarget = '11' }
+}
+dependencies {
+    implementation 'androidx.core:core-ktx:1.10.1'
+    implementation 'androidx.activity:activity:1.7.2'
+    implementation 'androidx.work:work-runtime-ktx:2.8.1'
+}
