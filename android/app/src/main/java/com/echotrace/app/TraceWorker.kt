@@ -28,7 +28,7 @@ class TraceWorker(ctx: Context, params: WorkerParameters) : CoroutineWorker(ctx,
                     val imageId = img.getString("imageId")
                     if (imageId != with(Prefs) { c.lastImageId }) {
                         val bytes = Api.downloadImage(me, imageId)
-                        if (bytes != null && bytes.isNotEmpty()) {
+                        if (bytes != null && bytes.isNotEmpty() && Imaging.decodeSampled(bytes, 560) != null) {
                             File(c.filesDir, "current_trace.jpg").writeBytes(bytes)
                             TraceMeta.save(c, TraceMeta(
                                 imageId = imageId,

@@ -34,7 +34,7 @@ object WidgetRenderer {
         rv.setViewVisibility(R.id.status, View.GONE)
         rv.setViewVisibility(R.id.caption, View.GONE)
         rv.setViewVisibility(R.id.photo, View.GONE)
-        rv.setViewVisibility(R.id.cameraBtn, if (canSend && !disconnected) View.VISIBLE else View.GONE)
+        rv.setViewVisibility(R.id.cameraBtn, if (canSend && !disconnected && partner != null) View.VISIBLE else View.GONE)
         rv.setImageViewResource(R.id.photo, android.R.color.transparent)
 
         fun rootClick(cls: Class<*>) {
@@ -42,7 +42,7 @@ object WidgetRenderer {
             rv.setOnClickPendingIntent(R.id.widgetRoot, PendingIntent.getActivity(
                 c, cls.hashCode(), i, PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE))
         }
-        if (canSend && !disconnected) {
+        if (canSend && !disconnected && partner != null) {
             val ci = Intent(c, CameraActivity::class.java).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
             rv.setOnClickPendingIntent(R.id.cameraBtn, PendingIntent.getActivity(
                 c, 7, ci, PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE))
@@ -71,7 +71,19 @@ object WidgetRenderer {
             }
             else -> {
                 val m = meta!!
-                val bmp = Imaging.decodeSampled(photoFile, 560) ?: return rv
+                val bmp = Imaging.decodeSampled(photoFile, 560)
+                if (bmp == null) {
+                    // undecodable image (e.g. a non-bitmap format slipped through):
+                    // drop the corrupt state so polling can recover, and show the
+                    // waiting message instead of a blank widget.
+                    TraceMeta.clear(c)
+                    with(Prefs) { c.lastImageId = null }
+                    rv.setInt(R.id.widgetRoot, "setBackgroundColor", 0xFFE8D9CB.toInt())
+                    rv.setViewVisibility(R.id.status, View.VISIBLE)
+                    rv.setTextViewText(R.id.status, c.getString(R.string.waiting_first))
+                    rootClick(MainActivity::class.java)
+                    return rv
+                }
                 val mem = Imaging.memoryColor(bmp)
                 val elapsed = System.currentTimeMillis() - m.exposedAt
                 rv.setViewVisibility(R.id.photo, View.VISIBLE)
