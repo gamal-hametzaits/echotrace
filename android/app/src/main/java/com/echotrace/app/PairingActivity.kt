@@ -12,6 +12,8 @@ class PairingActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        WorkScheduler.ensure(this)
+        WorkScheduler.pollNow(this)
         setContentView(R.layout.activity_pairing)
         val me = Prefs.deviceId(this)
         findViewById<TextView>(R.id.myCode).text = me

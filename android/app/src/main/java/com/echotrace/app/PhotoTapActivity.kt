@@ -10,6 +10,8 @@ class PhotoTapActivity : ComponentActivity() {
         TraceMeta.load(this)?.let { m ->
             if (!m.viewed) TraceMeta.save(this, m.copy(viewed = true))
         }
+        // A tap is the user's "check now": don't make them wait for the 15-min timer.
+        WorkScheduler.pollNow(this)
         WidgetRenderer.updateAll(this)
         finish()
     }

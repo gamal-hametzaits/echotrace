@@ -11,7 +11,9 @@ object WorkScheduler {
         val req = PeriodicWorkRequestBuilder<TraceWorker>(15, TimeUnit.MINUTES)
             .setConstraints(Constraints.Builder().setRequiredNetworkType(NetworkType.CONNECTED).build())
             .build()
-        WorkManager.getInstance(c).enqueueUniquePeriodicWork(PERIODIC, ExistingPeriodicWorkPolicy.KEEP, req)
+        // UPDATE (not KEEP): an in-place app update replaces any stale request
+        // left by a previous version instead of silently keeping it.
+        WorkManager.getInstance(c).enqueueUniquePeriodicWork(PERIODIC, ExistingPeriodicWorkPolicy.UPDATE, req)
     }
 
     fun pollNow(c: Context) {
