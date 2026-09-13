@@ -10,6 +10,7 @@ class TraceWidgetProvider : AppWidgetProvider() {
         WorkScheduler.ensure(context)
         WorkScheduler.pollNow(context)
         for (id in ids) mgr.updateAppWidget(id, WidgetRenderer.render(context))
+        WidgetRenderer.markRendered(context)
     }
     override fun onEnabled(context: Context) {
         WorkScheduler.ensure(context)

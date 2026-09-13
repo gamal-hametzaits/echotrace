@@ -11,8 +11,8 @@ object Api {
     private fun conn(path: String, method: String): HttpURLConnection =
         (URL(BASE + path).openConnection() as HttpURLConnection).apply {
             requestMethod = method
-            connectTimeout = 20000
-            readTimeout = 30000
+            connectTimeout = 10000
+            readTimeout = 15000
             setRequestProperty("Accept", "application/json")
         }
 
@@ -51,7 +51,7 @@ object Api {
     fun poll(deviceId: String): JSONObject {
         val c = conn("/poll/$deviceId", "GET")
         val code = c.responseCode
-        val text = c.inputStream.readBytes().toString(Charsets.UTF_8)
+        val text = (if (code in 200..299) c.inputStream else c.errorStream)?.readBytes()?.toString(Charsets.UTF_8) ?: "{}"
         c.disconnect()
         if (code !in 200..299) throw ApiException(code, text)
         return JSONObject(text)

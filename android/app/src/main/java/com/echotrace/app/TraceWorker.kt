@@ -58,7 +58,9 @@ class TraceWorker(ctx: Context, params: WorkerParameters) : CoroutineWorker(ctx,
             Result.success()
         } catch (e: Exception) {
             try { WidgetRenderer.updateAll(c) } catch (_: Exception) {}
-            if (runAttemptCount < 3) Result.retry() else Result.success()
+            // A 4xx will fail again identically - retrying just burns wakeups.
+            val permanent = e is Api.ApiException && e.httpCode in 400..499
+            if (!permanent && runAttemptCount < 3) Result.retry() else Result.success()
         }
     }
 }
