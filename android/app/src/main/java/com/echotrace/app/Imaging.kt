@@ -9,9 +9,11 @@ import java.io.File
 
 object Imaging {
     fun decodeSampled(file: File, targetW: Int): Bitmap? {
+        // inJustDecodeBounds only fills outWidth/outHeight and always returns null -
+        // check the bounds, not the (always-null) return value.
         val o = BitmapFactory.Options().apply { inJustDecodeBounds = true }
-        BitmapFactory.decodeFile(file.absolutePath, o) ?: return null
-        if (o.outWidth <= 0) return null
+        BitmapFactory.decodeFile(file.absolutePath, o)
+        if (o.outWidth <= 0 || o.outHeight <= 0) return null
         var sample = 1
         while (o.outWidth / (sample * 2) >= targetW) sample *= 2
         val o2 = BitmapFactory.Options().apply { inSampleSize = sample }
@@ -20,8 +22,8 @@ object Imaging {
 
     fun decodeSampled(bytes: ByteArray, targetW: Int): Bitmap? {
         val o = BitmapFactory.Options().apply { inJustDecodeBounds = true }
-        BitmapFactory.decodeByteArray(bytes, 0, bytes.size, o) ?: return null
-        if (o.outWidth <= 0) return null
+        BitmapFactory.decodeByteArray(bytes, 0, bytes.size, o)
+        if (o.outWidth <= 0 || o.outHeight <= 0) return null
         var sample = 1
         while (o.outWidth / (sample * 2) >= targetW) sample *= 2
         val o2 = BitmapFactory.Options().apply { inSampleSize = sample }
