@@ -29,10 +29,12 @@ class TraceWorker(ctx: Context, params: WorkerParameters) : CoroutineWorker(ctx,
                     }
                     val serverRole = poll.optString("role", "")
                     if (serverRole.isNotBlank()) with(Prefs) { c.role = serverRole }
-                    if (!poll.optBoolean("partnerConnected", true)) {
-                        with(Prefs) { c.disconnected = true }
-                    }
-                    if (!with(Prefs) { c.disconnected }) {
+                    // Server state is authoritative on every successful poll. The old
+                    // one-way assignment latched `disconnected=true` forever, even
+                    // after the partner came back and the server reported connected.
+                    val partnerConnected = poll.optBoolean("partnerConnected", true)
+                    with(Prefs) { c.disconnected = !partnerConnected }
+                    if (partnerConnected) {
                         val img = poll.optJSONObject("image")
                         if (img != null) {
                             val imageId = img.getString("imageId")
