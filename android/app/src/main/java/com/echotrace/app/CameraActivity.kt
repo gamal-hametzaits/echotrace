@@ -187,6 +187,16 @@ class CameraActivity : ComponentActivity() {
         }
     }
 
+
+    @Deprecated("Deprecated in Java")
+    override fun onBackPressed() {
+        if (!sent) {
+            pendingFile?.delete()
+            with(Prefs) { pendingCapturePath = null }
+        }
+        super.onBackPressed()
+    }
+
     private fun toast(msg: String) {
         Toast.makeText(this, msg, Toast.LENGTH_LONG).show()
     }

@@ -4,7 +4,8 @@
      a failure never looks like the window simply closed. -->
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/sand">
 
     <LinearLayout
         android:id="@+id/previewUi"
@@ -37,7 +38,8 @@
                     android:layout_height="wrap_content"
                     android:adjustViewBounds="true"
                     android:maxHeight="300dp"
-                    android:scaleType="fitCenter" />
+                    android:scaleType="fitCenter"
+                    android:contentDescription="@string/photo_preview" />
 
                 <EditText
                     android:id="@+id/captionInput"
@@ -49,6 +51,7 @@
                     android:maxLines="1"
                     android:inputType="text|textCapSentences"
                     android:imeOptions="actionDone"
+                    android:importantForAutofill="no"
                     android:gravity="center"
                     android:textSize="16sp"
                     android:textColor="#3B352E"
@@ -59,7 +62,7 @@
         </ScrollView>
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:orientation="horizontal"
@@ -67,20 +70,22 @@
 
             <Button
                 android:id="@+id/sendBtn"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
+                android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:background="@drawable/btn_primary"
                 android:textColor="#F3EDE4"
                 android:textAllCaps="false"
                 android:textSize="15sp"
                 android:minHeight="48dp"
-                android:paddingLeft="30dp"
-                android:paddingRight="30dp"
+                android:paddingStart="30dp"
+                android:paddingEnd="30dp"
                 android:text="@string/send_photo" />
 
             <Button
                 android:id="@+id/cancelBtn"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
+                android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="12dp"
                 android:background="@android:color/transparent"
@@ -88,8 +93,8 @@
                 android:textAllCaps="false"
                 android:textSize="15sp"
                 android:minHeight="48dp"
-                android:paddingLeft="18dp"
-                android:paddingRight="18dp"
+                android:paddingStart="18dp"
+                android:paddingEnd="18dp"
                 android:text="@string/cancel" />
         </LinearLayout>
     </LinearLayout>
@@ -102,8 +107,8 @@
         android:orientation="horizontal"
         android:gravity="center_vertical"
         android:background="@drawable/sent_card"
-        android:paddingLeft="20dp"
-        android:paddingRight="24dp"
+        android:paddingStart="20dp"
+        android:paddingEnd="24dp"
         android:paddingTop="14dp"
         android:paddingBottom="14dp"
         android:visibility="gone">
@@ -112,14 +117,14 @@
             android:id="@+id/sentCheck"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="✓"
+            android:text="@string/check_mark"
             android:textSize="24sp"
             android:textColor="#C9A69A" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
+            android:layout_marginStart="10dp"
             android:text="@string/photo_on_the_way"
             android:textSize="15sp"
             android:textColor="#3B352E" />
@@ -157,8 +162,8 @@
             android:textAllCaps="false"
             android:textSize="15sp"
             android:minHeight="48dp"
-            android:paddingLeft="30dp"
-            android:paddingRight="30dp"
+            android:paddingStart="30dp"
+            android:paddingEnd="30dp"
             android:text="@string/close" />
     </LinearLayout>
 </FrameLayout>

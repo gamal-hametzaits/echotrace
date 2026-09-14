@@ -233,7 +233,7 @@ object WidgetRenderer {
                 rv.setViewVisibility(R.id.status, View.VISIBLE)
                 rv.setTextViewText(R.id.status, c.getString(R.string.disconnected))
                 rv.setViewVisibility(R.id.cameraBtn, View.GONE)
-                rootClick(DisconnectedActivity::class.java, 1)
+                rootClick(MainActivity::class.java, 1)
             }
             partner == null -> {
                 branch = "זיווג"
@@ -242,7 +242,7 @@ object WidgetRenderer {
                 rv.setViewVisibility(R.id.status, View.VISIBLE)
                 rv.setTextViewText(R.id.status,
                     "${c.getString(R.string.your_code)}\n${Prefs.deviceId(c)}\n${c.getString(R.string.pair_now)}")
-                rootClick(PairingActivity::class.java, 2)
+                rootClick(MainActivity::class.java, 2)
             }
             !hasPhoto -> {
                 branch = "ממתין"

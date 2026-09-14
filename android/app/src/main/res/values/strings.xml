@@ -30,4 +30,6 @@
     <string name="photo_read_error">לא הצלחנו לקרוא את התמונה (%1$s)</string>
     <string name="send_error">השליחה נכשלה (%1$s) - נסו שוב</string>
     <string name="debug_upload">העלאה אחרונה: %1$s</string>
+    <string name="photo_preview">תצוגה מקדימה של התמונה</string>
+    <string name="check_mark">✓</string>
 </resources>

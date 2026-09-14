@@ -8,6 +8,9 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.view.View
+import android.view.inputmethod.EditorInfo
+import android.view.inputmethod.InputMethodManager
+import android.content.Context
 import android.widget.*
 
 /**
@@ -30,6 +33,7 @@ class MainActivity : ComponentActivity() {
         Anim.pop(findViewById(R.id.myCode))
 
         wireConnect()
+        wireStartOver()
         refreshPairUi()
         refreshDebugUi()
         refreshUploadDiagUi()
@@ -58,12 +62,15 @@ class MainActivity : ComponentActivity() {
         val partner = with(Prefs) { partner }
         findViewById<View>(R.id.pairSection).visibility =
             if (partner == null) View.VISIBLE else View.GONE
+        val disconnected = with(Prefs) { disconnected }
         val st = findViewById<TextView>(R.id.pairStatus)
+        val reset = findViewById<Button>(R.id.startOver)
+        reset.visibility = if (partner != null && disconnected) View.VISIBLE else View.GONE
         if (partner == null) {
             st.visibility = View.GONE
         } else {
             st.visibility = View.VISIBLE
-            st.text = if (with(Prefs) { disconnected })
+            st.text = if (disconnected)
                 getString(R.string.disconnected)
             else
                 getString(R.string.pair_status_paired, partner)
@@ -107,6 +114,12 @@ class MainActivity : ComponentActivity() {
         val btn = findViewById<Button>(R.id.connectBtn)
         val roles = findViewById<RadioGroup>(R.id.roleGroup)
         Anim.pressScale(btn)
+        input.setOnEditorActionListener { _, actionId, _ ->
+            if (actionId == EditorInfo.IME_ACTION_DONE) {
+                btn.performClick()
+                true
+            } else false
+        }
 
         btn.setOnClickListener {
             val code = input.text.toString().trim().uppercase()
@@ -121,6 +134,9 @@ class MainActivity : ComponentActivity() {
                 else -> "both"
             }
             val me = Prefs.deviceId(this)
+            input.clearFocus()
+            (getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager)
+                .hideSoftInputFromWindow(input.windowToken, 0)
             btn.isEnabled = false
             btn.text = getString(R.string.connecting)
             err.visibility = View.GONE
@@ -132,21 +148,44 @@ class MainActivity : ComponentActivity() {
                     Api.connect(me, code, role)
                     with(Prefs) { partner = code; this@MainActivity.role = role; disconnected = false }
                     ui.post {
-                        btn.text = getString(R.string.connected_ok)
                         WidgetRenderer.updateAll(this, force = true)
                         WorkScheduler.pollNow(this)
-                        refreshPairUi()
+                        if (!isFinishing && !isDestroyed) {
+                            btn.text = getString(R.string.connected_ok)
+                            refreshPairUi()
+                        }
                     }
                 } catch (e: Exception) {
                     ui.post {
-                        btn.isEnabled = true
-                        btn.text = getString(R.string.connect)
-                        input.isEnabled = true
-                        Anim.shake(input)
-                        err.visibility = View.VISIBLE
+                        if (!isFinishing && !isDestroyed) {
+                            btn.isEnabled = true
+                            btn.text = getString(R.string.connect)
+                            input.isEnabled = true
+                            Anim.shake(input)
+                            err.visibility = View.VISIBLE
+                        }
                     }
                 }
             }.start()
+        }
+    }
+
+
+    private fun wireStartOver() {
+        val btn = findViewById<Button>(R.id.startOver)
+        Anim.pressScale(btn)
+        btn.setOnClickListener {
+            Prefs.reset(this)
+            findViewById<EditText>(R.id.partnerCode).text.clear()
+            findViewById<RadioButton>(R.id.roleBoth).isChecked = true
+            findViewById<Button>(R.id.connectBtn).apply {
+                isEnabled = true
+                text = getString(R.string.connect)
+            }
+            WidgetRenderer.updateAll(this, force = true)
+            WorkScheduler.pollNow(this)
+            findViewById<TextView>(R.id.myCode).text = Prefs.deviceId(this)
+            refreshPairUi()
         }
     }
 
