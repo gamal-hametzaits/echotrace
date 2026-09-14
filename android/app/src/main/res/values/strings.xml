@@ -21,4 +21,13 @@
     <string name="debug_push_ok">הווידג׳ט עודכן בהצלחה: %1$s</string>
     <string name="debug_push_err">שגיאת ווידג׳ט אחרונה: %1$s</string>
     <string name="widget_error_fmt">שגיאה: %1$s</string>
+    <string name="caption_hint">כיתוב (לא חובה)…</string>
+    <string name="send_photo">שליחה</string>
+    <string name="cancel">ביטול</string>
+    <string name="close">סגירה</string>
+    <string name="capture_canceled">הצילום בוטל</string>
+    <string name="camera_open_error">לא הצלחנו לפתוח את המצלמה (%1$s)</string>
+    <string name="photo_read_error">לא הצלחנו לקרוא את התמונה (%1$s)</string>
+    <string name="send_error">השליחה נכשלה (%1$s) - נסו שוב</string>
+    <string name="debug_upload">העלאה אחרונה: %1$s</string>
 </resources>

@@ -1,9 +1,84 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Brief confirmation card after a capture: a sand card with a rose-ringed
-     check that scales in, holds, and fades out (animated in CameraActivity). -->
+<!-- Capture flow surface: preview of the shot with an optional caption and a
+     send button; the "on its way" card after send; and a visible error card so
+     a failure never looks like the window simply closed. -->
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/previewUi"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="28dp"
+        android:orientation="vertical"
+        android:gravity="center_horizontal"
+        android:layoutDirection="rtl"
+        android:background="@drawable/sent_card"
+        android:padding="18dp"
+        android:visibility="gone">
+
+        <ImageView
+            android:id="@+id/previewImage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:maxHeight="380dp"
+            android:scaleType="fitCenter" />
+
+        <EditText
+            android:id="@+id/captionInput"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="14dp"
+            android:hint="@string/caption_hint"
+            android:maxLength="50"
+            android:maxLines="1"
+            android:inputType="text|textCapSentences"
+            android:imeOptions="actionDone"
+            android:gravity="center"
+            android:textSize="16sp"
+            android:textColor="#3B352E"
+            android:textColorHint="#8C8377"
+            android:background="@drawable/input_box"
+            android:padding="12dp" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:orientation="horizontal"
+            android:gravity="center">
+
+            <Button
+                android:id="@+id/sendBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/btn_primary"
+                android:textColor="#F3EDE4"
+                android:textAllCaps="false"
+                android:textSize="15sp"
+                android:minHeight="48dp"
+                android:paddingLeft="30dp"
+                android:paddingRight="30dp"
+                android:text="@string/send_photo" />
+
+            <Button
+                android:id="@+id/cancelBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:background="@android:color/transparent"
+                android:textColor="#8C8377"
+                android:textAllCaps="false"
+                android:textSize="15sp"
+                android:minHeight="48dp"
+                android:paddingLeft="18dp"
+                android:paddingRight="18dp"
+                android:text="@string/cancel" />
+        </LinearLayout>
+    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/sentCard"
@@ -16,7 +91,8 @@
         android:paddingLeft="20dp"
         android:paddingRight="24dp"
         android:paddingTop="14dp"
-        android:paddingBottom="14dp">
+        android:paddingBottom="14dp"
+        android:visibility="gone">
 
         <TextView
             android:id="@+id/sentCheck"
@@ -33,5 +109,42 @@
             android:text="@string/photo_on_the_way"
             android:textSize="15sp"
             android:textColor="#3B352E" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/errorCard"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="32dp"
+        android:orientation="vertical"
+        android:gravity="center_horizontal"
+        android:layoutDirection="rtl"
+        android:background="@drawable/sent_card"
+        android:padding="22dp"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/errorText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:textColor="#A0522D"
+            android:gravity="center"
+            android:lineSpacingMultiplier="1.4" />
+
+        <Button
+            android:id="@+id/closeBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/btn_primary"
+            android:textColor="#F3EDE4"
+            android:textAllCaps="false"
+            android:textSize="15sp"
+            android:minHeight="48dp"
+            android:paddingLeft="30dp"
+            android:paddingRight="30dp"
+            android:text="@string/close" />
     </LinearLayout>
 </FrameLayout>

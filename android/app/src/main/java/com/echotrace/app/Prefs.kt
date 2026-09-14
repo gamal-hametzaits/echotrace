@@ -27,6 +27,10 @@ object Prefs {
         set(v) = p(this).edit().putBoolean("disconnected", v).apply()
     var Context.registered: Boolean get() = p(this).getBoolean("registered", false)
         set(v) = p(this).edit().putBoolean("registered", v).apply()
+    var Context.pendingCapturePath: String? get() = p(this).getString("pendingCapturePath", null)
+        set(v) = p(this).edit().putString("pendingCapturePath", v).apply()
+    var Context.lastUploadDiag: String? get() = p(this).getString("lastUploadDiag", null)
+        set(v) = p(this).edit().putString("lastUploadDiag", v).apply()
 
     fun reset(c: Context) {
         p(c).edit().clear().apply()

@@ -23,6 +23,28 @@ object Imaging {
         return BitmapFactory.decodeFile(file.absolutePath, o2)
     }
 
+    /** Sampled decode with EXIF orientation applied - Samsung captures carry their
+     *  rotation in EXIF, and BitmapFactory.decodeFile ignores it, which uploads the
+     *  photo sideways. */
+    fun decodeSampledRotated(file: File, targetW: Int): Bitmap? {
+        val bmp = decodeSampled(file, targetW) ?: return null
+        val rotation = try {
+            val exif = androidx.exifinterface.media.ExifInterface(file.absolutePath)
+            when (exif.getAttributeInt(
+                androidx.exifinterface.media.ExifInterface.TAG_ORIENTATION,
+                androidx.exifinterface.media.ExifInterface.ORIENTATION_NORMAL
+            )) {
+                androidx.exifinterface.media.ExifInterface.ORIENTATION_ROTATE_90 -> 90
+                androidx.exifinterface.media.ExifInterface.ORIENTATION_ROTATE_180 -> 180
+                androidx.exifinterface.media.ExifInterface.ORIENTATION_ROTATE_270 -> 270
+                else -> 0
+            }
+        } catch (t: Throwable) { 0 }
+        if (rotation == 0) return bmp
+        val m = android.graphics.Matrix().apply { postRotate(rotation.toFloat()) }
+        return Bitmap.createBitmap(bmp, 0, 0, bmp.width, bmp.height, m, true)
+    }
+
     fun decodeSampled(bytes: ByteArray, targetW: Int): Bitmap? {
         val o = BitmapFactory.Options().apply { inJustDecodeBounds = true }
         BitmapFactory.decodeByteArray(bytes, 0, bytes.size, o)

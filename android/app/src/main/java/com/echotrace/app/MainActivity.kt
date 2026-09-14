@@ -32,6 +32,7 @@ class MainActivity : ComponentActivity() {
         wireConnect()
         refreshPairUi()
         refreshDebugUi()
+        refreshUploadDiagUi()
 
         val btn = findViewById<Button>(R.id.addWidget)
         Anim.pressScale(btn)
@@ -50,6 +51,7 @@ class MainActivity : ComponentActivity() {
         findViewById<TextView>(R.id.myCode)?.text = Prefs.deviceId(this)
         refreshPairUi()
         refreshDebugUi()
+        refreshUploadDiagUi()
     }
 
     private fun refreshPairUi() {
@@ -84,6 +86,18 @@ class MainActivity : ComponentActivity() {
                 dbg.text = getString(R.string.debug_push_ok, ok)
             }
             else -> dbg.visibility = View.GONE
+        }
+    }
+
+    /** Last upload attempt, recorded by UploadWorker - visible without asking the server. */
+    private fun refreshUploadDiagUi() {
+        val view = findViewById<TextView>(R.id.uploadDebug)
+        val diag = with(Prefs) { lastUploadDiag }
+        if (diag == null) {
+            view.visibility = View.GONE
+        } else {
+            view.visibility = View.VISIBLE
+            view.text = getString(R.string.debug_upload, diag)
         }
     }
 

@@ -14,7 +14,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".PairingActivity" android:exported="false" android:theme="@style/Theme.EchoTrace.Dialog" />
-        <activity android:name=".CameraActivity" android:exported="false" android:theme="@style/Theme.EchoTrace.Translucent" android:excludeFromRecents="true" android:noHistory="true" />
+        <activity android:name=".CameraActivity" android:exported="false" android:theme="@style/Theme.EchoTrace.Translucent" android:excludeFromRecents="true" />
         <activity android:name=".DisconnectedActivity" android:exported="false" android:theme="@style/Theme.EchoTrace.Dialog" />
         <activity android:name=".PhotoTapActivity" android:exported="false" android:theme="@style/Theme.EchoTrace.Translucent" android:excludeFromRecents="true" android:noHistory="true" />
         <receiver android:name=".TraceWidgetProvider" android:exported="false" android:label="@string/app_name">
