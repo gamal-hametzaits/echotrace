@@ -39,7 +39,7 @@ object Api {
         c.setRequestProperty("Content-Type", "image/jpeg")
         c.setRequestProperty("X-Device-Id", deviceId)
         if (caption.isNotBlank())
-            c.setRequestProperty("X-Caption", java.net.URLEncoder.encode(caption.take(50), "UTF-8"))
+            c.setRequestProperty("X-Caption", java.net.URLEncoder.encode(caption.take(50), "UTF-8").replace("+", "%20"))
         c.outputStream.use { it.write(jpeg) }
         val code = c.responseCode
         val text = (if (code in 200..299) c.inputStream else c.errorStream)?.readBytes()?.toString(Charsets.UTF_8) ?: "{}"

@@ -9,45 +9,59 @@
     <LinearLayout
         android:id="@+id/previewUi"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_margin="28dp"
+        android:layout_height="match_parent"
+        android:layout_margin="16dp"
         android:orientation="vertical"
         android:gravity="center_horizontal"
         android:layoutDirection="rtl"
         android:background="@drawable/sent_card"
-        android:padding="18dp"
+        android:padding="14dp"
         android:visibility="gone">
 
-        <ImageView
-            android:id="@+id/previewImage"
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:adjustViewBounds="true"
-            android:maxHeight="380dp"
-            android:scaleType="fitCenter" />
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:fillViewport="true">
 
-        <EditText
-            android:id="@+id/captionInput"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="14dp"
-            android:hint="@string/caption_hint"
-            android:maxLength="50"
-            android:maxLines="1"
-            android:inputType="text|textCapSentences"
-            android:imeOptions="actionDone"
-            android:gravity="center"
-            android:textSize="16sp"
-            android:textColor="#3B352E"
-            android:textColorHint="#8C8377"
-            android:background="@drawable/input_box"
-            android:padding="12dp" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center_horizontal"
+                android:layout_gravity="center_vertical">
+
+                <ImageView
+                    android:id="@+id/previewImage"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:adjustViewBounds="true"
+                    android:maxHeight="300dp"
+                    android:scaleType="fitCenter" />
+
+                <EditText
+                    android:id="@+id/captionInput"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:hint="@string/caption_hint"
+                    android:maxLength="50"
+                    android:maxLines="1"
+                    android:inputType="text|textCapSentences"
+                    android:imeOptions="actionDone"
+                    android:gravity="center"
+                    android:textSize="16sp"
+                    android:textColor="#3B352E"
+                    android:textColorHint="#8C8377"
+                    android:background="@drawable/input_box"
+                    android:padding="12dp" />
+            </LinearLayout>
+        </ScrollView>
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="10dp"
             android:orientation="horizontal"
             android:gravity="center">
 
