@@ -42,12 +42,17 @@
 
         <TextView
             android:id="@+id/myCode"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:minHeight="48dp"
             android:gravity="center"
             android:textDirection="ltr"
             android:textSize="34sp"
+            android:autoSizeTextType="uniform"
+            android:autoSizeMinTextSize="18sp"
+            android:autoSizeMaxTextSize="34sp"
+            android:autoSizeStepGranularity="1sp"
+            android:maxLines="1"
             android:letterSpacing="0.20"
             android:textColor="#3B352E"
             android:textIsSelectable="true" />

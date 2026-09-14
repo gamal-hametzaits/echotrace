@@ -81,6 +81,12 @@ class MainActivity : ComponentActivity() {
      *  launcher-side failure is distinguishable from an app-side one. */
     private fun refreshDebugUi() {
         val dbg = findViewById<TextView>(R.id.widgetDebug)
+        // While unpaired the pairing surface owns the screen: a stale "widget
+        // updated" diagnostic next to a pairing error reads as a contradiction.
+        if (with(Prefs) { partner } == null) {
+            dbg.visibility = View.GONE
+            return
+        }
         val err = WidgetRenderer.lastError(this)
         val ok = WidgetRenderer.lastPush(this)
         when {
