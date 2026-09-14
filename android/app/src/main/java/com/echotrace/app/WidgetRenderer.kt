@@ -14,6 +14,15 @@ object WidgetRenderer {
     private const val HOUR = 3600_000L
     private const val MAX_BLUR = 25f   // logical blur 0..25 mapped onto a ~560px bitmap
 
+    // RemoteViews travels to the launcher inside ONE binder transaction, limited to
+    // ~1MB shared across everything in flight. A bitmap parcels as raw ARGB_8888
+    // pixels (~4 B/px), so a full-size photo (a 720x480 shot is 1.4MB) makes
+    // updateAppWidget throw TransactionTooLargeException: the update is lost
+    // wholesale and the widget sits on its initial layout - this was the "empty
+    // widget" regression. Every pushed bitmap is capped well under the limit.
+    private const val MAX_BITMAP_PX = 110_000   // ~440KB of pixels, safe margin
+    private const val FALLBACK_EDGE = 200       // long-edge px for the retry render
+
     private const val KEY_LAST_RENDER = "lastRenderKey"
 
     /**
@@ -24,10 +33,41 @@ object WidgetRenderer {
     fun updateAll(c: Context, force: Boolean = false) {
         val mgr = AppWidgetManager.getInstance(c)
         val ids = mgr.getAppWidgetIds(ComponentName(c, TraceWidgetProvider::class.java))
+        if (ids.isEmpty()) return
         val key = renderKey(c)
         if (!force && key == readLastKey(c)) return
-        for (id in ids) mgr.updateAppWidget(id, render(c, isCompact(mgr, id)))
-        writeLastKey(c, key)
+        var allOk = true
+        for (id in ids) if (!push(c, mgr, id)) allOk = false
+        // Only remember the key after a fully successful push: a failed push must
+        // be retried on the next poll instead of being skipped as "already rendered".
+        if (allOk) writeLastKey(c, key)
+    }
+
+    /** Push one widget; if the binder rejects the transaction (oversized bitmap),
+     *  retry once with a hard-small photo so the widget is never left blank. */
+    private fun push(c: Context, mgr: AppWidgetManager, id: Int): Boolean {
+        return try {
+            mgr.updateAppWidget(id, render(c, mgr, id))
+            true
+        } catch (e: RuntimeException) {
+            try {
+                mgr.updateAppWidget(id, render(c, mgr, id, FALLBACK_EDGE))
+                true
+            } catch (e2: RuntimeException) {
+                false
+            }
+        }
+    }
+
+    /** Decode target for this widget instance: its real pixel size, clamped so the
+     *  resulting bitmap (after [Imaging.capPixels]) always fits the binder budget. */
+    private fun widgetTargetPx(c: Context, mgr: AppWidgetManager, id: Int): Int {
+        val o = mgr.getAppWidgetOptions(id)
+        val w = o.getInt(AppWidgetManager.OPTION_APPWIDGET_MAX_WIDTH, 0)
+        val h = o.getInt(AppWidgetManager.OPTION_APPWIDGET_MAX_HEIGHT, 0)
+        if (w <= 0 || h <= 0) return 360
+        val d = c.resources.displayMetrics.density
+        return (Math.max(w, h) * d).toInt().coerceIn(220, 480)
     }
 
     /**
@@ -51,9 +91,6 @@ object WidgetRenderer {
         val ids = mgr.getAppWidgetIds(ComponentName(c, TraceWidgetProvider::class.java))
         return ids.sorted().joinToString(",") { if (isCompact(mgr, it)) "c" else "f" }
     }
-
-    /** The provider pushed [render] itself (new widget instance): remember the key. */
-    fun markRendered(c: Context) = writeLastKey(c, renderKey(c))
 
     private fun readLastKey(c: Context): String? =
         c.getSharedPreferences("echotrace", Context.MODE_PRIVATE).getString(KEY_LAST_RENDER, null)
@@ -79,7 +116,8 @@ object WidgetRenderer {
         ).joinToString("|")
     }
 
-    fun render(c: Context, compact: Boolean = false): RemoteViews {
+    fun render(c: Context, mgr: AppWidgetManager, id: Int, edgeCap: Int? = null): RemoteViews {
+        val compact = isCompact(mgr, id)
         val rv = RemoteViews(c.packageName, if (compact) R.layout.widget_trace_compact else R.layout.widget_trace)
         val partner = with(Prefs) { c.partner }
         val disconnected = with(Prefs) { c.disconnected }
@@ -136,9 +174,14 @@ object WidgetRenderer {
             else -> {
                 val m = meta!!
                 val elapsed0 = System.currentTimeMillis() - m.exposedAt
-                // Blurred stages lose the fine detail to the blur itself, so decode
-                // them at half size: ~4x less decode + blur CPU and memory.
-                val bmp = Imaging.decodeSampled(photoFile, if (elapsed0 < 6 * HOUR) 560 else 280)
+                // Decode at this widget's real size (never full camera resolution),
+                // then hard-cap the pixel count: the bitmap crosses to the launcher
+                // in one binder transaction, and oversized bitmaps lose the whole
+                // update. Blurred stages lose fine detail to the blur itself, so
+                // decode them at half size: ~4x less decode + blur CPU and memory.
+                val target = edgeCap ?: widgetTargetPx(c, mgr, id)
+                val bmp = Imaging.decodeSampled(photoFile, if (elapsed0 < 6 * HOUR) target else target / 2)
+                    ?.let { Imaging.capPixels(it, MAX_BITMAP_PX) }
                 if (bmp == null) {
                     // undecodable image (e.g. a non-bitmap format slipped through):
                     // drop the corrupt state so polling can recover, and show the

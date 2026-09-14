@@ -62,7 +62,8 @@
         android:textColor="#3B352E"
         android:textSize="12sp"
         android:lineSpacingMultiplier="1.3"
-        android:visibility="gone" />
+        android:text="@string/waiting_first"
+        android:visibility="visible" />
 
     <ImageButton
         android:id="@+id/cameraBtn"

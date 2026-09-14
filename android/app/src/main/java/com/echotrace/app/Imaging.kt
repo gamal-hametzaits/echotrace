@@ -73,6 +73,19 @@ object Imaging {
         return Color.rgb(mix(Color.red(color), 0xE8), mix(Color.green(color), 0xD9), mix(Color.blue(color), 0xCB))
     }
 
+    /** Scale down so width*height <= maxPx. Widget bitmaps travel to the launcher
+     *  inside one binder transaction parceled as raw pixels (~4 B/px); oversized
+     *  bitmaps make updateAppWidget throw TransactionTooLargeException and the
+     *  whole update is lost. */
+    fun capPixels(src: Bitmap, maxPx: Int): Bitmap {
+        val px = src.width.toLong() * src.height.toLong()
+        if (px <= maxPx) return src
+        val scale = Math.sqrt(maxPx.toDouble() / px.toDouble())
+        return Bitmap.createScaledBitmap(src,
+            Math.max(1, (src.width * scale).toInt()),
+            Math.max(1, (src.height * scale).toInt()), true)
+    }
+
     /** Rounded-corner copy for the widget photo: consistent corners below API 31
      *  (where the launcher does not clip widgets) and a deliberate, slightly
      *  stronger round above it. Radius scales with the bitmap so every fade
