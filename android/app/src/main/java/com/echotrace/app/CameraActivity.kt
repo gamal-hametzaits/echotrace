@@ -152,7 +152,10 @@ class CameraActivity : ComponentActivity() {
                 .setExpedited(OutOfQuotaPolicy.RUN_AS_NON_EXPEDITED_WORK_REQUEST)
                 .build()
             WorkManager.getInstance(this).enqueue(req)
-            with(Prefs) { pendingCapturePath = null }
+            with(Prefs) {
+                pendingCapturePath = null
+                lastUploadDiag = "ממתינה לשליחה"
+            }
             showSentCard()
         } catch (t: Throwable) {
             sent = false
