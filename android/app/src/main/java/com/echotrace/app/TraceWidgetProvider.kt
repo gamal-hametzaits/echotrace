@@ -7,17 +7,29 @@ import android.content.Intent
 
 class TraceWidgetProvider : AppWidgetProvider() {
     override fun onUpdate(context: Context, mgr: AppWidgetManager, ids: IntArray) {
-        WorkScheduler.ensure(context)
-        WorkScheduler.pollNow(context)
-        WidgetRenderer.updateAll(context, force = true)
+        try {
+            WorkScheduler.ensure(context)
+            WorkScheduler.pollNow(context)
+            WidgetRenderer.updateAll(context, force = true)
+        } catch (t: Throwable) {
+            WidgetRenderer.pushError(context, "onUpdate", t)
+        }
     }
     override fun onAppWidgetOptionsChanged(context: Context, mgr: AppWidgetManager, id: Int, newOptions: android.os.Bundle?) {
         // Resize: re-render with the layout variant + decode size for the new cells.
-        WidgetRenderer.updateAll(context, force = true)
+        try {
+            WidgetRenderer.updateAll(context, force = true)
+        } catch (t: Throwable) {
+            WidgetRenderer.pushError(context, "optionsChanged", t)
+        }
     }
     override fun onEnabled(context: Context) {
-        WorkScheduler.ensure(context)
-        WorkScheduler.pollNow(context)
+        try {
+            WorkScheduler.ensure(context)
+            WorkScheduler.pollNow(context)
+        } catch (t: Throwable) {
+            WidgetRenderer.pushError(context, "onEnabled", t)
+        }
     }
     override fun onReceive(context: Context, intent: Intent) {
         super.onReceive(context, intent)
@@ -26,9 +38,13 @@ class TraceWidgetProvider : AppWidgetProvider() {
         // waiting for a network poll, and make sure polling is (re)scheduled even
         // if the user never opens the app.
         if (intent.action == Intent.ACTION_MY_PACKAGE_REPLACED) {
-            WorkScheduler.ensure(context)
-            WorkScheduler.pollNow(context)
-            WidgetRenderer.updateAll(context, force = true)
+            try {
+                WorkScheduler.ensure(context)
+                WorkScheduler.pollNow(context)
+                WidgetRenderer.updateAll(context, force = true)
+            } catch (t: Throwable) {
+                WidgetRenderer.pushError(context, "packageReplaced", t)
+            }
         }
     }
 }

@@ -7,12 +7,16 @@ import android.os.Bundle
 class PhotoTapActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        TraceMeta.load(this)?.let { m ->
-            if (!m.viewed) TraceMeta.save(this, m.copy(viewed = true))
+        try {
+            TraceMeta.load(this)?.let { m ->
+                if (!m.viewed) TraceMeta.save(this, m.copy(viewed = true))
+            }
+            // A tap is the user's "check now": don't make them wait for the 15-min timer.
+            WorkScheduler.pollNow(this)
+            WidgetRenderer.updateAll(this)
+        } catch (t: Throwable) {
+            WidgetRenderer.pushError(this, "photoTap", t)
         }
-        // A tap is the user's "check now": don't make them wait for the 15-min timer.
-        WorkScheduler.pollNow(this)
-        WidgetRenderer.updateAll(this)
         finish()
     }
 }

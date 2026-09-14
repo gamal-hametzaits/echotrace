@@ -17,12 +17,13 @@
         android:visibility="gone"
         android:contentDescription="@string/app_name" />
 
-    <View
+    <ImageView
         android:id="@+id/scrim"
         android:layout_width="match_parent"
         android:layout_height="26dp"
         android:layout_gravity="bottom"
-        android:background="@drawable/widget_scrim"
+        android:src="@drawable/widget_scrim"
+        android:scaleType="fitXY"
         android:visibility="gone" />
 
     <TextView
@@ -77,4 +78,14 @@
         android:scaleType="fitCenter"
         android:contentDescription="@string/app_name"
         android:visibility="gone" />
+    <TextView
+        android:id="@+id/debugStatus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top|left"
+        android:padding="4dp"
+        android:textColor="#998C8377"
+        android:textSize="9sp"
+        android:maxLines="1" />
+
 </FrameLayout>

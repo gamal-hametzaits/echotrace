@@ -17,4 +17,8 @@
     <string name="bad_code">הקוד לא נמצא. בדקו ונסו שוב.</string>
     <string name="connected_ok">הקשר נוצר ✓</string>
     <string name="photo_on_the_way">התמונה בדרך</string>
+    <string name="pair_status_paired">מזווג ל־%1$s</string>
+    <string name="debug_push_ok">הווידג׳ט עודכן בהצלחה: %1$s</string>
+    <string name="debug_push_err">שגיאת ווידג׳ט אחרונה: %1$s</string>
+    <string name="widget_error_fmt">שגיאה: %1$s</string>
 </resources>

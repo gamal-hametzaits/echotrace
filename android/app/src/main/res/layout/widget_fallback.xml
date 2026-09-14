@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Guaranteed-legal emergency layout: one TextView on a solid color.
+     No bitmaps, no custom drawables, no styles, no ProgressBar - if even this
+     cannot display in the launcher, the failure is outside the app. -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/fallbackRoot"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:padding="14dp"
+    android:background="#F3EDE4">
+
+    <TextView
+        android:id="@+id/fallbackStatus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textColor="#3B352E"
+        android:textSize="12sp"
+        android:lineSpacingMultiplier="1.3" />
+</LinearLayout>
