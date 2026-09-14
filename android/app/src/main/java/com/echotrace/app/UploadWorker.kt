@@ -39,12 +39,14 @@ class UploadWorker(ctx: Context, params: WorkerParameters) : CoroutineWorker(ctx
             WidgetRenderer.updateAll(c)
             Result.success()
         } catch (t: Throwable) {
+            // Record every failed attempt, including transient timeouts, so the UI
+            // never keeps showing an old success while WorkManager retries.
+            record(c, false, t.javaClass.simpleName + ": " + (t.message ?: "").take(80))
             // Throwable, not Exception: an OutOfMemoryError here must also leave a trace.
             if (runAttemptCount < 4) {
                 Result.retry()
             } else {
                 f.delete()
-                record(c, false, t.javaClass.simpleName + ": " + (t.message ?: "").take(80))
                 Result.failure()
             }
         }
