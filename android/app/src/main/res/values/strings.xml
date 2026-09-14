@@ -15,4 +15,6 @@
     <string name="pair_now">לחצו לזיווג</string>
     <string name="connecting">מתחבר…</string>
     <string name="bad_code">הקוד לא נמצא. בדקו ונסו שוב.</string>
+    <string name="connected_ok">הקשר נוצר ✓</string>
+    <string name="photo_on_the_way">התמונה בדרך</string>
 </resources>

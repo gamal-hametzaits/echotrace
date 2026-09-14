@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/mainRoot"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -9,6 +10,7 @@
     android:background="@color/sand">
 
     <TextView
+        android:id="@+id/introText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/intro_text"
@@ -22,5 +24,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="28dp"
+        android:background="@drawable/btn_primary"
+        android:textColor="#F3EDE4"
+        android:textAllCaps="false"
+        android:textSize="15sp"
+        android:minHeight="48dp"
+        android:paddingLeft="30dp"
+        android:paddingRight="30dp"
         android:text="@string/add_widget" />
 </LinearLayout>

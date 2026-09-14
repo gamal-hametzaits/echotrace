@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/pairingRoot"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
@@ -8,6 +9,7 @@
     android:layoutDirection="rtl">
 
     <TextView
+        android:id="@+id/myCodeLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/your_code"
@@ -32,7 +34,9 @@
         android:inputType="textCapCharacters|textNoSuggestions"
         android:gravity="center"
         android:textSize="22sp"
-        android:letterSpacing="0.2" />
+        android:letterSpacing="0.2"
+        android:background="@drawable/input_box"
+        android:padding="12dp" />
 
     <RadioGroup
         android:id="@+id/roleGroup"
@@ -56,10 +60,31 @@
         android:layout_marginTop="8dp"
         android:visibility="gone" />
 
-    <Button
-        android:id="@+id/connectBtn"
+    <FrameLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="18dp"
-        android:text="@string/connect" />
+        android:layout_marginTop="18dp">
+
+        <Button
+            android:id="@+id/connectBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/btn_primary"
+            android:textColor="#F3EDE4"
+            android:textAllCaps="false"
+            android:textSize="15sp"
+            android:minHeight="48dp"
+            android:paddingLeft="34dp"
+            android:paddingRight="34dp"
+            android:text="@string/connect" />
+
+        <ProgressBar
+            android:id="@+id/spinner"
+            android:layout_width="22dp"
+            android:layout_height="22dp"
+            android:layout_gravity="center_vertical|left"
+            android:layout_marginLeft="12dp"
+            android:indeterminateTint="#C9A69A"
+            android:visibility="gone" />
+    </FrameLayout>
 </LinearLayout>

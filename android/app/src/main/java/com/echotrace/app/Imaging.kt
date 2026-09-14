@@ -2,8 +2,11 @@ package com.echotrace.app
 
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.graphics.BitmapShader
 import android.graphics.Canvas
 import android.graphics.Color
+import android.graphics.Paint
+import android.graphics.Shader
 import java.io.ByteArrayOutputStream
 import java.io.File
 
@@ -68,6 +71,21 @@ object Imaging {
     private fun soften(color: Int): Int {
         val mix = { ch: Int, sand: Int -> (ch * 0.72f + sand * 0.28f).toInt().coerceIn(0, 255) }
         return Color.rgb(mix(Color.red(color), 0xE8), mix(Color.green(color), 0xD9), mix(Color.blue(color), 0xCB))
+    }
+
+    /** Rounded-corner copy for the widget photo: consistent corners below API 31
+     *  (where the launcher does not clip widgets) and a deliberate, slightly
+     *  stronger round above it. Radius scales with the bitmap so every fade
+     *  stage matches. */
+    fun rounded(src: Bitmap): Bitmap {
+        val r = (src.width * 0.07f).coerceIn(10f, 64f)
+        val out = Bitmap.createBitmap(src.width, src.height, Bitmap.Config.ARGB_8888)
+        val c = Canvas(out)
+        val p = Paint(Paint.ANTI_ALIAS_FLAG).apply {
+            shader = BitmapShader(src, Shader.TileMode.CLAMP, Shader.TileMode.CLAMP)
+        }
+        c.drawRoundRect(0f, 0f, src.width.toFloat(), src.height.toFloat(), r, r, p)
+        return out
     }
 
     /** Blur `radius` then overlay `color` at `overlayAlpha` (0..255). */

@@ -93,6 +93,8 @@ object WidgetRenderer {
         rv.setViewVisibility(R.id.status, View.GONE)
         rv.setViewVisibility(R.id.caption, View.GONE)
         rv.setViewVisibility(R.id.photo, View.GONE)
+        rv.setViewVisibility(R.id.scrim, View.GONE)
+        rv.setViewVisibility(R.id.fadeBar, View.GONE)
         rv.setViewVisibility(R.id.cameraBtn, if (canSend && !disconnected && partner != null) View.VISIBLE else View.GONE)
         rv.setImageViewResource(R.id.photo, android.R.color.transparent)
 
@@ -109,21 +111,24 @@ object WidgetRenderer {
 
         when {
             disconnected -> {
-                rv.setInt(R.id.widgetRoot, "setBackgroundColor", 0xFF8C8377.toInt())
+                rv.setInt(R.id.widgetRoot, "setBackgroundResource", R.drawable.widget_bg_disconnected)
+                rv.setTextColor(R.id.status, 0xFFF3EDE4.toInt())
                 rv.setViewVisibility(R.id.status, View.VISIBLE)
                 rv.setTextViewText(R.id.status, c.getString(R.string.disconnected))
                 rv.setViewVisibility(R.id.cameraBtn, View.GONE)
                 rootClick(DisconnectedActivity::class.java)
             }
             partner == null -> {
-                rv.setInt(R.id.widgetRoot, "setBackgroundColor", 0xFFF3EDE4.toInt())
+                rv.setInt(R.id.widgetRoot, "setBackgroundResource", R.drawable.widget_bg)
+                rv.setTextColor(R.id.status, 0xFF3B352E.toInt())
                 rv.setViewVisibility(R.id.status, View.VISIBLE)
                 rv.setTextViewText(R.id.status,
                     "${c.getString(R.string.your_code)}\n${Prefs.deviceId(c)}\n${c.getString(R.string.pair_now)}")
                 rootClick(PairingActivity::class.java)
             }
             !hasPhoto -> {
-                rv.setInt(R.id.widgetRoot, "setBackgroundColor", 0xFFE8D9CB.toInt())
+                rv.setInt(R.id.widgetRoot, "setBackgroundResource", R.drawable.widget_bg_waiting)
+                rv.setTextColor(R.id.status, 0xFF3B352E.toInt())
                 rv.setViewVisibility(R.id.status, View.VISIBLE)
                 rv.setTextViewText(R.id.status, c.getString(R.string.waiting_first))
                 rootClick(MainActivity::class.java)
@@ -140,7 +145,8 @@ object WidgetRenderer {
                     // waiting message instead of a blank widget.
                     TraceMeta.clear(c)
                     with(Prefs) { c.lastImageId = null }
-                    rv.setInt(R.id.widgetRoot, "setBackgroundColor", 0xFFE8D9CB.toInt())
+                    rv.setInt(R.id.widgetRoot, "setBackgroundResource", R.drawable.widget_bg_waiting)
+                    rv.setTextColor(R.id.status, 0xFF3B352E.toInt())
                     rv.setViewVisibility(R.id.status, View.VISIBLE)
                     rv.setTextViewText(R.id.status, c.getString(R.string.waiting_first))
                     rootClick(MainActivity::class.java)
@@ -149,26 +155,33 @@ object WidgetRenderer {
                 val mem = Imaging.memoryColor(bmp)
                 val elapsed = System.currentTimeMillis() - m.exposedAt
                 rv.setViewVisibility(R.id.photo, View.VISIBLE)
-                rv.setInt(R.id.widgetRoot, "setBackgroundColor", mem)
+                rv.setInt(R.id.widgetRoot, "setBackgroundResource", R.drawable.widget_bg)
+                rv.setViewVisibility(R.id.scrim, View.VISIBLE)
                 when {
                     elapsed < 6 * HOUR -> {
-                        rv.setImageViewBitmap(R.id.photo, bmp)
+                        rv.setImageViewBitmap(R.id.photo, Imaging.rounded(bmp))
                         if (!compact) showCaption(rv, m.caption, 1f)
                     }
                     elapsed < 12 * HOUR -> {
                         val t = (elapsed - 6 * HOUR).toFloat() / (6 * HOUR)
                         val radius = (MAX_BLUR * t).toInt()
-                        rv.setImageViewBitmap(R.id.photo, Imaging.staged(bmp, blurPx(radius, bmp.width), mem, 0))
+                        rv.setImageViewBitmap(R.id.photo, Imaging.rounded(Imaging.staged(bmp, blurPx(radius, bmp.width), mem, 0)))
                         if (!compact) showCaption(rv, m.caption, 1f - t)
                     }
                     elapsed < 24 * HOUR -> {
                         val t = (elapsed - 12 * HOUR).toFloat() / (12 * HOUR)
-                        rv.setImageViewBitmap(R.id.photo, Imaging.staged(bmp, blurPx(MAX_BLUR.toInt(), bmp.width), mem, (t * 235).toInt()))
+                        rv.setImageViewBitmap(R.id.photo, Imaging.rounded(Imaging.staged(bmp, blurPx(MAX_BLUR.toInt(), bmp.width), mem, (t * 235).toInt())))
                     }
                     else -> {
-                        val solid = Bitmap.createBitmap(8, 8, Bitmap.Config.ARGB_8888).apply { eraseColor(mem) }
-                        rv.setImageViewBitmap(R.id.photo, solid)
+                        val solid = Bitmap.createBitmap(256, 256, Bitmap.Config.ARGB_8888).apply { eraseColor(mem) }
+                        rv.setImageViewBitmap(R.id.photo, Imaging.rounded(solid))
                     }
+                }
+                // The life bar: drains across the photo's 24h. Rides the existing
+                // hourly fade renders - no extra wakeups, same granularity as the blur.
+                if (elapsed < 24 * HOUR) {
+                    rv.setViewVisibility(R.id.fadeBar, View.VISIBLE)
+                    rv.setProgressBar(R.id.fadeBar, 1440, (elapsed / 60_000L).toInt().coerceIn(0, 1440), false)
                 }
                 rootClick(PhotoTapActivity::class.java)
             }

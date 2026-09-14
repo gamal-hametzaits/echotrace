@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Warm ink scrim rising from the bottom edge: grounds the caption,
+     the fade bar and the camera button on top of any photo. -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android" android:shape="rectangle">
+    <gradient
+        android:angle="90"
+        android:startColor="#00000000"
+        android:centerColor="#383B352E"
+        android:endColor="#8C3B352E"
+        android:type="linear" />
+</shape>

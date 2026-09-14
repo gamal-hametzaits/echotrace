@@ -17,6 +17,14 @@
         android:visibility="gone"
         android:contentDescription="@string/app_name" />
 
+    <View
+        android:id="@+id/scrim"
+        android:layout_width="match_parent"
+        android:layout_height="26dp"
+        android:layout_gravity="bottom"
+        android:background="@drawable/widget_scrim"
+        android:visibility="gone" />
+
     <TextView
         android:id="@+id/caption"
         android:layout_width="match_parent"
@@ -24,10 +32,24 @@
         android:layout_gravity="bottom"
         android:gravity="center"
         android:padding="6dp"
-        android:background="#33FFFFFF"
-        android:textColor="#3B352E"
+        android:textColor="#F3EDE4"
         android:textSize="11sp"
         android:maxLines="1"
+        android:visibility="gone" />
+
+    <ProgressBar
+        android:id="@+id/fadeBar"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:layout_gravity="bottom"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="5dp"
+        android:progressDrawable="@drawable/fade_bar"
+        android:max="1440"
+        android:progress="0"
+        android:indeterminate="false"
         android:visibility="gone" />
 
     <TextView

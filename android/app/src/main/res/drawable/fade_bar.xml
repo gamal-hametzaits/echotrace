@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- The Trace "life bar": a thin rose line that drains as the photo fades.
+     Track is barely-there sand so the bar reads on light and dark photos. -->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@android:id/background">
+        <shape android:shape="rectangle">
+            <solid android:color="#33F3EDE4" />
+        </shape>
+    </item>
+    <item android:id="@android:id/progress">
+        <clip>
+            <shape android:shape="rectangle">
+                <gradient
+                    android:angle="0"
+                    android:startColor="#C9A69A"
+                    android:endColor="#8C8377"
+                    android:type="linear" />
+            </shape>
+        </clip>
+    </item>
+</layer-list>

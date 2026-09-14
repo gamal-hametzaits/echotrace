@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/disconnectedRoot"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
@@ -8,6 +9,7 @@
     android:layoutDirection="rtl">
 
     <TextView
+        android:id="@+id/disconnectedText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/disconnected"
@@ -19,5 +21,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="22dp"
+        android:background="@drawable/btn_primary"
+        android:textColor="#F3EDE4"
+        android:textAllCaps="false"
+        android:textSize="15sp"
+        android:minHeight="48dp"
+        android:paddingLeft="30dp"
+        android:paddingRight="30dp"
         android:text="@string/start_over" />
 </LinearLayout>

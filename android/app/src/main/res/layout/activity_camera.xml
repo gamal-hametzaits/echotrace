@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Brief confirmation card after a capture: a sand card with a rose-ringed
+     check that scales in, holds, and fades out (animated in CameraActivity). -->
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/sentCard"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:background="@drawable/sent_card"
+        android:paddingLeft="20dp"
+        android:paddingRight="24dp"
+        android:paddingTop="14dp"
+        android:paddingBottom="14dp">
+
+        <TextView
+            android:id="@+id/sentCheck"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="✓"
+            android:textSize="24sp"
+            android:textColor="#C9A69A" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:text="@string/photo_on_the_way"
+            android:textSize="15sp"
+            android:textColor="#3B352E" />
+    </LinearLayout>
+</FrameLayout>
