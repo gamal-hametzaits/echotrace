@@ -22,13 +22,34 @@ object WidgetRenderer {
      * a 15-min poll that changes none of those skips decode + blur + the binder push.
      */
     fun updateAll(c: Context, force: Boolean = false) {
-        val key = renderKey(c)
-        if (!force && key == readLastKey(c)) return
         val mgr = AppWidgetManager.getInstance(c)
         val ids = mgr.getAppWidgetIds(ComponentName(c, TraceWidgetProvider::class.java))
-        val rv = render(c)
-        for (id in ids) mgr.updateAppWidget(id, rv)
+        val key = renderKey(c)
+        if (!force && key == readLastKey(c)) return
+        for (id in ids) mgr.updateAppWidget(id, render(c, isCompact(mgr, id)))
         writeLastKey(c, key)
+    }
+
+    /**
+     * Compact (photo-only) layout when the widget is 2 cells or fewer on either
+     * axis; the full layout (with caption) above that. Cell math per the docs:
+     * n cells = (70*n - 30) dp. Unknown options fall back to compact, matching
+     * the 2x2 default.
+     */
+    fun isCompact(mgr: AppWidgetManager, id: Int): Boolean {
+        val o = mgr.getAppWidgetOptions(id)
+        val w = listOf(o.getInt(AppWidgetManager.OPTION_APPWIDGET_MIN_WIDTH, 0),
+                       o.getInt(AppWidgetManager.OPTION_APPWIDGET_MAX_WIDTH, 0)).filter { it > 0 }.minOrNull() ?: 0
+        val h = listOf(o.getInt(AppWidgetManager.OPTION_APPWIDGET_MIN_HEIGHT, 0),
+                       o.getInt(AppWidgetManager.OPTION_APPWIDGET_MAX_HEIGHT, 0)).filter { it > 0 }.minOrNull() ?: 0
+        if (w == 0 || h == 0) return true
+        return minOf((w + 30) / 70, (h + 30) / 70) <= 2
+    }
+
+    private fun sizeSignature(c: Context): String {
+        val mgr = AppWidgetManager.getInstance(c)
+        val ids = mgr.getAppWidgetIds(ComponentName(c, TraceWidgetProvider::class.java))
+        return ids.sorted().joinToString(",") { if (isCompact(mgr, it)) "c" else "f" }
     }
 
     /** The provider pushed [render] itself (new widget instance): remember the key. */
@@ -53,12 +74,13 @@ object WidgetRenderer {
             with(Prefs) { c.disconnected },
             with(Prefs) { c.role },
             meta?.imageId,
-            stage
+            stage,
+            sizeSignature(c)
         ).joinToString("|")
     }
 
-    fun render(c: Context): RemoteViews {
-        val rv = RemoteViews(c.packageName, R.layout.widget_trace)
+    fun render(c: Context, compact: Boolean = false): RemoteViews {
+        val rv = RemoteViews(c.packageName, if (compact) R.layout.widget_trace_compact else R.layout.widget_trace)
         val partner = with(Prefs) { c.partner }
         val disconnected = with(Prefs) { c.disconnected }
         val role = with(Prefs) { c.role }
@@ -131,13 +153,13 @@ object WidgetRenderer {
                 when {
                     elapsed < 6 * HOUR -> {
                         rv.setImageViewBitmap(R.id.photo, bmp)
-                        showCaption(rv, m.caption, 1f)
+                        if (!compact) showCaption(rv, m.caption, 1f)
                     }
                     elapsed < 12 * HOUR -> {
                         val t = (elapsed - 6 * HOUR).toFloat() / (6 * HOUR)
                         val radius = (MAX_BLUR * t).toInt()
                         rv.setImageViewBitmap(R.id.photo, Imaging.staged(bmp, blurPx(radius, bmp.width), mem, 0))
-                        showCaption(rv, m.caption, 1f - t)
+                        if (!compact) showCaption(rv, m.caption, 1f - t)
                     }
                     elapsed < 24 * HOUR -> {
                         val t = (elapsed - 12 * HOUR).toFloat() / (12 * HOUR)
