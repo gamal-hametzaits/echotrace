@@ -21,6 +21,14 @@ import android.widget.*
 class MainActivity : ComponentActivity() {
     private var pulse: ValueAnimator? = null
     private val ui = Handler(Looper.getMainLooper())
+    private val foregroundPoll = object : Runnable {
+        override fun run() {
+            WorkScheduler.pollNow(this@MainActivity)
+            // While the control surface is visible, keep checking. This is cheap,
+            // bounded to foreground use, and avoids waiting for the 15-minute job.
+            ui.postDelayed(this, 30_000L)
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -52,6 +60,8 @@ class MainActivity : ComponentActivity() {
 
     override fun onResume() {
         super.onResume()
+        ui.removeCallbacks(foregroundPoll)
+        foregroundPoll.run()
         findViewById<TextView>(R.id.myCode)?.text = Prefs.deviceId(this)
         refreshPairUi()
         refreshDebugUi()
@@ -193,6 +203,11 @@ class MainActivity : ComponentActivity() {
             findViewById<TextView>(R.id.myCode).text = Prefs.deviceId(this)
             refreshPairUi()
         }
+    }
+
+    override fun onPause() {
+        ui.removeCallbacks(foregroundPoll)
+        super.onPause()
     }
 
     override fun onDestroy() {
