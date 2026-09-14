@@ -11,9 +11,12 @@ object Api {
     private fun conn(path: String, method: String): HttpURLConnection =
         (URL(BASE + path).openConnection() as HttpURLConnection).apply {
             requestMethod = method
-            connectTimeout = 10000
-            readTimeout = 15000
+            connectTimeout = 15000
+            readTimeout = 30000
             setRequestProperty("Accept", "application/json")
+            // Old Android/Samsung HTTP stacks can reuse a half-closed socket and
+            // fail with "unexpected end of stream". Prefer a fresh connection.
+            setRequestProperty("Connection", "close")
         }
 
     private fun postJson(path: String, body: JSONObject): JSONObject {
@@ -38,6 +41,7 @@ object Api {
         c.doOutput = true
         c.setRequestProperty("Content-Type", "image/jpeg")
         c.setRequestProperty("X-Device-Id", deviceId)
+        c.setFixedLengthStreamingMode(jpeg.size)
         if (caption.isNotBlank())
             c.setRequestProperty("X-Caption", Logic.encodeCaption(caption))
         c.outputStream.use { it.write(jpeg) }
