@@ -9,8 +9,8 @@ android {
         applicationId 'com.echotrace.app'
         minSdk 26
         targetSdk 33
-        versionCode 12
-        versionName '1.0.12'
+        versionCode 13
+        versionName '1.0.13'
         buildConfigField 'String', 'SERVER_URL', "\"${serverUrl}\""
     }
     signingConfigs {
@@ -31,6 +31,7 @@ android {
     kotlinOptions { jvmTarget = '11' }
 }
 dependencies {
+    testImplementation 'junit:junit:4.13.2'
     implementation 'androidx.core:core-ktx:1.10.1'
     implementation 'androidx.activity:activity:1.7.2'
     implementation 'androidx.work:work-runtime-ktx:2.8.1'

@@ -17,9 +17,7 @@ object Imaging {
         val o = BitmapFactory.Options().apply { inJustDecodeBounds = true }
         BitmapFactory.decodeFile(file.absolutePath, o)
         if (o.outWidth <= 0 || o.outHeight <= 0) return null
-        var sample = 1
-        while (o.outWidth / (sample * 2) >= targetW) sample *= 2
-        val o2 = BitmapFactory.Options().apply { inSampleSize = sample }
+        val o2 = BitmapFactory.Options().apply { inSampleSize = Logic.computeSampleSize(o.outWidth, targetW) }
         return BitmapFactory.decodeFile(file.absolutePath, o2)
     }
 
@@ -49,9 +47,7 @@ object Imaging {
         val o = BitmapFactory.Options().apply { inJustDecodeBounds = true }
         BitmapFactory.decodeByteArray(bytes, 0, bytes.size, o)
         if (o.outWidth <= 0 || o.outHeight <= 0) return null
-        var sample = 1
-        while (o.outWidth / (sample * 2) >= targetW) sample *= 2
-        val o2 = BitmapFactory.Options().apply { inSampleSize = sample }
+        val o2 = BitmapFactory.Options().apply { inSampleSize = Logic.computeSampleSize(o.outWidth, targetW) }
         return BitmapFactory.decodeByteArray(bytes, 0, bytes.size, o2)
     }
 
@@ -100,12 +96,9 @@ object Imaging {
      *  bitmaps make updateAppWidget throw TransactionTooLargeException and the
      *  whole update is lost. */
     fun capPixels(src: Bitmap, maxPx: Int): Bitmap {
-        val px = src.width.toLong() * src.height.toLong()
-        if (px <= maxPx) return src
-        val scale = Math.sqrt(maxPx.toDouble() / px.toDouble())
-        return Bitmap.createScaledBitmap(src,
-            Math.max(1, (src.width * scale).toInt()),
-            Math.max(1, (src.height * scale).toInt()), true)
+        val dims = Logic.cappedDimensions(src.width, src.height, maxPx)
+        if (dims[0] == src.width && dims[1] == src.height) return src
+        return Bitmap.createScaledBitmap(src, dims[0], dims[1], true)
     }
 
     /** Rounded-corner copy for the widget photo: consistent corners below API 31

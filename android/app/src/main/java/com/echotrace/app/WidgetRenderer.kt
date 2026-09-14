@@ -14,8 +14,8 @@ import java.util.Date
 import java.util.Locale
 
 object WidgetRenderer {
-    private const val HOUR = 3600_000L
-    private const val MAX_BLUR = 25f   // logical blur 0..25 mapped onto a ~560px bitmap
+    private const val HOUR = Logic.HOUR
+    private const val MAX_BLUR = Logic.MAX_BLUR
 
     // RemoteViews travels to the launcher inside ONE binder transaction, limited to
     // ~1MB shared across everything in flight. A bitmap parcels as raw ARGB_8888
@@ -23,7 +23,7 @@ object WidgetRenderer {
     // updateAppWidget throw TransactionTooLargeException: the update is lost
     // wholesale and the widget sits on its initial layout. Every pushed bitmap is
     // capped well under the limit.
-    private const val MAX_BITMAP_PX = 110_000   // ~440KB of pixels, safe margin
+    private const val MAX_BITMAP_PX = Logic.MAX_BITMAP_PX
     private const val FALLBACK_EDGE = 200       // long-edge px for the retry render
 
     private const val KEY_LAST_RENDER = "lastRenderKey"
@@ -177,18 +177,16 @@ object WidgetRenderer {
     private fun renderKey(c: Context): String {
         val meta = TraceMeta.load(c)
         val hasPhoto = meta != null && File(c.filesDir, "current_trace.jpg").exists()
-        val stage = if (!hasPhoto) "none" else {
-            val h = (System.currentTimeMillis() - meta!!.exposedAt) / HOUR
-            if (h >= 24) "gone" else "h$h"
-        }
-        return listOf(
+        val stage = Logic.hourStage(hasPhoto,
+            System.currentTimeMillis() - (meta?.exposedAt ?: System.currentTimeMillis()))
+        return Logic.renderKey(
             with(Prefs) { c.partner },
             with(Prefs) { c.disconnected },
             with(Prefs) { c.role },
             meta?.imageId,
             stage,
             sizeSignature(c)
-        ).joinToString("|")
+        )
     }
 
     fun render(c: Context, mgr: AppWidgetManager, id: Int, edgeCap: Int? = null): RemoteViews {
@@ -284,20 +282,18 @@ object WidgetRenderer {
                 rv.setViewVisibility(R.id.photo, View.VISIBLE)
                 rv.setInt(R.id.widgetRoot, "setBackgroundResource", R.drawable.widget_bg)
                 rv.setViewVisibility(R.id.scrim, View.VISIBLE)
-                when {
-                    elapsed < 6 * HOUR -> {
+                when (Logic.fadeStage(elapsed)) {
+                    0 -> {
                         rv.setImageViewBitmap(R.id.photo, Imaging.rounded(bmp))
-                        if (!compact) showCaption(rv, m.caption, 1f)
+                        if (!compact) showCaption(rv, m.caption, Logic.captionAlpha(elapsed))
                     }
-                    elapsed < 12 * HOUR -> {
-                        val t = (elapsed - 6 * HOUR).toFloat() / (6 * HOUR)
-                        val radius = (MAX_BLUR * t).toInt()
+                    1 -> {
+                        val radius = Logic.fadeRadiusLogical(elapsed)
                         rv.setImageViewBitmap(R.id.photo, Imaging.rounded(Imaging.staged(bmp, blurPx(radius, bmp.width), mem, 0)))
-                        if (!compact) showCaption(rv, m.caption, 1f - t)
+                        if (!compact) showCaption(rv, m.caption, Logic.captionAlpha(elapsed))
                     }
-                    elapsed < 24 * HOUR -> {
-                        val t = (elapsed - 12 * HOUR).toFloat() / (12 * HOUR)
-                        rv.setImageViewBitmap(R.id.photo, Imaging.rounded(Imaging.staged(bmp, blurPx(MAX_BLUR.toInt(), bmp.width), mem, (t * 235).toInt())))
+                    2 -> {
+                        rv.setImageViewBitmap(R.id.photo, Imaging.rounded(Imaging.staged(bmp, blurPx(MAX_BLUR.toInt(), bmp.width), mem, Logic.memoryOverlayAlpha(elapsed))))
                     }
                     else -> {
                         val solid = Bitmap.createBitmap(256, 256, Bitmap.Config.ARGB_8888).apply { eraseColor(mem) }
@@ -318,7 +314,7 @@ object WidgetRenderer {
     }
 
     private fun blurPx(logical: Int, bmpWidth: Int): Int =
-        (logical * 0.6f * bmpWidth / 560f).toInt() // 0..15 px on a full-size sample, scaled down
+        Logic.blurPx(logical, bmpWidth) // 0..15 px on a full-size sample, scaled down
 
     private fun showCaption(rv: RemoteViews, caption: String, alpha: Float) {
         if (caption.isBlank()) return
