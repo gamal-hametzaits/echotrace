@@ -19,6 +19,7 @@ import androidx.work.Constraints
 import androidx.work.Data
 import androidx.work.NetworkType
 import androidx.work.OneTimeWorkRequestBuilder
+import androidx.work.OutOfQuotaPolicy
 import androidx.work.WorkManager
 import java.io.File
 
@@ -146,6 +147,9 @@ class CameraActivity : ComponentActivity() {
                         .setRequiredNetworkType(NetworkType.CONNECTED)
                         .build()
                 )
+                // A camera send is user-initiated. Request prompt execution; when
+                // Android's expedited quota is exhausted, keep the upload queued.
+                .setExpedited(OutOfQuotaPolicy.RUN_AS_NON_EXPEDITED_WORK_REQUEST)
                 .build()
             WorkManager.getInstance(this).enqueue(req)
             with(Prefs) { pendingCapturePath = null }
