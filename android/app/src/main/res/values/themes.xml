@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <style name="Theme.EchoTrace" parent="android:Theme.Material.Light.NoActionBar">
-        <item name="android:windowBackground">@color/sand</item>
+    <style name="Theme.EchoTrace" parent="android:Theme.Material.NoActionBar">
+        <item name="android:windowBackground">@color/app_bg</item>
+        <item name="android:statusBarColor">@color/app_bg</item>
+        <item name="android:navigationBarColor">@color/app_bg</item>
+        <item name="android:colorAccent">@color/rose</item>
         <item name="android:fontFamily">sans-serif-light</item>
     </style>
     <style name="Theme.EchoTrace.Translucent" parent="android:Theme.Translucent.NoTitleBar" />

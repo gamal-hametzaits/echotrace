@@ -9,7 +9,7 @@ object WorkScheduler {
     private const val IMMEDIATE = "echotrace-trace-now"
 
     fun ensure(c: Context) {
-        val req = PeriodicWorkRequestBuilder<TraceWorker>(15, TimeUnit.MINUTES)
+        val req = PeriodicWorkRequestBuilder<TraceWorker>(with(Prefs) { c.backgroundMinutes }.toLong(), TimeUnit.MINUTES)
             .setConstraints(Constraints.Builder().setRequiredNetworkType(NetworkType.CONNECTED).build())
             .build()
         // UPDATE (not KEEP): an in-place app update replaces any stale request

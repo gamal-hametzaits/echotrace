@@ -5,7 +5,7 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/sand">
+    android:background="@color/app_bg">
 
     <LinearLayout
         android:id="@+id/previewUi"
@@ -54,9 +54,9 @@
                     android:importantForAutofill="no"
                     android:gravity="center"
                     android:textSize="16sp"
-                    android:textColor="#3B352E"
+                    android:textColor="@color/app_ink"
                     android:textColorHint="#8C8377"
-                    android:background="@drawable/input_box"
+                    android:background="@drawable/app_input"
                     android:padding="12dp" />
             </LinearLayout>
         </ScrollView>
@@ -73,7 +73,7 @@
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
-                android:background="@drawable/btn_primary"
+                android:background="@drawable/app_button"
                 android:textColor="#F3EDE4"
                 android:textAllCaps="false"
                 android:textSize="15sp"
@@ -127,7 +127,7 @@
             android:layout_marginStart="10dp"
             android:text="@string/photo_on_the_way"
             android:textSize="15sp"
-            android:textColor="#3B352E" />
+            android:textColor="@color/app_ink" />
     </LinearLayout>
 
     <LinearLayout
@@ -157,7 +157,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:background="@drawable/btn_primary"
+            android:background="@drawable/app_button"
             android:textColor="#F3EDE4"
             android:textAllCaps="false"
             android:textSize="15sp"

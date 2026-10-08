@@ -144,7 +144,7 @@ class CameraActivity : ComponentActivity() {
                 .setInputData(data)
                 .setConstraints(
                     Constraints.Builder()
-                        .setRequiredNetworkType(NetworkType.CONNECTED)
+                        .setRequiredNetworkType(if (with(Prefs) { wifiOnly }) NetworkType.UNMETERED else NetworkType.CONNECTED)
                         .build()
                 )
                 // A camera send is user-initiated. Request prompt execution; when

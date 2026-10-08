@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">EchoTrace</string>
-    <string name="intro_text">EchoTrace אינה אפליקציה רגילה. היא חיה על מסך הבית, כווידג׳ט אחד שמחבר אותך לאדם אחד. כדי להתחיל, הוסיפו את הווידג׳ט למסך הבית.</string>
+    <string name="intro_text">אדם אחד. תמונה אחת. רגע שנשאר.
+מחברים את שני המכשירים, ואז מוסיפים וידג׳ט למסך הבית.</string>
     <string name="add_widget">הוספת וידג׳ט למסך הבית</string>
     <string name="your_code">הקוד האישי שלך</string>
     <string name="partner_code_hint">קוד השותף (6 תווים)</string>
@@ -14,7 +15,7 @@
     <string name="start_over">התחלה מחדש</string>
     <string name="pair_now">לחצו לזיווג</string>
     <string name="connecting">מתחבר…</string>
-    <string name="bad_code">הקוד לא נמצא. בדקו ונסו שוב.</string>
+    <string name="bad_code">יש להזין קוד תקין בן 6 תווים, שונה מהקוד שלך.</string>
     <string name="connected_ok">הקשר נוצר ✓</string>
     <string name="photo_on_the_way">התמונה בדרך</string>
     <string name="pair_status_paired">מזווג ל־%1$s</string>

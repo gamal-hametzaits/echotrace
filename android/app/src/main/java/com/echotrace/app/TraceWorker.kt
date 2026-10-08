@@ -20,13 +20,26 @@ class TraceWorker(ctx: Context, params: WorkerParameters) : CoroutineWorker(ctx,
             // Always ask the server: pairing may have been completed outside this
             // install (support fix, reinstall, data clear), in which case local
             // prefs know nothing and the photo would never arrive.
+            val pending = with(Prefs) { c.pendingPartner }
+            if (pending != null) {
+                Api.connect(me, pending, with(Prefs) { c.role })
+            }
             val poll = Api.poll(me)
+            with(Prefs) { c.lastSyncAt = System.currentTimeMillis(); c.syncError = null }
+            val unconfirmed = with(Prefs) { c.pendingConfirmation }
+            if (unconfirmed != null) {
+                try {
+                    Api.confirmDownload(me, unconfirmed)
+                    with(Prefs) { c.pendingConfirmation = null }
+                } catch (_: Exception) { /* Retry deletion confirmation on next poll. */ }
+            }
             if (poll.optBoolean("paired", false)) {
                 val serverPartner = poll.optString("partner", "")
                 if (serverPartner.length == 6) {
                     if (serverPartner != with(Prefs) { c.partner }) {
                         with(Prefs) { c.partner = serverPartner; c.disconnected = false }
                     }
+                    with(Prefs) { c.pendingPartner = null }
                     val serverRole = poll.optString("role", "")
                     if (serverRole.isNotBlank()) with(Prefs) { c.role = serverRole }
                     // Server state is authoritative on every successful poll. The old
@@ -49,7 +62,11 @@ class TraceWorker(ctx: Context, params: WorkerParameters) : CoroutineWorker(ctx,
                                         exposedAt = System.currentTimeMillis(),
                                         viewed = false))
                                     with(Prefs) { c.lastImageId = imageId }
-                                    try { Api.confirmDownload(me, imageId) } catch (_: Exception) {}
+                                    with(Prefs) { c.pendingConfirmation = imageId }
+                                    try {
+                                        Api.confirmDownload(me, imageId)
+                                        with(Prefs) { c.pendingConfirmation = null }
+                                    } catch (_: Exception) {}
                                 }
                             }
                         }
@@ -59,6 +76,7 @@ class TraceWorker(ctx: Context, params: WorkerParameters) : CoroutineWorker(ctx,
             WidgetRenderer.updateAll(c)
             Result.success()
         } catch (e: Exception) {
+            with(Prefs) { c.syncError = e.javaClass.simpleName }
             try { WidgetRenderer.updateAll(c) } catch (_: Exception) {}
             // A 4xx will fail again identically - retrying just burns wakeups.
             val permanent = e is Api.ApiException && e.httpCode in 400..499

@@ -32,6 +32,28 @@ object Prefs {
     var Context.lastUploadDiag: String? get() = p(this).getString("lastUploadDiag", null)
         set(v) = p(this).edit().putString("lastUploadDiag", v).apply()
 
+    var Context.pendingPartner: String? get() = p(this).getString("pendingPartner", null)
+        set(v) = p(this).edit().putString("pendingPartner", v).apply()
+    var Context.lastSyncAt: Long get() = p(this).getLong("lastSyncAt", 0)
+        set(v) = p(this).edit().putLong("lastSyncAt", v).apply()
+    var Context.syncError: String? get() = p(this).getString("syncError", null)
+        set(v) = p(this).edit().putString("syncError", v).apply()
+    var Context.pendingConfirmation: String? get() = p(this).getString("pendingConfirmation", null)
+        set(v) = p(this).edit().putString("pendingConfirmation", v).apply()
+
+    var Context.foregroundSeconds: Int get() = p(this).getInt("foregroundSeconds", 30).coerceIn(30, 120)
+        set(v) = p(this).edit().putInt("foregroundSeconds", v.coerceIn(30, 120)).apply()
+    var Context.backgroundMinutes: Int get() = p(this).getInt("backgroundMinutes", 15).coerceIn(15, 60)
+        set(v) = p(this).edit().putInt("backgroundMinutes", v.coerceIn(15, 60)).apply()
+    var Context.jpegQuality: Int get() = p(this).getInt("jpegQuality", 85).coerceIn(65, 90)
+        set(v) = p(this).edit().putInt("jpegQuality", v.coerceIn(65, 90)).apply()
+    var Context.photoWidth: Int get() = p(this).getInt("photoWidth", 1280).coerceIn(800, 1600)
+        set(v) = p(this).edit().putInt("photoWidth", v.coerceIn(800, 1600)).apply()
+    var Context.wifiOnly: Boolean get() = p(this).getBoolean("wifiOnly", false)
+        set(v) = p(this).edit().putBoolean("wifiOnly", v).apply()
+    var Context.animations: Boolean get() = p(this).getBoolean("animations", true)
+        set(v) = p(this).edit().putBoolean("animations", v).apply()
+
     fun reset(c: Context) {
         p(c).edit().clear().apply()
         c.deleteFile("current_trace.jpg")

@@ -25,14 +25,14 @@ class UploadWorker(ctx: Context, params: WorkerParameters) : CoroutineWorker(ctx
         val f = File(path)
         try {
             val me = Prefs.deviceId(c)
-            val bmp = Imaging.decodeSampledRotated(f, 1280)
+            val bmp = Imaging.decodeSampledRotated(f, with(Prefs) { c.photoWidth })
             if (bmp == null) {
                 // An undecodable capture will never become decodable by retrying.
                 f.delete()
                 record(c, false, "decode failed")
                 return@withContext Result.failure()
             }
-            val jpeg = Imaging.compressJpeg(bmp, 1280, 85)
+            val jpeg = Imaging.compressJpeg(bmp, with(Prefs) { c.photoWidth }, with(Prefs) { c.jpegQuality })
             Api.upload(me, caption, jpeg)
             f.delete()
             record(c, true, null)
@@ -41,7 +41,7 @@ class UploadWorker(ctx: Context, params: WorkerParameters) : CoroutineWorker(ctx
         } catch (t: Throwable) {
             // Record every failed attempt, including transient timeouts, so the UI
             // never keeps showing an old success while WorkManager retries.
-            record(c, false, t.javaClass.simpleName + ": " + (t.message ?: "").take(80))
+            record(c, false, t.javaClass.simpleName)
             // Throwable, not Exception: an OutOfMemoryError here must also leave a trace.
             if (runAttemptCount < 4) {
                 Result.retry()
@@ -54,8 +54,8 @@ class UploadWorker(ctx: Context, params: WorkerParameters) : CoroutineWorker(ctx
 
     private fun record(c: Context, ok: Boolean, detail: String?) {
         val time = SimpleDateFormat("dd/MM HH:mm", Locale.US).format(Date())
-        val msg = if (ok) "נשלחה בהצלחה · $time"
-                  else "נכשלה · $time · ${detail ?: "unknown"}"
+        val msg = if (ok) "התקבלה בשרת · $time"
+                  else "ניסיון שליחה לא הצליח · $time · ${detail ?: "unknown"}"
         with(Prefs) { c.lastUploadDiag = msg }
     }
 }
