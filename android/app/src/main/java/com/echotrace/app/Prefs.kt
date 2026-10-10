@@ -58,9 +58,25 @@ object Prefs {
     var Context.animations: Boolean get() = p(this).getBoolean("animations", true)
         set(v) = p(this).edit().putBoolean("animations", v).apply()
 
+    /** Server-reported time the partner was last seen (ms, 0 = unknown). */
+    var Context.partnerLastSeenAt: Long get() = p(this).getLong("partnerLastSeenAt", 0)
+        set(v) = p(this).edit().putLong("partnerLastSeenAt", v).apply()
+    /** Keep a foreground listener running so photos arrive within about 30 s. */
+    var Context.instantMode: Boolean get() = p(this).getBoolean("instantMode", true)
+        set(v) = p(this).edit().putBoolean("instantMode", v).apply()
+    /** Where a new photo shows: 0 widget only, 1 home screen, 2 lock screen, 3 both. */
+    var Context.wallpaperMode: Int get() = p(this).getInt("wallpaperMode", 0).coerceIn(0, 3)
+        set(v) = p(this).edit().putInt("wallpaperMode", v.coerceIn(0, 3)).apply()
+
+    /** What the wallpaper currently shows (mode + image + fade hour), so it re-renders only on change. */
+    var Context.wallKey: String? get() = p(this).getString("wallKey", null)
+        set(v) = p(this).edit().putString("wallKey", v).apply()
+
     fun reset(c: Context) {
         val keepLang = p(c).getString("lang", "he"); val keepDark = p(c).getBoolean("darkTheme", true)
-        p(c).edit().clear().putString("lang", keepLang).putBoolean("darkTheme", keepDark).apply()
+        val keepInstant = p(c).getBoolean("instantMode", true); val keepWall = p(c).getInt("wallpaperMode", 0)
+        p(c).edit().clear().putString("lang", keepLang).putBoolean("darkTheme", keepDark)
+            .putBoolean("instantMode", keepInstant).putInt("wallpaperMode", keepWall).apply()
         c.deleteFile("current_trace.jpg")
         c.deleteFile("trace_meta.json")
     }

@@ -164,7 +164,7 @@ object WidgetRenderer {
     private fun sizeSignature(c: Context): String {
         val mgr = AppWidgetManager.getInstance(c)
         val ids = mgr.getAppWidgetIds(ComponentName(c, TraceWidgetProvider::class.java))
-        return ids.sorted().joinToString(",") { if (isCompact(mgr, it)) "c" else "f" }
+        return (if (cameraOnly(c)) "cam:" else "") + ids.sorted().joinToString(",") { if (isCompact(mgr, it)) "c" else "f" }
     }
 
     private fun readLastKey(c: Context): String? =
@@ -189,7 +189,25 @@ object WidgetRenderer {
         )
     }
 
+    /** Wallpaper mode (home / lock / both): the photo lives on the wallpaper, so the widget
+     *  shrinks to just a camera button. Only for a connected device that can send; every
+     *  other state keeps the normal widget so pairing / disconnected messages stay visible. */
+    fun cameraOnly(c: Context): Boolean {
+        val role = with(Prefs) { c.role }
+        return with(Prefs) { c.wallpaperMode } != 0 && with(Prefs) { c.partner } != null &&
+            !with(Prefs) { c.disconnected } && (role == "both" || role == "sender")
+    }
+
     fun render(c: Context, mgr: AppWidgetManager, id: Int, edgeCap: Int? = null): RemoteViews {
+        if (cameraOnly(c)) {
+            val rv = RemoteViews(c.packageName, R.layout.widget_camera_only)
+            val ci = Intent(c, CameraActivity::class.java).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            rv.setOnClickPendingIntent(R.id.cameraBtn, PendingIntent.getActivity(
+                c, 7, ci, PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE))
+            rv.setOnClickPendingIntent(R.id.widgetRoot, PendingIntent.getActivity(
+                c, 7, ci, PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE))
+            return rv
+        }
         val compact = isCompact(mgr, id)
         val rv = RemoteViews(c.packageName, if (compact) R.layout.widget_trace_compact else R.layout.widget_trace)
         val partner = with(Prefs) { c.partner }

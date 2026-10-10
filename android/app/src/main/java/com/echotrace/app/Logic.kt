@@ -79,4 +79,38 @@ object Logic {
      *  a literal plus must survive as %2B and spaces must go out as %20. */
     fun encodeCaption(caption: String): String =
         java.net.URLEncoder.encode(caption.take(CAPTION_MAX), "UTF-8").replace("+", "%20")
+
+    enum class ConnState { NONE, WAITING, CONNECTED, OFFLINE, ERROR }
+
+    /** One clear state for the status card. A sync error wins; otherwise the state
+     *  follows the real server signals the worker stored (paired / partnerConnected). */
+    fun connState(hasPartner: Boolean, hasPending: Boolean, partnerOffline: Boolean, syncError: Boolean): ConnState = when {
+        syncError -> ConnState.ERROR
+        !hasPartner -> if (hasPending) ConnState.WAITING else ConnState.NONE
+        partnerOffline -> ConnState.OFFLINE
+        else -> ConnState.CONNECTED
+    }
+
+    /** Coarse age for "last seen" lines: unit 0 = minutes, 1 = hours, 2 = days; under a
+     *  minute reads as 1 minute so the text is never "0 minutes ago". */
+    fun agoParts(elapsedMs: Long): IntArray {
+        val e = Math.max(0L, elapsedMs)
+        return when {
+            e < HOUR -> intArrayOf(0, Math.max(1L, e / 60_000L).toInt())
+            e < 24 * HOUR -> intArrayOf(1, (e / HOUR).toInt())
+            else -> intArrayOf(2, (e / (24 * HOUR)).toInt())
+        }
+    }
+
+    /** Wallpaper flags for a mode: bit 1 = home (FLAG_SYSTEM), bit 2 = lock (FLAG_LOCK). */
+    fun wallpaperHome(mode: Int) = mode == 1 || mode == 3
+    fun wallpaperLock(mode: Int) = mode == 2 || mode == 3
+
+    /** Polling cadence for the foreground listener: fixed 30 s, 60 s after repeated failures
+     *  so an offline phone does not hammer the radio. */
+    fun listenDelayMs(consecutiveFailures: Int): Long = if (consecutiveFailures >= 3) 60_000L else 30_000L
+
+    /** Wallpaper re-render key: changes only when mode, photo or fade hour changes. */
+    fun wallKey(mode: Int, imageId: String?, elapsedMs: Long): String =
+        mode.toString() + "|" + (imageId ?: "-") + "|" + hourStage(imageId != null, elapsedMs)
 }

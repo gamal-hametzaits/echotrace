@@ -177,4 +177,43 @@ class LogicTest {
         assertEquals(0, Logic.blurPx(0, 560))
         assertEquals(0, Logic.blurPx(1, 100))   // tiny bitmaps round down to no-op blur
     }
+
+    @Test fun connState_priority() {
+        assertEquals(Logic.ConnState.NONE, Logic.connState(false, false, false, false))
+        assertEquals(Logic.ConnState.WAITING, Logic.connState(false, true, false, false))
+        assertEquals(Logic.ConnState.CONNECTED, Logic.connState(true, false, false, false))
+        assertEquals(Logic.ConnState.OFFLINE, Logic.connState(true, false, true, false))
+        assertEquals(Logic.ConnState.ERROR, Logic.connState(true, false, false, true))
+        assertEquals(Logic.ConnState.ERROR, Logic.connState(false, true, false, true))
+        assertEquals(Logic.ConnState.OFFLINE, Logic.connState(true, true, true, false))
+    }
+
+    @Test fun agoParts_units() {
+        assertArrayEquals(intArrayOf(0, 1), Logic.agoParts(5_000))
+        assertArrayEquals(intArrayOf(0, 1), Logic.agoParts(-10))
+        assertArrayEquals(intArrayOf(0, 59), Logic.agoParts(59 * 60_000L))
+        assertArrayEquals(intArrayOf(1, 1), Logic.agoParts(H))
+        assertArrayEquals(intArrayOf(1, 23), Logic.agoParts(23 * H + 59 * 60_000L))
+        assertArrayEquals(intArrayOf(2, 6), Logic.agoParts(6 * 24 * H + 3 * H))
+    }
+
+    @Test fun wallpaperModes() {
+        assertEquals(listOf(false, true, false, true), (0..3).map { Logic.wallpaperHome(it) })
+        assertEquals(listOf(false, false, true, true), (0..3).map { Logic.wallpaperLock(it) })
+    }
+
+    @Test fun listenDelay_backsOff() {
+        assertEquals(30_000L, Logic.listenDelayMs(0))
+        assertEquals(30_000L, Logic.listenDelayMs(2))
+        assertEquals(60_000L, Logic.listenDelayMs(3))
+    }
+
+    @Test fun wallKey_changesOnlyWhenNeeded() {
+        val k = Logic.wallKey(1, "a", 2 * H + 5)
+        assertEquals(k, Logic.wallKey(1, "a", 2 * H + 50 * 60_000L))   // same hour
+        assertNotEquals(k, Logic.wallKey(1, "a", 3 * H))               // next hour
+        assertNotEquals(k, Logic.wallKey(3, "a", 2 * H))               // mode
+        assertNotEquals(k, Logic.wallKey(1, "b", 2 * H))               // new photo
+        assertEquals(Logic.wallKey(1, "a", 24 * H), Logic.wallKey(1, "a", 90 * H)) // gone stays gone
+    }
 }

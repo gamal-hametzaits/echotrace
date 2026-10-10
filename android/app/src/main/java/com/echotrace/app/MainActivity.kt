@@ -31,7 +31,7 @@ class MainActivity : BaseActivity() {
 
     private val refreshStatus = object : Runnable {
         override fun run() {
-            refreshPairUi(); refreshUploadDiagUi(); refreshConnectionUi()
+            refreshPairUi(); refreshUploadDiagUi(); refreshConnectionUi(); refreshStatusCard()
             ui.postDelayed(this, 1_000L)
         }
     }
@@ -40,6 +40,7 @@ class MainActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         WorkScheduler.ensure(this)
         WorkScheduler.pollNow(this)
+        ListenService.sync(this)
         setContentView(R.layout.activity_main)
         if (with(Prefs) { animations }) Anim.entrance(findViewById<LinearLayout>(R.id.mainRoot), 60)
 
@@ -124,7 +125,106 @@ class MainActivity : BaseActivity() {
             setOnCheckedChangeListener { _, v -> with(Prefs) { animations = v } }
         }
         findViewById<TextView>(R.id.versionRow).text = getString(R.string.set_version) + " " + BuildConfig.VERSION_NAME
+        wireInstant()
+        wireWallpaper()
         applySystemBars(dark)
+    }
+
+    private val restorePicker = registerForActivityResult(
+        androidx.activity.result.contract.ActivityResultContracts.GetContent()) { uri ->
+        if (uri == null) return@registerForActivityResult
+        try {
+            val bytes = contentResolver.openInputStream(uri)?.use { it.readBytes() }
+            val ok = bytes != null && bytes.isNotEmpty() && bytes.size < 30_000_000 &&
+                Imaging.decodeSampled(bytes, 560) != null
+            if (ok) { WallpaperApplier.saveRestorePicture(this, bytes!!); toast(R.string.restore_saved) }
+            else toast(R.string.restore_fail)
+        } catch (_: Throwable) { toast(R.string.restore_fail) }
+    }
+
+    private val notifPermission = registerForActivityResult(
+        androidx.activity.result.contract.ActivityResultContracts.RequestPermission()) { _ ->
+        ListenService.sync(this)
+    }
+
+    private fun toast(res: Int) = Toast.makeText(this, res, Toast.LENGTH_SHORT).show()
+
+    private fun wireInstant() {
+        findViewById<Switch>(R.id.instantSwitch).apply {
+            isChecked = with(Prefs) { instantMode }
+            setOnCheckedChangeListener { _, v ->
+                with(Prefs) { instantMode = v }
+                if (v && android.os.Build.VERSION.SDK_INT >= 33 &&
+                    checkSelfPermission(android.Manifest.permission.POST_NOTIFICATIONS) != android.content.pm.PackageManager.PERMISSION_GRANTED) {
+                    notifPermission.launch(android.Manifest.permission.POST_NOTIFICATIONS)
+                } else ListenService.sync(this@MainActivity)
+            }
+        }
+        findViewById<Button>(R.id.batteryBtn).setOnClickListener {
+            try {
+                startActivity(android.content.Intent(android.provider.Settings.ACTION_APPLICATION_DETAILS_SETTINGS,
+                    android.net.Uri.parse("package:" + packageName)))
+            } catch (_: Throwable) {}
+        }
+    }
+
+    private fun wireWallpaper() {
+        val group = findViewById<RadioGroup>(R.id.wallGroup)
+        val ids = intArrayOf(R.id.wall0, R.id.wall1, R.id.wall2, R.id.wall3)
+        group.check(ids[with(Prefs) { wallpaperMode }])
+        group.setOnCheckedChangeListener { _, id ->
+            val i = ids.indexOf(id)
+            if (i >= 0) {
+                with(Prefs) { wallpaperMode = i }
+                try { WidgetRenderer.updateAll(applicationContext) } catch (_: Throwable) {}
+                if (i > 0) Thread { WallpaperApplier.refresh(applicationContext, force = true) }.start()
+            }
+        }
+        findViewById<Button>(R.id.restoreBtn).setOnClickListener {
+            try { restorePicker.launch("image/*") } catch (_: Throwable) { toast(R.string.restore_fail) }
+        }
+        findViewById<Button>(R.id.restoreNow).setOnClickListener {
+            val mode = with(Prefs) { wallpaperMode }
+            when {
+                mode == 0 -> toast(R.string.restore_mode)
+                !WallpaperApplier.hasRestorePicture(this) -> toast(R.string.restore_none)
+                WallpaperApplier.restore(this, mode) -> toast(R.string.restore_done)
+                else -> toast(R.string.restore_fail)
+            }
+        }
+    }
+
+    private fun ago(ms: Long): String {
+        val p = Logic.agoParts(System.currentTimeMillis() - ms)
+        return getString(when (p[0]) { 0 -> R.string.ago_min; 1 -> R.string.ago_hour; else -> R.string.ago_day }, p[1])
+    }
+
+    private fun refreshStatusCard() {
+        val partner = with(Prefs) { partner }
+        val pending = with(Prefs) { pendingPartner }
+        val st = Logic.connState(partner != null, pending != null, with(Prefs) { disconnected }, with(Prefs) { syncError } != null)
+        val seen = with(Prefs) { partnerLastSeenAt }
+        val dark = with(Prefs) { darkTheme }
+        // Muted tones: sage / sand / dusty rose, readable on both themes.
+        val color = when (st) {
+            Logic.ConnState.CONNECTED -> if (dark) 0xFF8FB39A else 0xFF4F7A5C
+            Logic.ConnState.WAITING -> if (dark) 0xFFD4B483 else 0xFF9A7B3F
+            Logic.ConnState.OFFLINE -> if (dark) 0xFFB1A69A else 0xFF7A7064
+            Logic.ConnState.ERROR -> if (dark) 0xFFD08B7A else 0xFF9C4A38
+            Logic.ConnState.NONE -> if (dark) 0xFFB1A69A else 0xFF7A7064
+        }.toInt()
+        findViewById<TextView>(R.id.cardDot).setTextColor(color)
+        val (t, s) = when (st) {
+            Logic.ConnState.NONE -> getString(R.string.st_none_t) to getString(R.string.st_none_s)
+            Logic.ConnState.WAITING -> getString(R.string.st_wait_t) to getString(R.string.st_wait_s, pending ?: "")
+            Logic.ConnState.CONNECTED -> getString(R.string.st_ok_t) to
+                (if (seen > 0) getString(R.string.st_ok_s, ago(seen)) else getString(R.string.st_ok_s_unknown))
+            Logic.ConnState.OFFLINE -> getString(R.string.st_off_t) to
+                (if (seen > 0) getString(R.string.st_off_s, ago(seen)) else getString(R.string.st_off_s_unknown))
+            Logic.ConnState.ERROR -> getString(R.string.st_err_t) to getString(R.string.st_err_s)
+        }
+        findViewById<TextView>(R.id.cardTitle).text = t
+        findViewById<TextView>(R.id.cardSub).text = s
     }
 
     private fun applySystemBars(dark: Boolean) {
