@@ -1,6 +1,10 @@
 name: Build signed EchoTrace Android
 on:
   workflow_dispatch:
+    inputs:
+      publish:
+        description: 'Build, sign and publish the APK (false = only apply and commit source)'
+        default: 'true'
 permissions:
   contents: write
 jobs:
@@ -19,30 +23,31 @@ jobs:
         run: |
           echo "sdk.dir=$ANDROID_HOME" > android/local.properties
           "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" "platforms;android-33" "build-tools;33.0.2"
-      - name: Apply reviewed v1.1.0 source (idempotent)
+      - name: Apply reviewed v1.2.0 source (idempotent)
         run: |
           if [ -d release-payload ]; then
-            cat release-payload/part* | base64 -d | tar xz
-            python3 .patch_worker.py
-            rm -f .patch_worker.py
+            cat release-payload/part* | base64 -d | gunzip > /tmp/v120.patch
+            git apply --index /tmp/v120.patch
             git rm -rq --ignore-unmatch release-payload
           else echo "payload already applied"; fi
       - name: Server tests
         run: cd server && node --test test/*.test.js
-      - name: Commit v1.1.0 source
+      - name: Commit v1.2.0 source
         run: |
           git config user.name gamal-hametzaits
           git config user.email 41898282+github-actions[bot]@users.noreply.github.com
           git add -A android server
           git reset -q android/local.properties || true
-          git diff --cached --quiet || git commit -m "v1.1.0: language and theme toggles, quick settings, test-bot rate limit and echo"
+          git diff --cached --quiet || git commit -m "v1.2.0: connection states, instant receive service, wallpaper mode, camera-only widget, heartbeat throttle"
           git push
       - name: Load retained private signing key
+        if: ${{ github.event.inputs.publish != 'false' }}
         env:
           GH_TOKEN: ${{ secrets.ECHOTRACE_BUILD_TOKEN }}
         run: |
           gh api repos/gamal-hametzaits/echotrace-signing-key/contents/echotrace.keystore --jq .content | base64 -d > "$RUNNER_TEMP/echotrace.keystore"
       - name: Test and build signed update
+        if: ${{ github.event.inputs.publish != 'false' }}
         env:
           ECHOTRACE_KEYSTORE: ${{ runner.temp }}/echotrace.keystore
           ECHOTRACE_STORE_PASSWORD: ${{ secrets.ECHOTRACE_SIGNING_PASSWORD }}
@@ -52,6 +57,7 @@ jobs:
           chmod +x gradlew
           ./gradlew testDebugUnitTest assembleRelease --no-daemon
       - name: Verify signer matches v1.0.17 before publishing
+        if: ${{ github.event.inputs.publish != 'false' }}
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
@@ -62,14 +68,15 @@ jobs:
           echo "new: $NEW"; echo "old: $OLD"
           test -n "$NEW" && test "$NEW" = "$OLD"
       - name: Publish APK and rename-friendly download
+        if: ${{ github.event.inputs.publish != 'false' }}
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          cp android/app/build/outputs/apk/release/app-release.apk EchoTrace-v1.1.0.apk
-          cp EchoTrace-v1.1.0.apk EchoTrace-v1.1.0.apk.txt
-          gh release create v1.1.0 EchoTrace-v1.1.0.apk EchoTrace-v1.1.0.apk.txt --title 'EchoTrace v1.1.0' --notes 'Hebrew/English and dark/light toggles, quick settings, English wordmark. Same signing key, installs over 1.0.17.'
+          cp android/app/build/outputs/apk/release/app-release.apk EchoTrace-v1.2.0.apk
+          cp EchoTrace-v1.2.0.apk EchoTrace-v1.2.0.apk.txt
+          gh release create v1.2.0 EchoTrace-v1.2.0.apk EchoTrace-v1.2.0.apk.txt --title 'EchoTrace v1.2.0' --notes 'Connection status card, instant receive (foreground service), partner photo as home/lock wallpaper with fade, camera-only widget in wallpaper mode. Same signing key, installs over 1.0.17 and 1.1.0.'
       - uses: actions/upload-artifact@v4
-        if: always()
+        if: ${{ always() && github.event.inputs.publish != 'false' }}
         with:
           name: tests-and-build
           path: |
