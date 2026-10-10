@@ -21,10 +21,12 @@ jobs:
           "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" "platforms;android-33" "build-tools;33.0.2"
       - name: Apply reviewed v1.1.0 source (idempotent)
         run: |
-          cat release-payload/part* | base64 -d | tar xz
-          python3 .patch_worker.py
-          rm -f .patch_worker.py
-          git rm -rq --ignore-unmatch release-payload
+          if [ -d release-payload ]; then
+            cat release-payload/part* | base64 -d | tar xz
+            python3 .patch_worker.py
+            rm -f .patch_worker.py
+            git rm -rq --ignore-unmatch release-payload
+          else echo "payload already applied"; fi
       - name: Server tests
         run: cd server && node --test test/*.test.js
       - name: Commit v1.1.0 source
