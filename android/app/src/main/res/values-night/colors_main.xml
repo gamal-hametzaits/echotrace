@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="m_bg">#1D1B19</color>
+    <color name="m_ink">#E4DBD0</color>
+    <color name="m_sec">#B1A69A</color>
+    <color name="m_card">#292623</color>
+    <color name="m_stroke">#4A423A</color>
+    <color name="m_btn">#68594F</color>
+    <color name="m_btn_text">#F3EDE4</color>
+</resources>

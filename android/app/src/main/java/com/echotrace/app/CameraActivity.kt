@@ -26,7 +26,7 @@ import java.io.File
 /** Opens the device camera straight from the widget circle. Capture -> preview
  *  with an optional caption -> explicit send. Every failure path is visible:
  *  nothing in this flow may ever again look like "the window just closed". */
-class CameraActivity : ComponentActivity() {
+class CameraActivity : BaseActivity() {
     private var pendingFile: File? = null
     private var sent = false
     private val ui = Handler(Looper.getMainLooper())

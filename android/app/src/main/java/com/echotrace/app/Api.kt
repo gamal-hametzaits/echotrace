@@ -52,6 +52,9 @@ object Api {
         return JSONObject(text.ifBlank { "{}" })
     }
 
+    /** Ask the server's test bot for a test photo (403 unless this device is paired with the bot; 429 when rate limited). */
+    fun testPhoto(deviceId: String) = postJson("/test-photo", JSONObject().put("deviceId", deviceId))
+
     fun poll(deviceId: String): JSONObject {
         val c = conn("/poll/$deviceId", "GET")
         val code = c.responseCode

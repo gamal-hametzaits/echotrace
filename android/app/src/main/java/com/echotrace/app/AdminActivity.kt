@@ -31,6 +31,14 @@ class AdminActivity : ComponentActivity() {
         status = text("", 14)
         button("בדיקת שרת וקבלת תמונה") { WorkScheduler.pollNow(this) }
         button("רענון הווידג׳ט המקומי") { WidgetRenderer.updateAll(this, force = true); refreshStatus() }
+        button("בקשת תמונת בדיקה מבוט הבדיקות") {
+            Thread {
+                val msg = try { Api.testPhoto(Prefs.deviceId(this)); WorkScheduler.pollNow(this); "תמונת בדיקה בדרך" }
+                catch (e: Api.ApiException) { when (e.httpCode) { 403 -> "המכשיר לא מזווג לבוט הבדיקות"; 429 -> "מגבלת בקשות. נסו שוב מאוחר יותר"; else -> "שגיאה ${e.httpCode}" } }
+                catch (e: Exception) { "אין חיבור לשרת" }
+                ui.post { if (!isFinishing && !isDestroyed) Toast.makeText(this, msg, Toast.LENGTH_SHORT).show() }
+            }.start()
+        }
         text("תזמון", 19)
         choice("בדיקה באפליקציה פתוחה", listOf("30 שניות", "60 שניות", "120 שניות"), listOf(30,60,120), with(Prefs) { foregroundSeconds }) { with(Prefs) { foregroundSeconds = it } }
         choice("בדיקה ברקע", listOf("15 דקות", "30 דקות", "60 דקות"), listOf(15,30,60), with(Prefs) { backgroundMinutes }) { with(Prefs) { backgroundMinutes = it }; WorkScheduler.ensure(this) }

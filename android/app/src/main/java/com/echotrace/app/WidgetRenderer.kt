@@ -229,7 +229,7 @@ object WidgetRenderer {
                 rv.setInt(R.id.widgetRoot, "setBackgroundResource", R.drawable.widget_bg_disconnected)
                 rv.setTextColor(R.id.status, 0xFFF3EDE4.toInt())
                 rv.setViewVisibility(R.id.status, View.VISIBLE)
-                rv.setTextViewText(R.id.status, c.getString(R.string.disconnected))
+                rv.setTextViewText(R.id.status, Lang.ctx(c).getString(R.string.disconnected))
                 rv.setViewVisibility(R.id.cameraBtn, View.GONE)
                 rootClick(MainActivity::class.java, 1)
             }
@@ -239,7 +239,7 @@ object WidgetRenderer {
                 rv.setTextColor(R.id.status, 0xFF3B352E.toInt())
                 rv.setViewVisibility(R.id.status, View.VISIBLE)
                 rv.setTextViewText(R.id.status,
-                    "${c.getString(R.string.your_code)}\n${Prefs.deviceId(c)}\n${c.getString(R.string.pair_now)}")
+                    "${Lang.ctx(c).getString(R.string.your_code)}\n${Prefs.deviceId(c)}\n${Lang.ctx(c).getString(R.string.pair_now)}")
                 rootClick(MainActivity::class.java, 2)
             }
             !hasPhoto -> {
@@ -247,7 +247,7 @@ object WidgetRenderer {
                 rv.setInt(R.id.widgetRoot, "setBackgroundResource", R.drawable.widget_bg_waiting)
                 rv.setTextColor(R.id.status, 0xFF3B352E.toInt())
                 rv.setViewVisibility(R.id.status, View.VISIBLE)
-                rv.setTextViewText(R.id.status, c.getString(R.string.waiting_first))
+                rv.setTextViewText(R.id.status, Lang.ctx(c).getString(R.string.waiting_first))
                 rootClick(MainActivity::class.java, 3)
             }
             else -> {
@@ -271,7 +271,7 @@ object WidgetRenderer {
                     rv.setInt(R.id.widgetRoot, "setBackgroundResource", R.drawable.widget_bg_waiting)
                     rv.setTextColor(R.id.status, 0xFF3B352E.toInt())
                     rv.setViewVisibility(R.id.status, View.VISIBLE)
-                    rv.setTextViewText(R.id.status, c.getString(R.string.waiting_first))
+                    rv.setTextViewText(R.id.status, Lang.ctx(c).getString(R.string.waiting_first))
                     rootClick(MainActivity::class.java, 3)
                     rv.setTextViewText(R.id.debugStatus, "עודכן ${now()} · $branch")
                     return rv

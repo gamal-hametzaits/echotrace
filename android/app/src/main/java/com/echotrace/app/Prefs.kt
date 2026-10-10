@@ -51,11 +51,16 @@ object Prefs {
         set(v) = p(this).edit().putInt("photoWidth", v.coerceIn(800, 1600)).apply()
     var Context.wifiOnly: Boolean get() = p(this).getBoolean("wifiOnly", false)
         set(v) = p(this).edit().putBoolean("wifiOnly", v).apply()
+    var Context.lang: String get() = p(this).getString("lang", "he").let { if (it == "en") "en" else "he" }
+        set(v) = p(this).edit().putString("lang", if (v == "en") "en" else "he").apply()
+    var Context.darkTheme: Boolean get() = p(this).getBoolean("darkTheme", true)
+        set(v) = p(this).edit().putBoolean("darkTheme", v).apply()
     var Context.animations: Boolean get() = p(this).getBoolean("animations", true)
         set(v) = p(this).edit().putBoolean("animations", v).apply()
 
     fun reset(c: Context) {
-        p(c).edit().clear().apply()
+        val keepLang = p(c).getString("lang", "he"); val keepDark = p(c).getBoolean("darkTheme", true)
+        p(c).edit().clear().putString("lang", keepLang).putBoolean("darkTheme", keepDark).apply()
         c.deleteFile("current_trace.jpg")
         c.deleteFile("trace_meta.json")
     }

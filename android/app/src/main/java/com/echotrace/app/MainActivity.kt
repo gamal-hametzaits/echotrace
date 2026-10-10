@@ -1,6 +1,5 @@
 package com.echotrace.app
 
-import androidx.activity.ComponentActivity
 import android.animation.ValueAnimator
 import android.appwidget.AppWidgetManager
 import android.content.ComponentName
@@ -18,7 +17,7 @@ import android.widget.*
  * unpaired it carries the full pairing flow itself - nothing depends on adding
  * the widget first. The widget stays the display surface.
  */
-class MainActivity : ComponentActivity() {
+class MainActivity : BaseActivity() {
     private var pulse: ValueAnimator? = null
     private val ui = Handler(Looper.getMainLooper())
     private val foregroundPoll = object : Runnable {
@@ -61,12 +60,13 @@ class MainActivity : ComponentActivity() {
         findViewById<Button>(R.id.copyCode).setOnClickListener {
             val clipboard = getSystemService(Context.CLIPBOARD_SERVICE) as android.content.ClipboardManager
             clipboard.setPrimaryClip(android.content.ClipData.newPlainText("EchoTrace", Prefs.deviceId(this)))
-            Toast.makeText(this, "הקוד הועתק", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, getString(R.string.code_copied), Toast.LENGTH_SHORT).show()
         }
         findViewById<Button>(R.id.checkNow).setOnClickListener {
             WorkScheduler.pollNow(this)
-            Toast.makeText(this, "בדיקה הועברה לתור. התוצאה תתעדכן כאן", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, getString(R.string.check_queued), Toast.LENGTH_SHORT).show()
         }
+        wireSettings()
         wireConnect()
         wireStartOver()
         refreshPairUi()
@@ -97,6 +97,51 @@ class MainActivity : ComponentActivity() {
         refreshUploadDiagUi()
     }
 
+    private fun wireSettings() {
+        val he = with(Prefs) { lang } == "he"
+        val dark = with(Prefs) { darkTheme }
+        // The button shows the language you would switch TO.
+        findViewById<Button>(R.id.langBtn).apply {
+            text = if (he) "EN" else "עב"
+            setOnClickListener {
+                with(Prefs) { lang = if (he) "en" else "he" }
+                applyAndRecreate()
+            }
+        }
+        findViewById<Button>(R.id.themeBtn).apply {
+            text = getString(if (dark) R.string.theme_light else R.string.theme_dark)
+            setOnClickListener {
+                with(Prefs) { darkTheme = !dark }
+                applyAndRecreate()
+            }
+        }
+        findViewById<Switch>(R.id.wifiSwitch).apply {
+            isChecked = with(Prefs) { wifiOnly }
+            setOnCheckedChangeListener { _, v -> with(Prefs) { wifiOnly = v } }
+        }
+        findViewById<Switch>(R.id.animSwitch).apply {
+            isChecked = with(Prefs) { animations }
+            setOnCheckedChangeListener { _, v -> with(Prefs) { animations = v } }
+        }
+        findViewById<TextView>(R.id.versionRow).text = getString(R.string.set_version) + " " + BuildConfig.VERSION_NAME
+        applySystemBars(dark)
+    }
+
+    private fun applySystemBars(dark: Boolean) {
+        try {
+            @Suppress("DEPRECATION")
+            window.decorView.systemUiVisibility = if (dark) 0 else
+                View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR or View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR
+        } catch (_: Throwable) {}
+    }
+
+    /** Language/theme apply by recreating the activity; the widget is refreshed so its
+     *  few words follow the language. Never lets a widget error break the toggle. */
+    private fun applyAndRecreate() {
+        try { WidgetRenderer.updateAll(applicationContext, force = true) } catch (_: Throwable) {}
+        recreate()
+    }
+
     private fun refreshPairUi() {
         val partner = with(Prefs) { partner }
         findViewById<View>(R.id.pairSection).visibility =
@@ -108,13 +153,13 @@ class MainActivity : ComponentActivity() {
         if (partner == null) {
             val pending = with(Prefs) { pendingPartner }
             st.visibility = if (pending == null) View.GONE else View.VISIBLE
-            st.text = "ממתינים לאישור חיבור · ${pending ?: ""}"
+            st.text = getString(R.string.pending_fmt, pending ?: "")
         } else {
             st.visibility = View.VISIBLE
             st.text = if (disconnected)
-                "הצד השני לא פעיל לאחרונה"
+                getString(R.string.partner_inactive)
             else
-                "חיבור רשום · $partner"
+                getString(R.string.paired_fmt, partner)
         }
     }
 
@@ -152,9 +197,9 @@ class MainActivity : ComponentActivity() {
         } else {
             view.visibility = View.VISIBLE
             view.text = when {
-                diag.startsWith("התקבלה בשרת") -> diag
-                diag.contains("בתור") -> "התמונה בתור לשליחה"
-                else -> "השליחה עדיין לא הצליחה. פרטים בחלון הניהול"
+                diag.startsWith("התקבלה בשרת") -> getString(R.string.upload_received) + diag.removePrefix("התקבלה בשרת")
+                diag.contains("בתור") -> getString(R.string.upload_queued)
+                else -> getString(R.string.upload_failed)
             }
         }
     }
@@ -164,17 +209,17 @@ class MainActivity : ComponentActivity() {
         val error = with(Prefs) { syncError }
         fun stamp(ms: Long) = java.text.SimpleDateFormat("dd/MM HH:mm", java.util.Locale.US).format(java.util.Date(ms))
         findViewById<TextView>(R.id.syncStatus).text = when {
-            error != null -> "הבדיקה האחרונה לא הצליחה. החיבור לאינטרנט או השרת לא זמינים כרגע"
-            last == 0L -> "עוד אין בדיקה מאומתת מול השרת"
-            else -> "השרת נבדק · ${stamp(last)}"
+            error != null -> getString(R.string.sync_error)
+            last == 0L -> getString(R.string.sync_none)
+            else -> getString(R.string.sync_ok, stamp(last))
         }
         val photo = TraceMeta.load(this)
         findViewById<TextView>(R.id.receiveStatus).text = if (photo == null)
-            "עדיין לא התקבלה תמונה במכשיר הזה"
-        else "תמונה אחרונה התקבלה במכשיר · ${stamp(photo.exposedAt)}"
+            getString(R.string.receive_none)
+        else getString(R.string.receive_ok, stamp(photo.exposedAt))
         findViewById<TextView>(R.id.connectionNote).text = if (with(Prefs) { disconnected })
-            "הצד השני לא פנה לשרת יותר מ־5 ימים. זה אינו אישור שהאפליקציה נמחקה"
-        else "שליחה לשרת אינה אישור הגעה למכשיר השני"
+            getString(R.string.conn_note_disc)
+        else getString(R.string.conn_note_ok)
     }
 
     private fun wireConnect() {
@@ -225,7 +270,7 @@ class MainActivity : ComponentActivity() {
                         WidgetRenderer.updateAll(this, force = true)
                         WorkScheduler.pollNow(this)
                         if (!isFinishing && !isDestroyed) {
-                            btn.text = "בדיקת חיבור"
+                            btn.text = getString(R.string.check_conn)
                             btn.isEnabled = true
                             input.isEnabled = true
                             refreshPairUi()
@@ -240,9 +285,9 @@ class MainActivity : ComponentActivity() {
                             Anim.shake(input)
                             err.visibility = View.VISIBLE
                             err.text = when {
-                                e is Api.ApiException && e.httpCode == 409 -> "אחד המכשירים כבר מחובר לאדם אחר"
-                                e is Api.ApiException && e.httpCode == 400 -> "בדקו את הקוד. אי אפשר להתחבר לעצמך"
-                                else -> "לא הצלחנו להגיע לשרת. בדקו את האינטרנט ונסו שוב"
+                                e is Api.ApiException && e.httpCode == 409 -> getString(R.string.err_conflict)
+                                e is Api.ApiException && e.httpCode == 400 -> getString(R.string.err_bad_code)
+                                else -> getString(R.string.err_network)
                             }
                         }
                     }
