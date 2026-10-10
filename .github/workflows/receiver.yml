@@ -1,0 +1,27 @@
+name: EchoTrace receiver test (real phone)
+on:
+  workflow_dispatch:
+    inputs:
+      phone_code:
+        description: Personal code shown in the app (6 characters)
+        required: true
+      minutes:
+        description: How long to wait for a photo (max 10)
+        default: '10'
+jobs:
+  receive:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Wait for a photo from the phone
+        env:
+          PHONE_CODE: ${{ inputs.phone_code }}
+          MINUTES: ${{ inputs.minutes }}
+        run: |
+          set -o pipefail
+          node server/receiver.js "$PHONE_CODE" "$MINUTES" | tee out.txt
+          { echo '```'; cat out.txt; echo '```'; } >> "$GITHUB_STEP_SUMMARY"
