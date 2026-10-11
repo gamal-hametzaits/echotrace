@@ -23,7 +23,7 @@ jobs:
         run: |
           echo "sdk.dir=$ANDROID_HOME" > android/local.properties
           "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" "platforms;android-33" "build-tools;33.0.2"
-      - name: Apply reviewed v1.2.0 source (idempotent)
+      - name: Apply reviewed source (idempotent)
         run: |
           if [ -d release-payload ]; then
             cat release-payload/part* | base64 -d | gunzip > /tmp/v120.patch
@@ -32,13 +32,13 @@ jobs:
           else echo "payload already applied"; fi
       - name: Server tests
         run: cd server && node --test test/*.test.js
-      - name: Commit v1.2.0 source
+      - name: Commit release source
         run: |
           git config user.name gamal-hametzaits
           git config user.email 41898282+github-actions[bot]@users.noreply.github.com
           git add -A android server
           git reset -q android/local.properties || true
-          git diff --cached --quiet || git commit -m "v1.2.0: connection states, instant receive service, wallpaper mode, camera-only widget, heartbeat throttle"
+          git diff --cached --quiet || git commit -m "v$(grep -oP "versionName '\K[^']+" android/app/build.gradle): fade changes every 30 minutes"
           git push
       - name: Load retained private signing key
         if: ${{ github.event.inputs.publish != 'false' }}
@@ -72,9 +72,10 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          cp android/app/build/outputs/apk/release/app-release.apk EchoTrace-v1.2.0.apk
-          cp EchoTrace-v1.2.0.apk EchoTrace-v1.2.0.apk.txt
-          gh release create v1.2.0 EchoTrace-v1.2.0.apk EchoTrace-v1.2.0.apk.txt --title 'EchoTrace v1.2.0' --notes 'Connection status card, instant receive (foreground service), partner photo as home/lock wallpaper with fade, camera-only widget in wallpaper mode. Same signing key, installs over 1.0.17 and 1.1.0.'
+          V=$(grep -oP "versionName '\K[^']+" android/app/build.gradle)
+          cp android/app/build/outputs/apk/release/app-release.apk "EchoTrace-v$V.apk"
+          cp "EchoTrace-v$V.apk" "EchoTrace-v$V.apk.txt"
+          gh release create "v$V" "EchoTrace-v$V.apk" "EchoTrace-v$V.apk.txt" --title "EchoTrace v$V" --notes 'The photo fade now changes every 30 minutes (48 steps over 24 hours) in the widget and the wallpaper. Same signing key, installs over 1.0.17, 1.1.0 and 1.2.0.'
       - uses: actions/upload-artifact@v4
         if: ${{ always() && github.event.inputs.publish != 'false' }}
         with:
