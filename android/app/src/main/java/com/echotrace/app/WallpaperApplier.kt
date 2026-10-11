@@ -34,7 +34,7 @@ object WallpaperApplier {
             val dm = c.resources.displayMetrics
             val target = Math.min(1080, Math.max(dm.widthPixels, 480))
             val stage = Logic.fadeStage(elapsed)
-            val src = Imaging.decodeSampled(file.readBytes(), if (stage == 0) target else target / 2) ?: return
+            val src = Imaging.decodeSampled(file.readBytes(), if (elapsed < 6 * Logic.HOUR) target else target / 2) ?: return
             val bmp = Imaging.capPixels(src, 4_000_000)
             val mem = Imaging.memoryColor(bmp)
             val out: android.graphics.Bitmap = when (stage) {

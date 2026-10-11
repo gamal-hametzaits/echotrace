@@ -51,7 +51,7 @@ object WidgetRenderer {
 
     /**
      * Push the widget only when its visible state actually changed.
-     * The visual depends on pairing state, the current image and its fade hour;
+     * The visual depends on pairing state, the current image and its 30-minute fade step;
      * a 15-min poll that changes none of those skips decode + blur + the binder push.
      * Never throws: any failure ends in the minimal error layout on the widget.
      */
@@ -173,11 +173,11 @@ object WidgetRenderer {
     private fun writeLastKey(c: Context, key: String) =
         c.getSharedPreferences("echotrace", Context.MODE_PRIVATE).edit().putString(KEY_LAST_RENDER, key).apply()
 
-    /** Hour-granular fade stage: the blur/alpha fade is far too slow to see finer steps. */
+    /** 30-minute fade steps: the widget re-renders when the step changes. */
     private fun renderKey(c: Context): String {
         val meta = TraceMeta.load(c)
         val hasPhoto = meta != null && File(c.filesDir, "current_trace.jpg").exists()
-        val stage = Logic.hourStage(hasPhoto,
+        val stage = Logic.stepStage(hasPhoto,
             System.currentTimeMillis() - (meta?.exposedAt ?: System.currentTimeMillis()))
         return Logic.renderKey(
             with(Prefs) { c.partner },

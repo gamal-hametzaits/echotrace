@@ -61,20 +61,27 @@ class LogicTest {
         assertArrayEquals(intArrayOf(550, 200), Logic.cappedDimensions(550, 200, 110_000))
     }
 
-    // ---- hourStage / renderKey (render-on-change) ----
+    // ---- stepStage / renderKey (render-on-change, 30-minute steps) ----
 
-    @Test fun hourStage_noPhoto_none() {
-        assertEquals("none", Logic.hourStage(false, 0))
-        assertEquals("none", Logic.hourStage(false, 100 * H))
+    @Test fun stepStage_noPhoto_none() {
+        assertEquals("none", Logic.stepStage(false, 0))
+        assertEquals("none", Logic.stepStage(false, 100 * H))
     }
 
-    @Test fun hourStage_boundaries() {
-        assertEquals("h0", Logic.hourStage(true, 0))
-        assertEquals("h5", Logic.hourStage(true, 6 * H - 1))
-        assertEquals("h6", Logic.hourStage(true, 6 * H))
-        assertEquals("h23", Logic.hourStage(true, 24 * H - 1))
-        assertEquals("gone", Logic.hourStage(true, 24 * H))
-        assertEquals("gone", Logic.hourStage(true, 72 * H))
+    @Test fun stepStage_boundaries() {
+        val M = 60_000L
+        assertEquals("s0", Logic.stepStage(true, 0))
+        assertEquals("s0", Logic.stepStage(true, 30 * M - 1))
+        assertEquals("s1", Logic.stepStage(true, 30 * M))
+        assertEquals("s2", Logic.stepStage(true, H))
+        assertEquals("s47", Logic.stepStage(true, 24 * H - 1))
+        assertEquals("gone", Logic.stepStage(true, 24 * H))
+        assertEquals("gone", Logic.stepStage(true, 72 * H))
+    }
+
+    @Test fun stepStage_exactly48StepsPerDay() {
+        val keys = (0 until 48 * 30).map { Logic.stepStage(true, it * 60_000L) }.distinct()
+        assertEquals(48, keys.size)
     }
 
     @Test fun renderKey_stableForSameState() {
@@ -136,9 +143,10 @@ class LogicTest {
     // ---- fade / age calculations ----
 
     @Test fun fadeStage_boundaries() {
+        val M = 60_000L
         assertEquals(0, Logic.fadeStage(0))
-        assertEquals(0, Logic.fadeStage(6 * H - 1))
-        assertEquals(1, Logic.fadeStage(6 * H))
+        assertEquals(0, Logic.fadeStage(30 * M - 1))
+        assertEquals(1, Logic.fadeStage(30 * M))
         assertEquals(1, Logic.fadeStage(12 * H - 1))
         assertEquals(2, Logic.fadeStage(12 * H))
         assertEquals(2, Logic.fadeStage(24 * H - 1))
@@ -146,14 +154,24 @@ class LogicTest {
         assertEquals(3, Logic.fadeStage(100 * H))
     }
 
-    @Test fun fadeRadius_ramp() {
+    @Test fun fadeRadius_changesEveryHalfHourAndNeverJumps() {
+        val M = 60_000L
         assertEquals(0, Logic.fadeRadiusLogical(0))
-        assertEquals(0, Logic.fadeRadiusLogical(6 * H - 1))
-        assertEquals(0, Logic.fadeRadiusLogical(6 * H))           // t=0 at the window edge
-        assertEquals(12, Logic.fadeRadiusLogical(9 * H))          // halfway
-        assertEquals(24, Logic.fadeRadiusLogical(12 * H - 1))
+        assertEquals(0, Logic.fadeRadiusLogical(30 * M - 1))
+        assertEquals(1, Logic.fadeRadiusLogical(30 * M))
+        assertEquals(12, Logic.fadeRadiusLogical(6 * H))
+        assertEquals(23, Logic.fadeRadiusLogical(12 * H - 1))
         assertEquals(25, Logic.fadeRadiusLogical(12 * H))
         assertEquals(25, Logic.fadeRadiusLogical(23 * H))
+        var prev = 0
+        for (i in 0 until 48) {
+            val r = Logic.fadeRadiusLogical(i * 30 * M)
+            assertTrue("radius never decreases", r >= prev)
+            assertTrue("no jump bigger than 2 logical px per step", r - prev <= 2)
+            prev = r
+        }
+        // every step in the first 12 h really changes the picture
+        assertEquals(24, (1..23).count { Logic.fadeRadiusLogical(it * 30 * M) != Logic.fadeRadiusLogical((it - 1) * 30 * M) } + 1)
     }
 
     @Test fun captionAlpha_ramp() {
@@ -165,10 +183,15 @@ class LogicTest {
 
     @Test fun memoryOverlay_ramp() {
         assertEquals(0, Logic.memoryOverlayAlpha(0))
-        assertEquals(0, Logic.memoryOverlayAlpha(12 * H))
-        assertEquals(117, Logic.memoryOverlayAlpha(18 * H))
-        assertEquals(234, Logic.memoryOverlayAlpha(24 * H - 1))
+        assertEquals(0, Logic.memoryOverlayAlpha(12 * H - 1))
+        assertEquals(9, Logic.memoryOverlayAlpha(12 * H))
+        assertEquals(235, Logic.memoryOverlayAlpha(24 * H - 1))
         assertEquals(0, Logic.memoryOverlayAlpha(24 * H))         // stage 3 uses solid color instead
+        var prev = 0
+        for (i in 24 until 48) {
+            val a = Logic.memoryOverlayAlpha(i * 30 * 60_000L)
+            assertTrue(a > prev); prev = a
+        }
     }
 
     @Test fun blurPx_scalesWithBitmap() {
@@ -210,8 +233,8 @@ class LogicTest {
 
     @Test fun wallKey_changesOnlyWhenNeeded() {
         val k = Logic.wallKey(1, "a", 2 * H + 5)
-        assertEquals(k, Logic.wallKey(1, "a", 2 * H + 50 * 60_000L))   // same hour
-        assertNotEquals(k, Logic.wallKey(1, "a", 3 * H))               // next hour
+        assertEquals(k, Logic.wallKey(1, "a", 2 * H + 20 * 60_000L))   // same 30-min step
+        assertNotEquals(k, Logic.wallKey(1, "a", 2 * H + 30 * 60_000L)) // next step
         assertNotEquals(k, Logic.wallKey(3, "a", 2 * H))               // mode
         assertNotEquals(k, Logic.wallKey(1, "b", 2 * H))               // new photo
         assertEquals(Logic.wallKey(1, "a", 24 * H), Logic.wallKey(1, "a", 90 * H)) // gone stays gone

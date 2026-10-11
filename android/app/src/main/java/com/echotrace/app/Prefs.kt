@@ -68,7 +68,7 @@ object Prefs {
     var Context.wallpaperMode: Int get() = p(this).getInt("wallpaperMode", 0).coerceIn(0, 3)
         set(v) = p(this).edit().putInt("wallpaperMode", v.coerceIn(0, 3)).apply()
 
-    /** What the wallpaper currently shows (mode + image + fade hour), so it re-renders only on change. */
+    /** What the wallpaper currently shows (mode + image + 30-min fade step), so it re-renders only on change. */
     var Context.wallKey: String? get() = p(this).getString("wallKey", null)
         set(v) = p(this).edit().putString("wallKey", v).apply()
 
