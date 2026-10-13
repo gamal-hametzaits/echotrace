@@ -1,10 +1,12 @@
 name: Build signed EchoTrace Android
 on:
+  push:
+    branches: [main]
+    paths: ['android/**']
   workflow_dispatch:
-    inputs:
-      publish:
-        description: 'Build, sign and publish the APK (false = only apply and commit source)'
-        default: 'true'
+concurrency:
+  group: echotrace-build
+  cancel-in-progress: false
 permissions:
   contents: write
 jobs:
@@ -23,31 +25,21 @@ jobs:
         run: |
           echo "sdk.dir=$ANDROID_HOME" > android/local.properties
           "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" "platforms;android-33" "build-tools;33.0.2"
-      - name: Apply reviewed source (idempotent)
-        run: |
-          if [ -d release-payload ]; then
-            cat release-payload/part* | base64 -d | gunzip > /tmp/v120.patch
-            git apply --index /tmp/v120.patch
-            git rm -rq --ignore-unmatch release-payload
-          else echo "payload already applied"; fi
       - name: Server tests
         run: cd server && node --test test/*.test.js
-      - name: Commit release source
-        run: |
-          git config user.name gamal-hametzaits
-          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
-          git add -A android server
-          git reset -q android/local.properties || true
-          git diff --cached --quiet || git commit -m "v$(grep -oP "versionName '\K[^']+" android/app/build.gradle): fade changes every 30 minutes"
-          git push
-      - name: Load retained private signing key
-        if: ${{ github.event.inputs.publish != 'false' }}
+      - name: Load signing key
         env:
+          KS_B64: ${{ secrets.ECHOTRACE_KEYSTORE_B64 }}
           GH_TOKEN: ${{ secrets.ECHOTRACE_BUILD_TOKEN }}
         run: |
-          gh api repos/gamal-hametzaits/echotrace-signing-key/contents/echotrace.keystore --jq .content | base64 -d > "$RUNNER_TEMP/echotrace.keystore"
-      - name: Test and build signed update
-        if: ${{ github.event.inputs.publish != 'false' }}
+          if [ -n "$KS_B64" ]; then
+            echo "$KS_B64" | base64 -d > "$RUNNER_TEMP/echotrace.keystore"
+            echo "signing key source: protected Actions secret"
+          else
+            gh api repos/gamal-hametzaits/echotrace-signing-key/contents/echotrace.keystore --jq .content | base64 -d > "$RUNNER_TEMP/echotrace.keystore"
+            echo "signing key source: private key repo (fallback)"
+          fi
+      - name: Test and build signed APK
         env:
           ECHOTRACE_KEYSTORE: ${{ runner.temp }}/echotrace.keystore
           ECHOTRACE_STORE_PASSWORD: ${{ secrets.ECHOTRACE_SIGNING_PASSWORD }}
@@ -57,7 +49,6 @@ jobs:
           chmod +x gradlew
           ./gradlew testDebugUnitTest assembleRelease --no-daemon
       - name: Verify signer matches v1.0.17 before publishing
-        if: ${{ github.event.inputs.publish != 'false' }}
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
@@ -67,19 +58,23 @@ jobs:
           OLD=$($AS verify --print-certs /tmp/old/EchoTrace-v1.0.17.apk | grep 'certificate SHA-256 digest' | head -1)
           echo "new: $NEW"; echo "old: $OLD"
           test -n "$NEW" && test "$NEW" = "$OLD"
-      - name: Publish APK and rename-friendly download
-        if: ${{ github.event.inputs.publish != 'false' }}
+      - name: Publish APK (new version = release, same version = durable build prerelease)
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
           V=$(grep -oP "versionName '\K[^']+" android/app/build.gradle)
-          cp android/app/build/outputs/apk/release/app-release.apk "EchoTrace-v$V.apk"
-          cp "EchoTrace-v$V.apk" "EchoTrace-v$V.apk.txt"
-          gh release create "v$V" "EchoTrace-v$V.apk" "EchoTrace-v$V.apk.txt" --title "EchoTrace v$V" --notes 'The photo fade now changes every 30 minutes (48 steps over 24 hours) in the widget and the wallpaper. Same signing key, installs over 1.0.17, 1.1.0 and 1.2.0.'
-      - uses: actions/upload-artifact@v4
-        if: ${{ always() && github.event.inputs.publish != 'false' }}
-        with:
-          name: tests-and-build
-          path: |
-            android/app/build/reports/tests/
-            android/app/build/outputs/apk/release/
+          SHORT=$(git rev-parse --short HEAD)
+          if gh release view "v$V" >/dev/null 2>&1; then
+            TAG="v$V-build.${{ github.run_number }}"
+            N="EchoTrace-v$V-build.${{ github.run_number }}"
+            cp android/app/build/outputs/apk/release/app-release.apk "$N.apk"
+            cp "$N.apk" "$N.apk.txt"
+            gh release create "$TAG" "$N.apk" "$N.apk.txt" --target "${{ github.sha }}" --prerelease --title "EchoTrace v$V build ${{ github.run_number }} ($SHORT)" --notes "Automatic backup of the signed APK built from commit ${{ github.sha }}. Same signing key as v1.0.17."
+            for old in $(gh release list --limit 100 --json tagName --jq '.[].tagName' | grep -E '^v.+-build\.[0-9]+$' | sort -t. -k4 -n -r | tail -n +11); do
+              gh release delete "$old" --cleanup-tag --yes
+            done
+          else
+            cp android/app/build/outputs/apk/release/app-release.apk "EchoTrace-v$V.apk"
+            cp "EchoTrace-v$V.apk" "EchoTrace-v$V.apk.txt"
+            gh release create "v$V" "EchoTrace-v$V.apk" "EchoTrace-v$V.apk.txt" --target "${{ github.sha }}" --title "EchoTrace v$V" --notes "Signed APK built automatically from commit ${{ github.sha }}. Same signing key, installs over 1.0.17 and later."
+          fi
