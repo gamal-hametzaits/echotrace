@@ -36,7 +36,7 @@ jobs:
             echo "$KS_B64" | base64 -d > "$RUNNER_TEMP/echotrace.keystore"
             echo "signing key source: protected Actions secret"
           else
-            gh api repos/gamal-hametzaits/echotrace-signing-key/contents/echotrace.keystore --jq .content | base64 -d > "$RUNNER_TEMP/echotrace.keystore"
+            gh api repos/oz-lev/echotrace-signing-key/contents/echotrace.keystore --jq .content | base64 -d > "$RUNNER_TEMP/echotrace.keystore"
             echo "signing key source: private key repo (fallback)"
           fi
       - name: Test and build signed APK
@@ -69,12 +69,18 @@ jobs:
             N="EchoTrace-v$V-build.${{ github.run_number }}"
             cp android/app/build/outputs/apk/release/app-release.apk "$N.apk"
             cp "$N.apk" "$N.apk.txt"
-            gh release create "$TAG" "$N.apk" "$N.apk.txt" --target "${{ github.sha }}" --prerelease --title "EchoTrace v$V build ${{ github.run_number }} ($SHORT)" --notes "Automatic backup of the signed APK built from commit ${{ github.sha }}. Same signing key as v1.0.17."
+            SUM=$(sha256sum "$N.apk" | cut -d' ' -f1); echo "$SUM  $N.apk" > "$N.sha256"
+            gh release create "$TAG" "$N.apk" "$N.apk.txt" "$N.sha256" --target "${{ github.sha }}" --prerelease --title "EchoTrace v$V build ${{ github.run_number }} ($SHORT)" --notes "Automatic backup of the signed APK built from commit ${{ github.sha }}. Same signing key as v1.0.17. SHA-256 of the APK: $SUM. Rolling backup: only the newest 10 build prereleases are kept; product releases are never removed."
+            gh release download "$TAG" --pattern "$N.apk" --dir /tmp/chk-dl
+            test "$(sha256sum /tmp/chk-dl/$N.apk | cut -d' ' -f1)" = "$SUM"
             for old in $(gh release list --limit 100 --json tagName --jq '.[].tagName' | grep -E '^v.+-build\.[0-9]+$' | sort -t. -k4 -n -r | tail -n +11); do
               gh release delete "$old" --cleanup-tag --yes
             done
           else
             cp android/app/build/outputs/apk/release/app-release.apk "EchoTrace-v$V.apk"
             cp "EchoTrace-v$V.apk" "EchoTrace-v$V.apk.txt"
-            gh release create "v$V" "EchoTrace-v$V.apk" "EchoTrace-v$V.apk.txt" --target "${{ github.sha }}" --title "EchoTrace v$V" --notes "Signed APK built automatically from commit ${{ github.sha }}. Same signing key, installs over 1.0.17 and later."
+            SUM=$(sha256sum "EchoTrace-v$V.apk" | cut -d' ' -f1); echo "$SUM  EchoTrace-v$V.apk" > "EchoTrace-v$V.sha256"
+            gh release create "v$V" "EchoTrace-v$V.apk" "EchoTrace-v$V.apk.txt" "EchoTrace-v$V.sha256" --target "${{ github.sha }}" --title "EchoTrace v$V" --notes "Signed APK built automatically from commit ${{ github.sha }}. Same signing key, installs over 1.0.17 and later. SHA-256 of the APK: $SUM."
+            gh release download "v$V" --pattern "EchoTrace-v$V.apk" --dir /tmp/chk-dl
+            test "$(sha256sum /tmp/chk-dl/EchoTrace-v$V.apk | cut -d' ' -f1)" = "$SUM"
           fi
