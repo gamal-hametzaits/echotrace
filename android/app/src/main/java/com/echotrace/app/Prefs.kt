@@ -15,6 +15,12 @@ object Prefs {
             id = (1..6).map { ALPHABET[UUID.randomUUID().leastSignificantBits.let { if (it < 0) -it else it }.toInt().let { i -> Math.floorMod(i, ALPHABET.length) }] }.joinToString("")
             p(c).edit().putString("deviceId", id).apply()
         }
+        var t = p(c).getString("deviceToken", null)
+        if (t == null) {
+            t = UUID.randomUUID().toString().replace("-", "") + UUID.randomUUID().toString().replace("-", "")
+            p(c).edit().putString("deviceToken", t).apply()
+        }
+        Api.token = t
         return id
     }
     var Context.partner: String? get() = p(this).getString("partner", null)
