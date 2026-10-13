@@ -8,6 +8,9 @@ import java.net.URL
 object Api {
     private val BASE = BuildConfig.SERVER_URL.trimEnd('/')
 
+    /** Per-install secret, set by Prefs.deviceId(). Sent on every request; the server binds it to this code on first sight. */
+    @Volatile var token: String? = null
+
     private fun conn(path: String, method: String): HttpURLConnection =
         (URL(BASE + path).openConnection() as HttpURLConnection).apply {
             requestMethod = method
@@ -17,6 +20,7 @@ object Api {
             // Old Android/Samsung HTTP stacks can reuse a half-closed socket and
             // fail with "unexpected end of stream". Prefer a fresh connection.
             setRequestProperty("Connection", "close")
+            token?.let { setRequestProperty("X-Device-Token", it) }
         }
 
     private fun postJson(path: String, body: JSONObject): JSONObject {
